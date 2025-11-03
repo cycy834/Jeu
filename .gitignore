@@ -1,0 +1,24 @@
+# Ignorer les fichiers Python inutiles
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Environnements virtuels
+venv/
+env/
+.env/
+
+# Éditeurs et IDE
+.vscode/
+.idea/
+
+# Système
+.DS_Store
+Thumbs.db
+
+# Builds / assets temporaires
+build/
+dist/
+*.log
