@@ -5,10 +5,20 @@ __pycache__/
 *.pyd
 .Python
 
+*.egg-info/
+*.egg
+
+.pytest_cache/
+.mypy_cache/
+.pyright/
+
+.python-version
+
 # Environnements virtuels
 venv/
-env/
 .env/
+env/
+.venv/
 
 # Éditeurs et IDE
 .vscode/
