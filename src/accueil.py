@@ -9,7 +9,6 @@ GOLD = (196, 166, 114) # Doré ancien (texte + bordures)
 DARK = (28, 24, 20) # Fond sombre
 DARK_BTN = (45, 38, 32) # Fond des boutons
 OVERLAY = (0, 0, 0, 160) # Noir semi-transparent (menu popup)
-DARK_SHADOW = (40, 30, 20)   # brun très foncé
 
 class Accueil:
     def __init__(self, screen, manager):
@@ -27,8 +26,15 @@ class Accueil:
         
         # Création des boutons et rectangles
         self.create_ui()
-
-
+        
+        #creations des inits des sons (pour menu)
+        self.volume = 5
+        self.music_on = True
+        
+        #overlay animation pour boutons - et +
+        self.btn_overlay_surface = None
+        self.btn_overlay_alpha = 0
+        self.btn_overlay_rect = None
 # -----------------------------
 # Chargement des assets
 # -----------------------------
@@ -43,6 +49,7 @@ class Accueil:
         self.title_font = pygame.font.Font(None, 120)
         self.subtitle_font = pygame.font.Font(None, 55)
         self.button_font = pygame.font.Font(None, 40)
+        self.button_plusminus_font = pygame.font.Font(None, 55)
 
 
 # -----------------------------
@@ -65,6 +72,13 @@ class Accueil:
         # Fenêtre popup du menu (centrée)
         self.popup_rect = pygame.Rect(w//2 - 200, h//2 - 160, 400, 360)
 
+        # Boutons "-" et "+"
+        self.btn_minus = pygame.Rect(0, 0, 50, 40)
+        self.btn_plus = pygame.Rect(0, 0, 50, 40)
+
+        # Boutons musique "ON" "OFF"
+        self.btn_on = pygame.Rect(0, 0, 80, 40)
+        self.btn_off = pygame.Rect(0, 0, 80, 40)
 
 # -----------------------------
 # Gestion des événements
@@ -79,10 +93,34 @@ class Accueil:
         if event.type == pygame.MOUSEBUTTONDOWN:
             # Si le menu popup est ouvert
             if self.show_menu:
+
+                # Clic sur bouton "-"
+                if self.btn_minus.collidepoint(event.pos):
+                    self.volume = max(0, self.volume - 1)
+                    self.btn_overlay_surface = pygame.Surface(self.btn_minus.size, pygame.SRCALPHA)
+                    self.btn_overlay_alpha = 120
+                    self.btn_overlay_rect = self.btn_minus
+                    return
+                # Clic sur bouton "+"
+                if self.btn_plus.collidepoint(event.pos):
+                    self.volume = max(0, self.volume + 1)
+                    self.btn_overlay_surface = pygame.Surface(self.btn_plus.size, pygame.SRCALPHA)
+                    self.btn_overlay_alpha = 120
+                    self.btn_overlay_rect = self.btn_plus
+                    return
+                # Clic sur bouton "ON" 
+                if self.btn_on.collidepoint(event.pos):
+                    self.music_on = True
+                    return
+                # Clic sur bouton "OFF"
+                if self.btn_off.collidepoint(event.pos):
+                    self.music_on = False
+                    return
                 # Si on clique en dehors du popup → on ferme
                 if not self.popup_rect.collidepoint(event.pos):
                     self.show_menu = False
-                return
+                    return
+                
 
             # Clic sur "Jouer"
             if self.play_rect.collidepoint(event.pos):
@@ -93,13 +131,17 @@ class Accueil:
             # Clic sur "Menu"
             elif self.menu_rect.collidepoint(event.pos):
                 self.show_menu = True
+       
 
 # -----------------------------
 # Update (logique)
 # -----------------------------    
 
     def update(self):
-        pass # rien à mettre pour l'instant
+        if self.btn_overlay_alpha > 0:
+            self.btn_overlay_alpha -= 12
+            if self.btn_overlay_alpha < 0:
+                self.btn_overlay_alpha = 0
 
 # -----------------------------
 # Dessin de la scène
@@ -171,6 +213,68 @@ class Accueil:
         pygame.draw.rect(self.screen, GOLD, self.popup_rect, 2, border_radius=10)
         
         # Texte du menu
-        txt = self.button_font.render("Menu du jeu", True, GOLD)
-        self.screen.blit(txt, txt.get_rect(midtop=(self.popup_rect.centerx, self.popup_rect.top + 20)))
+        title = self.button_font.render("Menu du jeu", True, GOLD)
+        self.screen.blit(title, title.get_rect(midtop=(self.popup_rect.centerx, self.popup_rect.top + 20)))
 
+        # texte menu : SON
+        y = self.popup_rect.top + 80
+
+        txt = self.button_font.render("Son", True, GOLD)
+        self.screen.blit(txt, (self.popup_rect.left + 30, y))
+
+        #positon boutons - et + ici comme ca c'est à la bonne position
+        self.btn_minus.topleft = (self.popup_rect.left + 100, y + 40)
+        self.btn_plus.topleft = (self.popup_rect.left + 260, y + 40)
+
+        #bouton "-"
+        pygame.draw.rect(self.screen, GOLD, self.btn_minus, border_radius=8)
+        pygame.draw.rect(self.screen, GOLD, self.btn_minus, 2, border_radius=8)
+
+        txt = self.button_plusminus_font.render("-", True, DARK_BTN)
+        self.screen.blit(txt, txt.get_rect(center=self.btn_minus.center))
+
+        #bouton "+"
+        pygame.draw.rect(self.screen, GOLD, self.btn_plus, border_radius=8)
+        pygame.draw.rect(self.screen, GOLD, self.btn_plus, 2, border_radius=8)
+
+        txt = self.button_plusminus_font.render("+", True, DARK_BTN)
+        self.screen.blit(txt, txt.get_rect(center=(self.btn_plus.centerx, self.btn_plus.centery - 3)))
+
+        #texte menu : MUSIQUE 
+        y += 120
+
+        txt = self.button_font.render("Musique", True, GOLD)
+        self.screen.blit(txt, (self.popup_rect.left + 30, y))
+
+        #positions boutons ON et OFF
+        self.btn_on.topleft = (self.popup_rect.left + 80, y + 40)
+        self.btn_off.topleft = (self.popup_rect.left + 250, y + 40)
+
+        #bouton ON 
+        pygame.draw.rect(self.screen, GOLD, self.btn_on, border_radius=8)
+        pygame.draw.rect(self.screen, GOLD, self.btn_on, 2, border_radius=8)
+
+        txt_on = self.button_font.render("ON", True, DARK_BTN)
+        self.screen.blit(txt_on, txt_on.get_rect(center=self.btn_on.center))
+
+        #bouton OFF 
+        pygame.draw.rect(self.screen, GOLD, self.btn_off, border_radius=8)
+        pygame.draw.rect(self.screen, GOLD, self.btn_off, 2, border_radius=8)
+
+        txt_off = self.button_font.render("OFF", True, DARK_BTN)
+        self.screen.blit(txt_off, txt_off.get_rect(center=self.btn_off.center))
+        
+        #overlay sur bouton actif
+        overlay = pygame.Surface(self.btn_on.size, pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 90))
+
+        if self.music_on :
+            self.screen.blit(overlay, self.btn_on.topleft)
+        else :
+            self.screen.blit(overlay, self.btn_off.topleft)
+
+        #animation overlay pour les boutons + et -
+        if self.btn_overlay_alpha > 0 and self.btn_overlay_surface :
+            self.btn_overlay_surface.set_alpha(self.btn_overlay_alpha)
+            self.btn_overlay_surface.fill((0, 0, 0))
+            self.screen.blit(self.btn_overlay_surface, self.btn_overlay_rect.topleft)
