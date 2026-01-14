@@ -4,9 +4,10 @@ pygame.init()
 
 WIDTH = 800
 HEIGHT = 500
-
+icon = pygame.image.load("../../assets/images/louvre_escape_logo.png")
+pygame.display.set_icon(icon)
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
-pygame. display.set_caption('Louvre Escape!')
+pygame.display.set_caption('Louvre Escape!')
 x_direction = 0
 y_direction = 0
 timer = pygame.time. Clock()
