@@ -29,7 +29,7 @@ class Jeu:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.back_rect.collidepoint(event.pos):
                 # Import local pour éviter import circulaire
-                from src.accueil import Accueil
+                from src.Cynthia.accueil import Accueil
                 self.manager.scene = Accueil(self.screen, self.manager)
 
     def update(self):
