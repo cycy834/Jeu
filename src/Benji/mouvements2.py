@@ -15,6 +15,8 @@ font = pygame.font.Font(None, 36)
 pygame. display.set_caption('Louvre Escape!')
 pygame.mixer.init()
 pygame.mixer.music.load("../../assets/music/musique.mp3")
+son_porte = pygame.mixer.Sound("../../assets/sounds/ouverture_porte.mp3")
+son_pas = pygame.mixer.Sound("../../assets/sounds/pas.mp3")
 x_direction = 0
 y_direction = 0
 timer = pygame.time. Clock()
@@ -86,6 +88,7 @@ while run:
                 current_background = background_niveau2
                 joueur_x = 100 # Réinitialiser la position du joueur
                 joueur_y = 300
+                son_porte.play()
                 print("Porte ouverte ! Niveau 2") 
             elif event.key == pygame.K_m:
                 pygame.mixer.music.play()
@@ -94,6 +97,7 @@ while run:
             
         if one or three:
             if event.type == pygame.KEYDOWN:
+                son_pas.play()
                 if event.key == pygame.K_RIGHT:
                     x_direction = 1
                 elif event.key == pygame.K_LEFT:
