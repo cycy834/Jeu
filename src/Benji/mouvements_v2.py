@@ -164,7 +164,104 @@ SALLES = {
             }
         ],
     },
+    6: {
+        'bg': 6,
+        'depart': (100, 300),
+        'porte': (1460, 180),
+        'enigmes': [
+            {
+                'id': 'tableaux',
+                'x': 400, 'y': 200,
+                'largeur': 80, 'hauteur': 100,
+                'label': 'Tableaux numérotés',
+                'indice': (
+                    "Derrière chaque tableau, un numéro indique son ordre.\n"
+                    "La phrase à reconstituer : « Le musée ouvre en 1793 ».\n"
+                    "Retrouvez l’ordre des tableaux selon cette année."
+                ),
+                'reponse': '1-7-9-3', 
+                'resolu': False,
+            }
+        ],
+    },
+    7: {
+        'bg': 7,
+        'depart': (100, 300),
+        'porte': (1460, 180),
+        'enigmes': [
+            {
+                'id': 'mot_desordre',
+                'x': 500, 'y': 220,
+                'largeur': 100, 'hauteur': 80,
+                'label': 'Mot à remettre en ordre',
+                'indice': (
+                    "Les lettres du mot sont mélangées : 'VREOLU'.\n"
+                    "Quel est le mot correct ?"
+                ),
+                'reponse': 'louvre',
+                'resolu': False,
+            }
+        ],
+    },
+    8: {
+        'bg': 8,
+        'depart': (100, 300),
+        'porte': (1460, 180),
+        'enigmes': [
+            {
+                'id': 'traces_sol',
+                'x': 600, 'y': 200,
+                'largeur': 80, 'hauteur': 80,
+                'label': 'Traces au sol',
+                'indice': (
+                    "Suivez les traces sur le sol jusqu’à l’objet caché.\n"
+                    "Combien de pas avez-vous faits pour le trouver ?"
+                ),
+                'reponse': '12',
+                'resolu': False,
+            }
+        ],
+    },
+    9: {
+        'bg': 9,
+        'depart': (100, 300),
+        'porte': (1460, 180),
+        'enigmes': [
+            {
+                'id': 'equation',
+                'x': 700, 'y': 150,
+                'largeur': 60, 'hauteur': 130,
+                'label': 'Équation facile',
+                'indice': (
+                    "Résolvez l’équation : 4x + 12 = ?\n"
+                    "Que vaut x?"
+                ),
+                'reponse': '-3',
+                'resolu': False,
+            }
+        ],
+    },
+    10: {
+        'bg': 10,
+        'depart': (100, 300),
+        'porte': (1460, 180),
+        'enigmes': [
+            {
+                'id': 'code_couleur',
+                'x': 800, 'y': 220,
+                'largeur': 80, 'hauteur': 100,
+                'label': 'Code couleur',
+                'indice': (
+                    "Remettez les couleurs dans l’ordre du drapeau français :\n"
+                    "bleu, blanc, rouge"
+                ),
+                'reponse': 'bleu-blanc-rouge',
+                'resolu': False,
+            }
+        ],
+    },
 }
+
 
 NB_SALLES = len(SALLES)
 
@@ -184,7 +281,7 @@ message_retour = ""
 message_timer  = 0
 
 clock = pygame.time.Clock()
-
+python3 main.py
 # ---------------------------------------------------------------------------
 # FONCTIONS DESSIN
 # ---------------------------------------------------------------------------

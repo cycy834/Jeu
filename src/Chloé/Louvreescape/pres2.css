@@ -1,0 +1,893 @@
+/* Définit la famille de police pour le corps de la page */
+body.Rayan-Acueille {
+  font-family: Arial, sans-serif; /* Utilise Arial comme police principale, sinon une police sans-serif */
+  background-color: #000; /* Définit la couleur de fond du corps de la page en noir */
+  color: #fff;
+  margin : 0;
+  padding: 0;/* Définit la couleur du texte en blanc */
+}
+
+
+/* Styles de l'en-tête */
+header.Rayan-Acueille {
+  background-color: transparent; /* Définit la couleur de fond de l'en-tête en noir */
+  padding: 20px 10px; /* Ajoute un espacement intérieur de 10 pixels autour du contenu de l'en-tête */
+  text-align: center;
+  position : absolute;
+  top : 0;
+  width : 100%;/* Important pour que le z-index fonctionne */
+  z-index: 999;/* Centre le texte à l'intérieur de l'en-tête */
+}
+
+/* Styles de la barre de navigation */
+nav.Rayan-Acueille {
+  background-color: transparent; /* Définit la couleur de fond de la zone de navigation en noir */
+  padding: 10px; /* Ajoute un espacement intérieur de 10 pixels autour du contenu de la zone de navigation */
+  text-align: center;
+  min-height : 50px;/* Centre le texte à l'intérieur de la zone de navigation */
+}
+
+/* Styles des liens dans la barre de navigation */
+nav.Rayan-Acueille a {
+  text-decoration: none; /* Supprime le soulignement des liens */
+  color: #000 !important;
+  font-size: 2em !important;
+  display: inline-block;/* Définit la couleur du texte des liens en blanc */
+  margin: 0 40px; /* Ajoute une marge de 200 pixels à gauche et à droite pour centrer les liens horizontalement */
+  position: relative; /* Définit la position relative pour permettre le positionnement des pseudo-éléments */
+  transition: color 0.3s; /* Ajoute une transition d'animation de couleur de 0.3 seconde lors du survol */
+}
+
+
+nav.Rayan-Acueille a:before {
+  content: ""; /* Ajoute du contenu au pseudo-élément */
+  position: absolute; /* Définit la position absolue pour positionner le pseudo-élément par rapport à son parent */
+  width: 0; /* Initialise la largeur du pseudo-élément à zéro */
+  height: 2px; /* Définit la hauteur du pseudo-élément à 2 pixels */
+  background-color: #000; /* Définit la couleur de fond du pseudo-élément en blanc */
+  bottom: -5px; /* Positionne le pseudo-élément 5 pixels en dessous du bas du lien */
+  left: 0; /* Positionne */
+  transition: width 0.3s; /* Ajoute une transition d'animation de largeur de 0.3 seconde lors du survol */
+}
+
+/* Effet sur les liens au survol */
+nav.Rayan-Acueille a:hover:before {
+  width: 100%; /* Lorsque survolé, étend la largeur du pseudo-élément avant chaque lien dans la zone de navigation */
+}
+
+/* Ajoute une marge en bas aux liens sauf au dernier enfant */
+nav.Rayan-Acueille a:not(:last-child) {
+  margin-bottom: 10px; /* Ajuste la marge inférieure des liens dans la zone de navigation sauf le dernier */
+}
+
+/* Styles du contenu principal */
+main.Rayan-Acueille {
+  margin: 0;
+  padding: 0;/* Applique une marge autour du contenu principal de la page */
+}
+
+h1.Rayan-Acueille {
+  text-align: center; /* Centre le texte des titres de niveau 1 */
+}
+
+p.Rayan-Acueille {
+  text-indent: 50px; /* Ajoute un retrait de 50 pixels à gauche au texte des paragraphes */
+}
+
+form.Rayan-Acueille {
+  margin: 15px 0; /* Ajoute une marge au-dessus et en dessous des formulaires */
+}
+
+/* Style de la figure et de sa légende */
+figure.Rayan-Acueille {
+  position: relative; /* Stylise les figures (par exemple, images avec légende) */
+  display: flex; /* Permet le positionnement relatif pour les éléments enfants */
+  justify-content: center; /* Centre le contenu horizontalement */
+  align-items: center; /* Centre le contenu verticalement */
+  height: 130vh;
+  /*height: calc(100vh - 50px);  Utilisez 100vh moins la hauteur de votre header (estimée ici à 50px) */
+  /*margin: 0;  Important pour coller au haut après le header */
+  /*padding: 0; Définit la hauteur à 80% de la hauteur de la vue */
+}
+
+figcaption.Rayan-Acueille {
+  position: absolute; /* Stylise les légendes des figures */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 3em;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Styles des différentes opacités d'images */
+img.louvre-centre {
+  border-radius: 25px; /* Applique un bord arrondi et une opacité réduite aux images */
+  opacity: 0.25;
+  width: 100vw;       /* 100% de la largeur de la fenêtre */
+  height: 100vh;      /* 100% de la hauteur de la fenêtre */
+  object-fit: cover;
+  position : absolute;
+  top : 0;
+  left : 0;
+  z-index: 1;
+}
+/* Style spécifique pour le logo en haut à gauche */
+img.logo-gauche {
+    position: absolute; /* Position absolue par rapport à la <figure> */
+    top: 10px; /* Marge depuis le haut */
+    left: 10px; /* Marge depuis la gauche */
+    width: 100px; /* Petite taille pour le logo */
+    height: auto; /* Hauteur ajustée automatiquement */
+    opacity: 1; /* Le logo doit être bien visible */
+    z-index: 5; /* S'assure qu'il est au-dessus de l'image du Louvre */
+    border-radius: 10px; /* Optionnel : pour un look plus doux */
+}
+
+img.Rayan-high-opacity {
+  border-radius: 25px; /* Applique un bord arrondi et une opacité complète aux images */
+  opacity: 1;
+}
+
+img.Rayan-center-image {
+  border-radius: 25px; /* Applique un bord arrondi et une opacité complète aux images */
+  opacity: 1;
+}
+
+/* Style pour l'élément ayant l'ID "les-rappeurs" */
+#les-rappeurs {
+  margin-top: -350px; /* Définit la marge supérieure */
+  transition: transform 0.5s ease-in-out; /* Ajoute une transition d'animation de transformation avec une accélération progressive sur 0.5 seconde */
+  display: flex; /* Utilise un modèle de mise en page flexbox */
+  flex-wrap: wrap; /* Permet aux éléments enfants de passer à la ligne si nécessaire */
+  align-items: center; /* Centre les éléments horizontalement */
+  justify-content: center; /* Centre les éléments verticalement */
+  height: calc(150vh - 500px - 30px); /* Définit la hauteur à 150% de la hauteur de la vue moins la marge en haut, moins 30 pixels */
+  overflow: auto; /* Ajoute un défilement vertical si nécessaire */
+}
+
+#overlay {
+  position: fixed;
+  top: -200px;
+  left: 0;
+  width: 80%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Couleur de fond semi-transparente */
+  backdrop-filter: blur(10px); /* Appliquer un flou */
+  z-index: 999; /* Assurez-vous que l'overlay apparaît au-dessus de tout le reste */
+  display: none; /* Masquez initialement l'overlay */
+  color: white; /* Couleur du texte */
+  font-size: 24px; /* Taille de police */
+  text-align: left; /* Alignement du texte à gauche */
+  padding-top: 20%; /* Décalage vers le bas pour centrer le texte */
+  padding-left: 5%; /* Ajouter de l'espace à gauche */
+}
+
+#overlay button {
+  align-items: center;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+  text-transform: uppercase;
+  outline: 0;
+  border: 0;
+  padding: 1rem;
+}
+
+#overlay button:before {
+  background-color: #fff;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  margin-right: 10px;
+  transition: all .42s cubic-bezier(.25,.8,.25,1);
+  width: 0;
+}
+
+#overlay button:hover:before {
+  background-color: #fff;
+  width: 3rem;
+}
+
+
+  /* Style du conteneur de cartes */
+.card-container {
+  display: flex; /* Affiche les éléments en tant que flexbox */
+  flex-direction: row; /* Aligne les éléments horizontalement */
+  align-items: center; /* Centre les éléments verticalement */
+  justify-content: center; /* Centre les éléments horizontalement */
+  width: 100%; /* Définit la largeur à 100% */
+  overflow-x: scroll; /* Permet le défilement horizontal */
+  scroll-snap-type: x mandatory; /* Active le défilement fluide horizontal */
+  -webkit-overflow-scrolling: touch; /* Permet le défilement fluide sur les appareils iOS */
+}
+
+/* Styles des cartes */
+.cards {
+  display: flex; /* Affiche les cartes en tant que flexbox */
+  flex-direction: row; /* Aligne les cartes horizontalement */
+  gap: 15px; /* Définit l'espace entre les cartes */
+  background-color: #000; /* Définit la couleur de fond des cartes */
+  align-items: center; /* Centre les cartes verticalement */
+  justify-content: center; /* Centre les cartes horizontalement */
+}
+
+/* Styles des cartes individuelles */
+.cards .card {
+  display: flex; /* Affiche les cartes en tant que flexbox */
+  align-items: flex-start; /* Aligne les éléments en haut de la carte */
+  justify-content: center; /* Centre le contenu horizontalement */
+  flex-direction: column; /* Aligne le contenu de la carte en colonnes */
+  text-align: center; /* Centre le texte dans la carte */
+  height: 100px; /* Définit la hauteur de la carte */
+  width: 100px; /* Définit la largeur de la carte */
+  border-radius: 10px; /* Ajoute une bordure arrondie à la carte */
+  color: white; /* Définit la couleur du texte dans la carte */
+  cursor: pointer; /* Change le curseur au survol de la carte */
+  transition: 400ms; /* Anime la transition de la carte */
+  position: relative; /* Définit la position de la carte comme relative */
+  overflow: hidden; /* Masque le contenu qui dépasse de la carte */
+}
+
+/* Effet hover sur le texte des cartes */
+.cards .card:hover .card-text {
+  position: absolute; /* Définit la position du texte comme absolue */
+  top: 50%; /* Place le texte au milieu de la carte */
+  left: 50%; /* Place le texte au milieu de la carte */
+  transform: translate(-50%, -50%); /* Centre le texte dans la carte */
+  font-size: 1.5em; /* Augmente la taille du texte au survol */
+  font-family: "Playfair Display", serif; /* Définit la police du texte */
+  font-optical-sizing: auto; /* Ajuste la taille de la police pour l'optimisation */
+  font-style: normal; /* Définit le style de la police */
+  color: white; /* Définit la couleur du texte */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Ajoute une ombre au texte */
+}
+
+/* Styles des images dans les cartes */
+.cards .card img {
+  width: 100%; /* Définit la largeur de l'image à 100% */
+  height: 100%; /* Définit la hauteur de l'image à 100% */
+  object-fit: cover; /* Redimensionne l'image pour couvrir la zone */
+  position: absolute; /* Définit la position de l'image comme absolue */
+  top: 0; /* Place l'image en haut de la carte */
+  left: 0%; /* Place l'image à gauche de la carte */
+  transform-origin: center; /* Définit l'origine de la transformation */
+  transition: transform 0.3s ease-in-out; /* Anime la transition de l'image */
+}
+
+/* Effet hover sur les images des cartes */
+.cards .card:hover img {
+  transform: translate(0%, 0%); /* Anime le déplacement de l'image au survol */
+  left: 0%; /* Place l'image à gauche de la carte */
+  top: 0%; /* Place l'image en haut de la carte */
+  transition: transform 0.3s ease-in-out; /* Anime la transition de l'image */
+}
+
+.cards.card p {
+  text-align: center; /* Center the text horizontally */
+  margin: 0 auto; /* Center the text vertically */
+}
+
+.cards .card p.tip {
+  font-size: 0.8em;
+  font-weight: 700;
+}
+
+.cards .card p.second-text {
+  font-size: .7em;
+  display: none;
+}
+
+/* Styles du contenu dans les cartes */
+.cards .card .content {
+  margin-top: 20px; /* Ajoute une marge en haut du contenu dans les cartes */
+}
+
+/* Effet hover sur les cartes */
+.cards .card:hover {
+  height: 400px; /* Augmente la hauteur de la carte au survol */
+  color: black; /* Change la couleur du texte au survol */
+  width: 250px; /* Augmente la largeur de la carte au survol */
+  align-items: flex-start; /* Aligne les éléments en haut de la carte au survol */
+  background-color: #fffae0; /* Change la couleur de fond de la carte au survol */
+}
+
+/* Effet hover sur les cartes (toutes sauf la carte survolée) */
+.cards:hover > .card:not(:hover) {
+  filter: blur(10px); /* Applique un flou aux cartes non survolées */
+  transform: scale(0.9, 0.9); /* Réduit la taille des cartes non survolées */
+}
+
+/* Styles du bouton dans les cartes */
+.cards .card .button {
+  display: table-cell; /* Affiche le bouton en tant que cellule de tableau */
+  vertical-align: middle; /* Centre le bouton verticalement */
+  border: none; /* Supprime la bordure du bouton */
+  background-color: transparent; /* Définit la couleur de fond du bouton comme transparente */
+  position: absolute; /* Définit la position du bouton comme absolue */
+  bottom: 0; /* Place le bouton en bas de la carte */
+  left: 0; /* Place le bouton à gauche de la carte */
+  right: 0; /* Place le bouton à droite de la carte */
+  margin: auto; /* Centre le bouton horizontalement */
+  width: 150px; /* Définit la largeur du bouton */
+  line-height: 50px; /* Définit la hauteur de ligne du bouton */
+  font-size: 12px; /* Définit la taille de la police du bouton */
+  letter-spacing: 2px; /* Ajoute un espacement entre les lettres du bouton */
+  border-radius: 0px; /* Ajoute une bordure arrondie au bouton */
+  font-weight: bold; /* Définit le poids de la police du bouton */
+  text-transform: uppercase; /* Convertit le texte en majuscules */
+  background-color: #031d67; /* Définit la couleur de fond du bouton */
+  box-shadow: 0px 15px 18px -6px rgba(35, 22, 214, 0.65); /* Ajoute une ombre au bouton */
+  transition: all 0.4s; /* Anime la transition de tous les changements sur le bouton */
+  -webkit-transition: all 0.4s; /* Anime la transition de tous les changements sur le bouton (pour les navigateurs WebKit) */
+  -moz-transition: all 0.4s; /* Anime la transition de tous les changements sur le bouton (pour les navigateurs Mozilla) */
+  -ms-transition: all 0.4s; /* Anime la transition de tous les changements sur le bouton (pour les navigateurs Microsoft) */
+  -o-transition: all 0.4s; /* Anime la transition de tous les changements sur le bouton (pour les navigateurs Opera) */
+  margin-top: -50px; /* Ajoute une marge négative pour positionner le bouton */
+  opacity: 0; /* Rend le bouton transparent par défaut */
+  color:#FFF; /* Définit la couleur du texte du bouton */
+}
+
+/* Effet hover sur le bouton dans les cartes */
+.cards .card:hover .button {
+  opacity: 1; /* Rend le bouton opaque au survol */
+  top: auto; /* Supprime la position top pour le survol */
+  bottom: 20px; /* Déplace le bouton vers le bas au survol */
+}
+
+/* Effet hover actif sur le bouton dans les cartes */
+.cards .card .button:hover {
+  background-color: #051749; /* Change la couleur de fond du bouton au survol actif */
+  box-shadow: 0px 22px 19px -8px rgba(16, 8, 119, 0.65); /* Ajoute une ombre plus prononcée au bouton */
+  transform: scale(1.02,1.02); /* Augmente légèrement la taille du bouton au survol actif */
+}
+
+/* Effet de clic sur le bouton dans les cartes */
+.cards .card .button:active {
+  background-color: #051749; /* Change la couleur de fond du bouton au clic */
+  box-shadow: 0px 12px 18px -4px rgba(7, 4, 51, 0.65); /* Ajoute une ombre plus prononcée au bouton au clic */
+  transform: scale(0.95,0.95); /* Réduit légèrement la taille du bouton au clic */
+  transition: all 0.4s -0.125s; /* Anime la transition du clic sur le bouton */
+}
+
+/* Styles des images dans les cartes */
+.card img {
+  width: 100%; /* Définit la largeur de l'image à 100% */
+  border-radius: 10px; /* Ajoute une bordure arrondie aux images */
+  margin-bottom: 10px; /* Ajoute une marge en bas des images */
+}
+
+/* Styles des paragraphes dans les cartes */
+.card p {
+  text-align: center; /* Centre le texte dans les paragraphes des cartes */
+  margin: 0; /* Supprime les marges par défaut des paragraphes */
+}
+
+/* Masque la barre de défilement du conteneur de cartes */
+.card-container::-webkit-scrollbar {
+  display: none; /* Masque la barre de défilement pour les navigateurs WebKit */
+}
+
+/*CHLOE*/
+
+ /*On met dans cette balise ce qu'il y aura dans le corp du programme*/
+ body.Choler1-Josman{
+  /*On met une colour dans le fond de la page html*/
+   background-color:#FFE436;
+ }
+
+
+ /* Styles pour la navigation avec la classe Rayan-Tony */
+nav.Choler {
+  padding: 10px; /* Espacement intérieur de 10px */
+  text-align: left; /* Alignement du texte à gauche */
+}
+
+/* Styles pour les liens de navigation avec la classe Rayan-Tony */
+nav.Choler a {
+  text-decoration: none; /* Aucune décoration de texte */
+  color:black; /* Couleur du texte blanc */
+  margin: 0 50px 0 10px; /* Marge extérieure */
+  position: relative; /* Position relative */
+  transition: color 0.3s; /* Transition de couleur sur 0.3s */
+}
+
+/* Pseudo-élément avant les liens de navigation pour créer un effet de soulignement */
+nav.Choler a:before {
+  content: ""; /* Contenu vide */
+  position: absolute; /* Position absolue */
+  width: 0; /* Largeur initiale de 0 */
+  height: 2px; /* Hauteur de 2px */
+  background-color: black; /* Couleur de soulignement blanc */
+  bottom: -5px; /* Position en bas avec un léger décalage */
+  left: 0; /* Aligné à gauche */
+  transition: width 0.3s; /* Transition de largeur sur 0.3s */
+}
+
+/* Effet de soulignement lorsque survolé */
+nav.Choler a:hover:before {
+  width: 100%; /* Largeur de 100% */
+}
+
+ /*On met le nom du repère qui était dans l'attribut class*/
+ .Choler1-tableau1 {
+     /*On place le tableau à une certaine hauteur et à un certain niveau à partir de la gauche*/
+     top: 0.9em;
+     left: 24em;
+     /*On met une largeur et une hauteur le tableau*/
+     width: 47em;
+     height: 22em;
+     /*On laisse le tableau dans sa position d'origine*/
+     position: relative;
+     /*On choisi le type de bordure et on choisi sa largeur, sa couleur et ses bords arrondis*/
+     border-style: solid;
+     border-color: #000000;
+     border-width: 0.2em 0.2em;
+     border-radius: 5%;
+     /*On crée une marge à l'intérieur du tableau*/
+     padding:0.5%;
+     /*On met une police , un taille et aligne le texte à l'intérieur du tableau*/
+     font-family: Helvetica;
+     font-size:16px;
+     text-align:center;
+ }
+ /*On met le nom du repère qui était dans l'attribut class*/
+ .Choler1-tableau2 {
+     /*On met une largeur et une hauteur le tableau*/
+     width: 47em;
+     height: 18em;
+     /*On fixe le tableau dans sa position d'origine*/
+     position:absolute;
+     /*On place le tableau à une certaine hauteur et à un certain niveau à partir de la gauche*/
+     top:570px;
+     left:40px;
+     /*On choisi le type de bordure et sa couleur */
+     border-color: #000000;
+     border-style: solid;
+ }
+ /*On met le nom du repère qui était dans l'attribut class et on aligne le text à droite de la page*/
+ .Choler1-sourcesJ{
+   text-align: right;
+ }
+
+ /*On prend le nom d'une balise et on crée un premier élément*/
+ anim::before {
+   /*On met la bande à sa taille original*/
+   transform: scaleX(0);
+ }
+ /*On prend le nom d'une balise et on crée une transition pendant et avant de l'élément*/
+ anim:hover::before {
+   /*On agrandit la bande */
+   transform: scaleX(1);
+   /*On la fait apparaître au niveau du texte*/
+   transform-origin: top left;
+ }
+ /*On prend le nom d'une balise et on modifie le premier élément*/
+ anim::before {
+   /*On rajoute un contenu vide*/
+   content: " ";
+   /*On crée la bande avec un position fixe*/
+   display: block;
+   position: absolute;
+   /*On place la bande*/
+   inset: 0 0 0 0;
+   /*On colore la bande en jaune clair*/
+   background: hsl(50 100% 80%);
+   /*On place dans un certain axe la bande */
+   z-index: -1;
+   /*On crée une transition pour la faire apparaître*/
+   transition: transform .3s ease;
+ }
+ anim {
+   /*On positionne et me à la bonne taille l'écriture et la bande*/
+   position: relative;
+   font-size: 19px;
+ }
+ /*On met le nom du repère qui était dans l'attribut class*/
+ .Choler1-animation{
+   /*On définit horizontalement et verticalement la bande*/
+   min-block-size: 50%;
+   min-inline-size: 50%;
+   /*On définit une certaine hauteur et largeur accordé avec le texte*/
+   box-sizing: border-box;
+ }
+ /*media permet de stylisé la page, ici elle envoie la bande en mode portrait*/
+ @media (orientation: landscape) {
+ /*On met le nom du repère qui était dans l'attribut class*/
+ .Choler1-animation{
+     /*Il place la bande dans une forme de colonne */
+     grid-auto-flow: column;
+   }
+ }
+ 
+
+ /*Clovis*/
+
+ /* Définition de l'arrière-plan pour la classe Clovis */
+ body.Clovis-MaitreGism{
+   background-color:#303030; /* Couleur de fond jaune clair */
+   color: white;
+ }
+
+ body.Clovis-Tupac{
+  background-color:#FFE436; /* Couleur de fond jaune clair */
+}
+ 
+/* Styles pour la navigation avec la classe Rayan-Tony */
+nav.Clovis-1 {
+  padding: 10px; /* Espacement intérieur de 10px */
+  text-align: left; /* Alignement du texte à gauche */
+}
+
+/* Styles pour les liens de navigation avec la classe Rayan-Tony */
+nav.Clovis-1 a {
+  text-decoration: none; /* Aucune décoration de texte */
+  color:white; /* Couleur du texte blanc */
+  margin: 0 50px 0 10px; /* Marge extérieure */
+  position: relative; /* Position relative */
+  transition: color 0.3s; /* Transition de couleur sur 0.3s */
+}
+
+/* Pseudo-élément avant les liens de navigation pour créer un effet de soulignement */
+nav.Clovis-1 a:before {
+  content: ""; /* Contenu vide */
+  position: absolute; /* Position absolue */
+  width: 0; /* Largeur initiale de 0 */
+  height: 2px; /* Hauteur de 2px */
+  background-color: white; /* Couleur de soulignement blanc */
+  bottom: -5px; /* Position en bas avec un léger décalage */
+  left: 0; /* Aligné à gauche */
+  transition: width 0.3s; /* Transition de largeur sur 0.3s */
+}
+
+/* Effet de soulignement lorsque survolé */
+nav.Clovis-1 a:hover:before {
+  width: 100%; /* Largeur de 100% */
+}
+
+nav.Clovis-2 {
+  padding: 10px; /* Espacement intérieur de 10px */
+  text-align: left; /* Alignement du texte à gauche */
+}
+
+/* Styles pour les liens de navigation avec la classe Rayan-Tony */
+nav.Clovis-2 a {
+  text-decoration: none; /* Aucune décoration de texte */
+  color:black; /* Couleur du texte blanc */
+  margin: 0 50px 0 10px; /* Marge extérieure */
+  position: relative; /* Position relative */
+  transition: color 0.3s; /* Transition de couleur sur 0.3s */
+}
+
+/* Pseudo-élément avant les liens de navigation pour créer un effet de soulignement */
+nav.Clovis-2 a:before {
+  content: ""; /* Contenu vide */
+  position: absolute; /* Position absolue */
+  width: 0; /* Largeur initiale de 0 */
+  height: 2px; /* Hauteur de 2px */
+  background-color: black; /* Couleur de soulignement blanc */
+  bottom: -5px; /* Position en bas avec un léger décalage */
+  left: 0; /* Aligné à gauche */
+  transition: width 0.3s; /* Transition de largeur sur 0.3s */
+}
+
+/* Effet de soulignement lorsque survolé */
+nav.Clovis-2 a:hover:before {
+  width: 100%; /* Largeur de 100% */
+}
+
+ /* Définition des styles pour le premier tableau avec la classe Clovis-tableau1 */
+ .Clovis-tableau1 {
+     top: 0.9em; /* Position relative vers le haut de 0.9em */
+     left: 38em; /* Position relative vers la gauche de 40em */
+     width: 47em; /* Largeur de 47em */
+     height: 27em; /* Hauteur de 27em */
+     position: relative; /* Position relative */
+     border-style: solid; /* Style de bordure solide */
+     border-color: wheat; /* Couleur de bordure noire */
+     border-width: 0.3em 0.2em; /* Largeur de bordure de 0.2em */
+     border-radius: 5%; /* Rayon de bordure de 5% */
+     padding:0.5%; /* Espacement intérieur de 0.5% */
+     font-family: Helvetica; /* Utilisation de la police Helvetica */
+     font-size:16px; /* Taille de police de 16 pixels */
+     text-align:center; /* Alignement du texte au centre */
+     color: #A09F9F;
+ }
+ 
+ /* Définition des styles pour le deuxième tableau avec la classe Clovis-tableau2 */
+ .Clovis-tableau2 {
+     width: 47em; /* Largeur de 47em */
+     height: 18em; /* Hauteur de 18em */
+     position:absolute; /* Position absolue */
+     top:630px; /* Position en haut de 570px */
+     left:40px; /* Position à gauche de 40px */
+     border-color: gray;
+     color: white;
+ }
+ 
+ /* Définition des styles pour le troisième tableau avec la classe Clovis-tableautedua */
+ .Clovis-tableautedua {
+     top: 5em; /* Position relative vers le haut de 0.9em */
+     left: 30em; /* Position relative vers la gauche de 24em */
+     width: 47em; /* Largeur de 47em */
+     height: 24em; /* Hauteur de 24em */
+     position: relative; /* Position relative */
+     border-style: solid; /* Style de bordure solide */
+     border-color: #000000; /* Couleur de bordure noire */
+     border-width: 0.2em 0.2em; /* Largeur de bordure de 0.2em */
+     border-radius: 5%; /* Rayon de bordure de 5% */
+     padding:0.5%; /* Espacement intérieur de 0.5% */
+     font-family: Helvetica; /* Utilisation de la police Helvetica */
+     font-size:16px; /* Taille de police de 16 pixels */
+     text-align:center; /* Alignement du texte au centre */
+ }
+ 
+ /* Définition des styles pour le quatrième tableau avec la classe Clovis-tabtedua2 */
+ .Clovis-tabtedua2 {
+     top: 6.5em; /* Position relative vers le haut de 6.5em */
+     left: 2.5em; /* Position relative vers la gauche de 2.5em */
+     width: 47em; /* Largeur de 47em */
+     height: 22em; /* Hauteur de 22em */
+     position: relative; /* Position relative */
+     border-style: solid; /* Style de bordure solide */
+     border-color: #000000; /* Couleur de bordure noire */
+     padding:1%; /* Espacement intérieur de 1% */
+ }
+ 
+ /* Définition des styles pour la première catégorie avec la classe Clovis-cat1 */
+ .Clovis-cat1{
+     font-family: Helvetica; /* Utilisation de la police Helvetica */
+     font-size:13px; /* Taille de police de 13 pixels */
+     width: 55em; /* Largeur de 55em */
+     height: 30em; /* Hauteur de 30em */
+     position:absolute; /* Position absolue */
+     top:-30px; /* Position en haut de -30px */
+     left:20px; /* Position à gauche de 20px */
+     text-align: left; /* Alignement du texte à gauche */
+ }
+
+
+/*Mateo*/
+
+/* Définition de l'arrière-plan pour la classe Mateo-TravisScott */
+body.Mateo-TravisScott{
+  background-color:#6D071A;
+}
+
+/* Définition de l'arrière-plan pour la classe Mateo-DIAMS */
+body.Mateo-DIAMS{
+  background-color: white;
+}
+
+/* Styles pour l'en-tête avec la classe Rayan-Tony */
+header.Mateo {
+  color: gray; /* Couleur du texte blanc */
+  padding: 1rem; /* Espacement intérieur de 1rem */
+  position: fixed; /* Position fixe */
+  top: 0; /* Aligné en haut */
+  left: 0; /* Aligné à gauche */
+  width: 100%; /* Largeur de 100% */
+  z-index: 100; /* Index de positionnement z */
+}
+
+/* Styles pour la navigation avec la classe Rayan-Tony */
+nav.Mateo {
+  padding: 10px; /* Espacement intérieur de 10px */
+  text-align: left; /* Alignement du texte à gauche */
+}
+
+/* Styles pour les liens de navigation avec la classe Rayan-Tony */
+nav.Mateo a {
+  text-decoration: none; /* Aucune décoration de texte */
+  color:gray; /* Couleur du texte blanc */
+  margin: 0 50px 0 10px; /* Marge extérieure */
+  position: relative; /* Position relative */
+  transition: color 0.3s; /* Transition de couleur sur 0.3s */
+}
+
+/* Pseudo-élément avant les liens de navigation pour créer un effet de soulignement */
+nav.Mateo a:before {
+  content: ""; /* Contenu vide */
+  position: absolute; /* Position absolue */
+  width: 0; /* Largeur initiale de 0 */
+  height: 2px; /* Hauteur de 2px */
+  background-color:gray; /* Couleur de soulignement blanc */
+  bottom: -5px; /* Position en bas avec un léger décalage */
+  left: 0; /* Aligné à gauche */
+  transition: width 0.3s; /* Transition de largeur sur 0.3s */
+}
+
+/* Effet de soulignement lorsque survolé */
+nav.Mateo a:hover:before {
+  width: 100%; /* Largeur de 100% */
+}
+
+/* Définition des styles pour les paragraphes avec la classe Mateo */
+p.Mateo{
+  font-family: Times new roman; /* Utilisation de la police Times New Roman */
+  text-align:center; /* Alignement du texte au centre */
+  font-size:40px; /* Taille de police de 40 pixels */
+  top:-50px;
+}
+
+/* Définition des styles pour les liens avec la classe Mateo */
+a.Mateo{
+  color:red; /* Couleur rouge pour les liens */
+}
+
+/* Définition des styles pour le conteneur avec la classe Mateo-container */
+.Mateo-container{
+    display: flex; /* Utilisation de Flexbox pour le positionnement */
+    justify-content: center; /* Centrage horizontalement */
+    align-items: center; /* Centrage verticalement */
+    margin-top: 20px; /* Marge supérieure de 20 pixels */
+}
+
+/* Définition des styles pour les images avec la classe Mateo */
+img.Mateo{
+    width: auto; /* Largeur automatique */
+    height:400px; /* Hauteur de 400 pixels */
+    margin-top:300px; /* Marge supérieure de 300 pixels */
+}
+
+/* Définition des styles pour les tableaux avec la classe Mateo */
+table.Mateo{
+    margin-top: -60px; /* Marge supérieure de -60 pixels */
+    margin-left: 80px; /* Marge gauche de 80 pixels */
+    margin-right: -600px; /* Marge droite de -600 pixels */
+    font-family: Helvetica; /* Utilisation de la police Helvetica */
+    font-size: 25px; /* Taille de police de 25 pixels */
+    text-align: center; /* Alignement du texte au centre */
+    border:0px; /* Pas de bordure */
+    height: 400px; /* Hauteur de 400 pixels */
+    background-color: grey; /* Couleur de fond grise */
+   padding: 0.5rem; /* Espacement intérieur de 0.5rem */
+}
+
+/* Définition des styles pour un tableau spécifique avec la classe Mateo-TABLED */
+table.Mateo-TABLED{
+    margin-top: -60px; /* Marge supérieure de -60 pixels */
+    margin-left: 40px; /* Marge gauche de 40 pixels */
+    margin-right: -500px; /* Marge droite de -500 pixels */
+    font-family: Helvetica; /* Utilisation de la police Helvetica */
+    font-size: 25px; /* Taille de police de 25 pixels */
+    text-align: center; /* Alignement du texte au centre */
+    border:0px; /* Pas de bordure */
+    height: 400px; /* Hauteur de 400 pixels */
+    background-color: #dbbb49; /* Couleur de fond dorée */
+   padding: 0.5rem; /* Espacement intérieur de 0.5rem */
+}
+
+/* Définition des styles pour les images avec la classe Mateo-Image */
+img.Mateo-Image{
+    margin-left:-700px; /* Marge gauche de -700 pixels */
+    margin-right:100px; /* Marge droite de 100 pixels */
+    width: 550px; /* Largeur de 550 pixels */
+    height: 500px; /* Hauteur de 500 pixels */
+}
+
+/* Définition des styles pour une autre image spécifique avec la classe Mateo-ImageD */
+img.Mateo-ImageD{
+    margin-left:-500px; /* Marge gauche de -500 pixels */
+    margin-right:100px; /* Marge droite de 100 pixels */
+    width: 550px; /* Largeur de 550 pixels */
+    height: 500px; /* Hauteur de 500 pixels */
+}
+
+/* Définition des styles pour le conteneur de texte avec la classe Mateo-textecontainer */
+.Mateo-textecontainer{
+    display: flex; /* Utilisation de Flexbox pour le positionnement */
+    justify-content: center; /* Centrage horizontalement */
+    align-items: center; /* Centrage verticalement */
+    margin-top: 20px; /* Marge supérieure de 20 pixels */
+}
+
+/* Définition des styles pour un tableau spécifique avec la classe Mateo-tableau1 */
+.Mateo-tableau1 {
+  width: 47em; /* Largeur de 47 em */
+  height: 22em; /* Hauteur de 22 em */
+  border-style: solid; /* Style de bordure solide */
+  border-color: #000000; /* Couleur de bordure noire */
+  border-width: 0.2em 0.2em; /* Largeur de bordure de 0.2 em */
+  border-radius: 5%; /* Rayon de bordure de 5% */
+  padding: 0.5%; /* Espacement intérieur de 0.5% */
+  font-family: Helvetica; /* Utilisation de la police Helvetica */
+  font-size: 16px; /* Taille de police de 16 pixels */
+  text-align: center; /* Alignement du texte au centre */
+  margin-left: -1990px; /* Marge gauche de -1990 pixels */
+  margin-right: -1000px; /* Marge droite de -1000 pixels */
+  margin-top: 100px; /* Marge supérieure de 100 pixels */
+  background-color: grey; /* Couleur de fond grise */
+}
+
+/* Définition des styles pour un autre tableau spécifique avec la classe Mateo-tableau1D */
+.Mateo-tableau1D {
+  width: 47em; /* Largeur de 47 em */
+  height: 22em; /* Hauteur de 22 em */
+  border-style: solid; /* Style de bordure solide */
+  border-color: #000000; /* Couleur de bordure noire */
+  border-width: 0.2em 0.2em; /* Largeur de bordure de 0.2 em */
+  border-radius: 5%; /* Rayon de bordure de 5% */
+  padding: 0.5%; /* Espacement intérieur de 0.5% */
+  font-family: Helvetica; /* Utilisation de la police Helvetica */
+  font-size: 16px; /* Taille de police de 16 pixels */
+  text-align: center; /* Alignement du texte au centre */
+  margin-left: -1990px; /* Marge gauche de -1990 pixels */
+  margin-right: -1000px; /* Marge droite de -1000 pixels */
+  margin-top: 100px; /* Marge supérieure de 100 pixels */
+  background-color:#dbbb49; /* Couleur de fond dorée */
+}
+
+/* Définition des styles pour une autre image spécifique avec la classe Mateo-Image2 */
+img.Mateo-Image2{
+    margin-left:-900px; /* Marge gauche de -900 pixels */
+    margin-right:600px; /* Marge droite de 600 pixels */
+    width: 550px; /* Largeur de 550 pixels */
+    height: 500px; /* Hauteur de 500 pixels */
+}
+
+
+/*Rayan*/
+
+/* Styles pour la section centrée 1
+.Rayan-centered-section1 {
+  background-color: #292929;  Couleur de fond gris foncé
+  color:#fff; Couleur du texte blanc
+  padding: 0rem;  Aucun espacement intérieur
+  margin: 0 auto;  Marges automatiques à gauche et à droite
+  max-width: 500px; Largeur maximale de 500px
+  text-align: center;  Alignement du texte au centre
+  border-radius: 5px;  Rayon de bordure de 5px
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  Ombre
+  margin-top: 300px;  Marge supérieure de 300px
+  margin-bottom: 10px;  Marge inférieure de 10px
+}*/
+
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    color: #fff;
+    text-align: center;
+    padding-top: 100px;
+    z-index: 1000;
+}
+
+
+#overlay:target {
+    display: flex; /* affiché quand l'ID est ciblé par le lien */
+}
+#overlay .overlay-content {
+  background: #1f1f1f;
+  color: #fff;
+  max-width: 900px;
+  width: calc(100% - 40px);
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+.overlay-content p {
+    background:#222;
+    padding:30px; border-radius:10px; max-width:800px; text-align:left;
+}
+
+.close-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #000;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
