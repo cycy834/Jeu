@@ -281,7 +281,7 @@ message_retour = ""
 message_timer  = 0
 
 clock = pygame.time.Clock()
-python3 main.py
+#python3 main.py
 # ---------------------------------------------------------------------------
 # FONCTIONS DESSIN
 # ---------------------------------------------------------------------------
@@ -559,3 +559,21 @@ while run:
 
 pygame.quit()
 sys.exit()
+def main():
+    run = True
+    while run:
+        clock.tick(FPS)
+
+        screen.blit(backgrounds[salle_actuelle], (0, 0))
+
+        # ton code de boucle ici
+        # événements, dessin, logique etc.
+
+        pygame.display.flip()
+
+    pygame.quit()
+    sys.exit()
+
+
+if __name__ == "__main__":
+    main()
