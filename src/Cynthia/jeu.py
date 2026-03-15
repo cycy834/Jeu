@@ -1,5 +1,5 @@
 import pygame
-
+from src.Benji.mouvements_v2 import run_game
 # Couleurs cohérentes avec l'accueil
 GOLD = (196, 166, 114)
 DARK = (28, 24, 20)
@@ -23,7 +23,7 @@ class Jeu:
                                      190, # largeur
                                      65) # hauteur
 
-
+        run_game()
     # Gestion des événements
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:

@@ -2,7 +2,7 @@ import pygame
 from src.Cynthia.scene_manager import SceneManager
 from src.Cynthia.accueil import Accueil
 
-pygame.init()
+pygame.init    ()
 
 screen = pygame.display.set_mode((1280, 720), pygame.RESIZABLE)
 icon = pygame.image.load("assets/images/louvre_escape_logo.png")
@@ -28,14 +28,4 @@ while running:
     pygame.display.flip()
 
 pygame.quit()
-import sys
-import os
-
-sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
-
-from Benji.mouvements_v2 import run_game
-
-if __name__ == "__main__":
-    print("Lancement de Louvre Escape...")
-    run_game()
 
