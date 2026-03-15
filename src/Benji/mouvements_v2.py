@@ -27,7 +27,6 @@ def load_bg(path):
 
 try:
     backgrounds = {
-<<<<<<< HEAD
         1: load_bg('assets/images/background2.png'),
         2: load_bg('assets/images/background3.png'),
         3: load_bg('assets/images/background2.png'),
@@ -38,18 +37,6 @@ try:
     sprite_right = load_img('assets/images/sprite2.png', (80, 120))
     sprite_left  = load_img('assets/images/sprite3.png', (80, 120))
     icon = load_img('assets/images/louvre_escape_logo.png')
-======= origin/main
-        1: load_bg('../../assets/images/background2.png'),
-        2: load_bg('../../assets/images/background3.png'),
-        3: load_bg('../../assets/images/background2.png'),
-        4: load_bg('../../assets/images/background3.png'),
-        5: load_bg('../../assets/images/background2.png'),
-    }
-    sprite_idle  = load_img('../../assets/images/sprite.png',  (80, 120))
-    sprite_right = load_img('../../assets/images/sprite2.png', (80, 120))
-    sprite_left  = load_img('../../assets/images/sprite3.png', (80, 120))
-    icon = load_img('../../assets/images/louvre_escape_logo.png')
->>>>>>> 8a423b43b163cd1a0a026df18ddeeafc68891032
     pygame.display.set_icon(icon)
 except Exception as e:
     print(f"[AVERTISSEMENT] Ressource manquante : {e}")
