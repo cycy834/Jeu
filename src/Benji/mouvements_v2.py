@@ -559,21 +559,18 @@ while run:
 
 pygame.quit()
 sys.exit()
-def main():
+def run_game():
+    global run
     run = True
+
     while run:
         clock.tick(FPS)
 
         screen.blit(backgrounds[salle_actuelle], (0, 0))
 
         # ton code de boucle ici
-        # événements, dessin, logique etc.
 
         pygame.display.flip()
 
     pygame.quit()
     sys.exit()
-
-
-if __name__ == "__main__":
-    main()

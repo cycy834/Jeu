@@ -28,4 +28,14 @@ while running:
     pygame.display.flip()
 
 pygame.quit()
+import sys
+import os
+
+sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
+
+from Benji.mouvements_v2 import run_game
+
+if __name__ == "__main__":
+    print("Lancement de Louvre Escape...")
+    run_game()
 
