@@ -23,7 +23,8 @@ def load_img(path, size=None):
     return img
 
 def load_bg(path):
-    return pygame.image.load(path).convert()
+    img = pygame.image.load(path).convert()
+    return pygame.transform.scale(img, (WIDTH, HEIGHT))
 
 try:
     backgrounds = {
