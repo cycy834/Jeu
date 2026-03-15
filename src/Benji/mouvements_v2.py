@@ -38,7 +38,7 @@ try:
     sprite_right = load_img('assets/images/sprite2.png', (80, 120))
     sprite_left  = load_img('assets/images/sprite3.png', (80, 120))
     icon = load_img('assets/images/louvre_escape_logo.png')
-=======
+======= origin/main
         1: load_bg('../../assets/images/background2.png'),
         2: load_bg('../../assets/images/background3.png'),
         3: load_bg('../../assets/images/background2.png'),
