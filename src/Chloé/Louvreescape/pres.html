@@ -13,7 +13,15 @@
     <header class="Rayan-Acueille"> <!-- Entête de la page -->
         <nav class="Rayan-Acueille"> <!-- Barre de navigation -->
             <a>ACCUEIL</a> <!-- Lien vers la page d'accueil -->
-            <a id="les-rappeurs-link">LE JEU</a> <!-- Lien vers la section "LES RAPEURS" -->
+            <a id="les-rappeurs-link" onclick="lancerJeu()">LE JEU</a>
+
+	<script>
+	function lancerJeu() {
+	    fetch("http://localhost:8080/launch")
+	        .then(() => alert("Le jeu se lance !"))
+	        .catch(() => alert("Erreur : le serveur n'est pas lancé."));
+	}
+	</script>
             <a href="#overlay">PLUS D'INFO</a>
             <!-- Lien vers la section "PLUS D'INFO" -->
         </nav>
