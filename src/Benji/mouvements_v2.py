@@ -71,6 +71,8 @@ SALLES = {
         'bg': 1,
         'depart': (100, 300),
         'porte': (1460, 180),
+        'code_porte': '1234',
+        'porte_resolue': False,
         'enigmes': [
             {
                 'id': 'tableau',
@@ -93,6 +95,8 @@ SALLES = {
         'bg': 2,
         'depart': (100, 300),
         'porte': (1460, 180),
+        'code_porte': '5678',
+        'porte_resolue': False,
         'enigmes': [
             {
                 'id': 'coffre',
@@ -115,6 +119,8 @@ SALLES = {
         'bg': 3,
         'depart': (100, 300),
         'porte': (1460, 180),
+        'code_porte': 'aphrodite',
+        'porte_resolue': False,
         'enigmes': [
             {
                 'id': 'statue',
@@ -137,6 +143,8 @@ SALLES = {
         'bg': 4,
         'depart': (100, 300),
         'porte': (1460, 180),
+        'code_porte': 'rosette',
+        'porte_resolue': False,
         'enigmes': [
             {
                 'id': 'pierre',
@@ -159,6 +167,8 @@ SALLES = {
         'bg': 5,
         'depart': (100, 300),
         'porte': (1460, 180),
+        'code_porte': '6',
+        'porte_resolue': False,
         'enigmes': [
             {
                 'id': 'panneau',
@@ -174,6 +184,122 @@ SALLES = {
                 'resolu': False,
                 'digit_index': 0,
                 'digit_value': 6,
+            }
+        ],
+    },
+    6: {
+        'bg': 1,
+        'depart': (100, 300),
+        'porte': (1460, 180),
+        'code_porte': 'art',
+        'porte_resolue': False,
+        'enigmes': [
+            {
+                'id': 'tableaux',
+                'x': 400, 'y': 200,
+                'largeur': 80, 'hauteur': 100,
+                'label': 'Tableaux numerotes',
+                'indice': (
+                    "Derriere chaque tableau, un numero indique son ordre.\n"
+                    "La phrase a reconstituer : Le musee ouvre en 1793.\n"
+                    "Retrouvez l ordre des tableaux selon cette annee."
+                ),
+                'reponse': '1-7-9-3',
+                'resolu': False,
+                'digit_index': 1,
+                'digit_value': 9,
+            }
+        ],
+    },
+    7: {
+        'bg': 2,
+        'depart': (100, 300),
+        'porte': (1460, 180),
+        'code_porte': 'voleur',
+        'porte_resolue': False,
+        'enigmes': [
+            {
+                'id': 'mot_desordre',
+                'x': 500, 'y': 220,
+                'largeur': 100, 'hauteur': 80,
+                'label': 'Mot a remettre en ordre',
+                'indice': (
+                    "Les lettres du mot sont melangees : VREOLU.\n"
+                    "Quel est le mot correct ?"
+                ),
+                'reponse': 'louvre',
+                'resolu': False,
+                'digit_index': 2,
+                'digit_value': 5,
+            }
+        ],
+    },
+    8: {
+        'bg': 3,
+        'depart': (100, 300),
+        'porte': (1460, 180),
+        'code_porte': 'garde',
+        'porte_resolue': False,
+        'enigmes': [
+            {
+                'id': 'traces_sol',
+                'x': 600, 'y': 200,
+                'largeur': 80, 'hauteur': 80,
+                'label': 'Traces au sol',
+                'indice': (
+                    "Suivez les traces sur le sol jusqu a l objet cache.\n"
+                    "Combien de pas avez-vous faits pour le trouver ?"
+                ),
+                'reponse': '12',
+                'resolu': False,
+                'digit_index': 3,
+                'digit_value': 2,
+            }
+        ],
+    },
+    9: {
+        'bg': 4,
+        'depart': (100, 300),
+        'porte': (1460, 180),
+        'code_porte': 'tresor',
+        'porte_resolue': False,
+        'enigmes': [
+            {
+                'id': 'equation',
+                'x': 700, 'y': 150,
+                'largeur': 60, 'hauteur': 130,
+                'label': 'Equation facile',
+                'indice': (
+                    "Resolvez l equation : 4x + 12 = 0\n"
+                    "Que vaut x ?"
+                ),
+                'reponse': '-3',
+                'resolu': False,
+                'digit_index': 0,
+                'digit_value': 8,
+            }
+        ],
+    },
+    10: {
+        'bg': 5,
+        'depart': (100, 300),
+        'porte': (1460, 180),
+        'code_porte': 'paris',
+        'porte_resolue': False,
+        'enigmes': [
+            {
+                'id': 'code_couleur',
+                'x': 800, 'y': 220,
+                'largeur': 80, 'hauteur': 100,
+                'label': 'Code couleur',
+                'indice': (
+                    "Remettez les couleurs dans l ordre du drapeau francais :\n"
+                    "bleu, blanc, rouge"
+                ),
+                'reponse': 'bleu-blanc-rouge',
+                'resolu': False,
+                'digit_index': 1,
+                'digit_value': 0,
             }
         ],
     },
@@ -248,6 +374,9 @@ def run_game():
     saisie = ""
     message_retour = ""
     message_timer = 0
+    saisie_porte        = ""
+    message_porte       = ""
+    message_porte_timer = 0
     restart_message_timer = 0
     restart_message = ""
 
@@ -259,10 +388,11 @@ def run_game():
         nonlocal enigme_active, saisie, message_retour, message_timer
         nonlocal x_direction, y_direction, sprite_courant
         nonlocal restart_message, restart_message_timer
-
+        nonlocal saisie_porte, message_porte, message_porte_timer
         for salle in SALLES.values():
             for e in salle['enigmes']:
                 e['resolu'] = False
+            salle['porte_resolue'] = False
 
         salle_actuelle = 1
         joueur_x, joueur_y = SALLES[1]['depart']
@@ -271,6 +401,9 @@ def run_game():
         saisie = ""
         message_retour = ""
         message_timer = 0
+        saisie_porte        = ""
+        message_porte       = ""
+        message_porte_timer = 0
         x_direction = 0
         y_direction = 0
         sprite_courant = sprite_idle
@@ -308,6 +441,17 @@ def run_game():
             message_timer = 90
 
         saisie = ""
+    def valider_code_porte():
+        nonlocal saisie_porte, message_porte, message_porte_timer
+        salle = SALLES[salle_actuelle]
+        if saisie_porte.strip().lower() == salle['code_porte'].lower():
+            message_porte = "Bonne reponse ! Porte ouverte."
+            message_porte_timer = 120
+            salle['porte_resolue'] = True
+        else:
+            message_porte = "Mauvais code... Reessaie."
+            message_porte_timer = 90
+        saisie_porte = ""
 
     def draw_hud():
         txt = font_small.render(
@@ -442,7 +586,35 @@ def run_game():
 
         inst = font_small.render("Entree : valider   •   Echap : fermer", True, (140, 140, 140))
         screen.blit(inst, (panel.x + panel.w // 2 - inst.get_width() // 2, panel.y + 300))
+    def draw_porte_panel():
+        overlay = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 210))
+        screen.blit(overlay, (0, 0))
 
+        panel = pygame.Rect(WIDTH//2 - 380, HEIGHT//2 - 180, 760, 360)
+        pygame.draw.rect(screen, (30, 25, 45), panel, border_radius=14)
+        pygame.draw.rect(screen, (180, 150, 80), panel, 2, border_radius=14)
+
+        titre = font.render("— PORTE DE SORTIE —", True, GOLD)
+        screen.blit(titre, (panel.x + panel.w//2 - titre.get_width()//2, panel.y + 18))
+
+        indice = font_small.render("Entrez le code pour ouvrir la porte :", True, (210, 210, 210))
+        screen.blit(indice, (panel.x + 30, panel.y + 70))
+
+        if message_porte_timer > 0:
+            ok = message_porte.startswith("Bonne")
+            col = GREEN if ok else RED
+            msg = font.render(message_porte, True, col)
+            screen.blit(msg, (panel.x + panel.w//2 - msg.get_width()//2, panel.y + 200))
+
+        saisie_rect = pygame.Rect(panel.x + 30, panel.y + 240, panel.w - 60, 42)
+        pygame.draw.rect(screen, (50, 45, 65), saisie_rect, border_radius=8)
+        pygame.draw.rect(screen, GOLD, saisie_rect, 2, border_radius=8)
+        saisie_txt = font.render(saisie_porte + "|", True, WHITE)
+        screen.blit(saisie_txt, (saisie_rect.x + 10, saisie_rect.y + 8))
+
+        inst = font_small.render("Entree : valider   •   Echap : fermer", True, (140, 140, 140))
+        screen.blit(inst, (panel.x + panel.w//2 - inst.get_width()//2, panel.y + 300))
     def draw_victoire():
         screen.blit(backgrounds[5], (0, 0))
         overlay = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
@@ -451,13 +623,15 @@ def run_game():
 
         titre = font_large.render("EVASION REUSSIE !", True, (255, 220, 50))
         screen.blit(titre, (WIDTH // 2 - titre.get_width() // 2, HEIGHT // 2 - 80))
-
+        
         sub = font.render(
             "Tu as resolu toutes les enigmes et quitte le Louvre !",
             True,
             (220, 220, 220)
         )
         screen.blit(sub, (WIDTH // 2 - sub.get_width() // 2, HEIGHT // 2))
+        
+
 
     run = True
     while run:
@@ -468,22 +642,17 @@ def run_game():
 
         if net.client and net.client.last_event:
             event = net.client.last_event
-
             if event["type"] == "level_restart":
                 reset_game_local()
                 net.client.last_event = None
-
             elif event["type"] == "code_update":
-                digit_index = event["digit_index"]
-                digit_value = event["digit"]
-                if 1 <= salle_actuelle <= NB_SALLES:
-                    for salle in SALLES.values():
-                        for enig in salle["enigmes"]:
-                            if enig["id"] == event["puzzle_id"]:
-                                enig["resolu"] = True
+                for salle in SALLES.values():
+                    for enig in salle["enigmes"]:
+                        if enig["id"] == event["puzzle_id"]:
+                            enig["resolu"] = True
                 net.client.last_event = None
 
-        screen.blit(backgrounds[salle_actuelle], (0, 0))
+        screen.blit(backgrounds[SALLES[salle_actuelle]['bg']], (0, 0))
 
         if mode == "victoire":
             draw_victoire()
@@ -510,6 +679,14 @@ def run_game():
                     mode = "exploration"
                     enigme_active = None
 
+        if mode == "porte":
+            draw_porte_panel()
+            if message_porte_timer > 0:
+                message_porte_timer -= 1
+                if message_porte_timer == 0 and SALLES[salle_actuelle]['porte_resolue']:
+                    passer_salle_suivante()
+                    mode = "exploration"
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -527,6 +704,18 @@ def run_game():
                     elif event.unicode and event.unicode.isprintable() and len(saisie) < 30:
                         saisie += event.unicode
 
+            elif mode == "porte":
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        mode = "exploration"
+                        saisie_porte = ""
+                    elif event.key == pygame.K_RETURN:
+                        valider_code_porte()
+                    elif event.key == pygame.K_BACKSPACE:
+                        saisie_porte = saisie_porte[:-1]
+                    elif event.unicode and event.unicode.isprintable() and len(saisie_porte) < 30:
+                        saisie_porte += event.unicode
+
             elif mode == "exploration":
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_e:
@@ -540,14 +729,17 @@ def run_game():
                         elif porte_proche(salle_actuelle, joueur_x, joueur_y):
                             salle = SALLES[salle_actuelle]
                             if all(e['resolu'] for e in salle['enigmes']):
-                                passer_salle_suivante()
-
+                                if salle['porte_resolue']:
+                                    passer_salle_suivante()
+                                else:
+                                    mode = "porte"
+                                    saisie_porte = ""
+                                    message_porte = ""
+                                    message_porte_timer = 0
                     elif event.key == pygame.K_RIGHT:
-                        x_direction = 1
-                        sprite_courant = sprite_right
+                        x_direction = 1;  sprite_courant = sprite_right
                     elif event.key == pygame.K_LEFT:
-                        x_direction = -1
-                        sprite_courant = sprite_left
+                        x_direction = -1; sprite_courant = sprite_left
                     elif event.key == pygame.K_UP:
                         y_direction = -1
                     elif event.key == pygame.K_DOWN:
@@ -557,13 +749,12 @@ def run_game():
 
                 elif event.type == pygame.KEYUP:
                     if event.key in (pygame.K_RIGHT, pygame.K_LEFT):
-                        x_direction = 0
-                        sprite_courant = sprite_idle
+                        x_direction = 0;  sprite_courant = sprite_idle
                     if event.key in (pygame.K_UP, pygame.K_DOWN):
                         y_direction = 0
 
         if mode == "exploration":
-            joueur_x = max(0, min(WIDTH - 80, joueur_x + VITESSE_JOUEUR * x_direction))
+            joueur_x = max(0, min(WIDTH - 80,  joueur_x + VITESSE_JOUEUR * x_direction))
             joueur_y = max(0, min(HEIGHT - 120, joueur_y + VITESSE_JOUEUR * y_direction))
             net.send_position(joueur_x, joueur_y, salle_actuelle)
 
@@ -571,3 +762,4 @@ def run_game():
 
     pygame.quit()
     sys.exit()
+
