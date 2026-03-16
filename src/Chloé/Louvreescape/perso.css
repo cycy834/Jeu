@@ -1,0 +1,259 @@
+/* =============================================
+   perso.css — Pages personnages Louvre Escape
+   ============================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.perso-page {
+    background-color: #0a0a0a;
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* --- HEADER --- */
+.perso-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 20px 40px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+}
+
+.perso-header nav a {
+    color: #dcc06a;
+    text-decoration: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1em;
+    letter-spacing: 2px;
+    transition: color 0.3s;
+}
+
+.perso-header nav a:hover {
+    color: #fff;
+}
+
+/* --- HERO --- */
+.perso-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.perso-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px) brightness(0.4);
+    z-index: 0;
+    transform: scale(1.05);
+}
+
+.perso-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(60,30,0,0.7) 100%);
+    z-index: 1;
+}
+
+.perso-hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    max-width: 1100px;
+    width: 90%;
+    padding: 100px 0 60px;
+}
+
+/* --- PHOTO --- */
+.perso-photo-wrap {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.perso-photo {
+    width: 280px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 3px solid #dcc06a;
+    box-shadow: 0 0 60px rgba(220, 192, 106, 0.3);
+    display: block;
+}
+
+.perso-role-badge {
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9em;
+    letter-spacing: 4px;
+    padding: 6px 20px;
+    border-radius: 30px;
+    white-space: nowrap;
+}
+
+.perso-role-badge.voleur {
+    background: #dcc06a;
+    color: #000;
+}
+
+.perso-role-badge.voleuse {
+    background: #c06adc;
+    color: #fff;
+}
+
+.perso-role-badge.policier {
+    background: #3a5fd9;
+    color: #fff;
+}
+
+/* --- INFOS --- */
+.perso-info {
+    flex: 1;
+}
+
+.perso-numero {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5em;
+    color: rgba(220, 192, 106, 0.15);
+    line-height: 1;
+    margin-bottom: -20px;
+}
+
+.perso-nom {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4.5em;
+    color: #fff;
+    letter-spacing: 4px;
+    line-height: 1;
+    text-shadow: 0 0 30px rgba(220, 192, 106, 0.4);
+}
+
+.perso-titre {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #dcc06a;
+    font-size: 1.1em;
+    margin-bottom: 24px;
+    margin-top: 4px;
+}
+
+.perso-desc {
+    font-size: 1em;
+    line-height: 1.8;
+    color: #ccc;
+    max-width: 520px;
+    margin-bottom: 32px;
+}
+
+/* --- STATS --- */
+.perso-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.stat-label {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    font-size: 0.85em;
+    color: #aaa;
+    width: 160px;
+    flex-shrink: 0;
+}
+
+.stat-bar {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.stat-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #dcc06a, #f5e099);
+    border-radius: 3px;
+    animation: fillBar 1.2s ease forwards;
+    transform-origin: left;
+}
+
+.stat-fill.policier-fill {
+    background: linear-gradient(90deg, #3a5fd9, #7da0ff);
+}
+
+@keyframes fillBar {
+    from { width: 0 !important; }
+    to { width: var(--final-width); }
+}
+
+/* --- CITATION --- */
+.perso-citation {
+    font-style: italic;
+    font-size: 1em;
+    color: rgba(220, 192, 106, 0.8);
+    border-left: 3px solid #dcc06a;
+    padding-left: 20px;
+    max-width: 480px;
+    line-height: 1.6;
+}
+
+.perso-citation.policier-citation {
+    color: rgba(100, 140, 255, 0.9);
+    border-left-color: #3a5fd9;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .perso-hero-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 50px;
+        padding-top: 120px;
+    }
+
+    .perso-photo {
+        width: 200px;
+        height: 200px;
+    }
+
+    .perso-nom {
+        font-size: 3em;
+    }
+
+    .perso-numero {
+        font-size: 3em;
+    }
+
+    .stat-label {
+        width: 120px;
+    }
+
+    .perso-desc,
+    .perso-citation {
+        max-width: 100%;
+    }
+}
+

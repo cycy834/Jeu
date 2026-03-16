@@ -1,13 +1,64 @@
 <!DOCTYPE html>
-<!--Le document est en html et en français-->
 <html lang="fr">
-<!--C'est l'entête de la page-->
 <head>
     <meta charset="UTF-8">
-    <!--On donne un titre à la page html-->
-    <title>Anne</title>
-    <!--On crée un lien qui relie la page html au fichier CSS-->
-    <link href = "./../pres2.css" rel="stylesheet"/>
-<!--On ferme la balise de l'entête-->
+    <title>Anne — Louvre Escape</title>
+    <link rel="stylesheet" href="./../pres2.css">
+    <link rel="stylesheet" href="./../perso.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
+<body class="perso-page">
+
+    <header class="perso-header">
+        <nav>
+            <a href="./../pres.html">← Retour</a>
+        </nav>
+    </header>
+
+    <div class="perso-hero">
+        <div class="perso-hero-bg" style="background-image: url('./../images/louvre.jpg');"></div>
+        <div class="perso-hero-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(20,60,80,0.7) 100%);"></div>
+        <div class="perso-hero-content">
+            <div class="perso-photo-wrap">
+                <img src="./../images/voleuses2.png" alt="Anne" class="perso-photo">
+                <div class="perso-role-badge voleuse">VOLEUSE</div>
+            </div>
+            <div class="perso-info">
+                <p class="perso-numero">03</p>
+                <h1 class="perso-nom">Anne</h1>
+                <p class="perso-titre">L'Agile Maladroite</p>
+                <p class="perso-desc">
+                    Anne est incroyablement agile — capable de se faufiler dans des espaces 
+                    impossibles et de sauter d'une corniche à l'autre sans effort. Le seul 
+                    problème ? Elle a tendance à tout faire tomber au mauvais moment. 
+                    Heureusement, Sophie est toujours là pour rattraper ses gaffes… 
+                    et elles s'en sortent à chaque fois, de justesse.
+                </p>
+                <div class="perso-stats">
+                    <div class="stat">
+                        <span class="stat-label">Agilité</span>
+                        <div class="stat-bar"><div class="stat-fill" style="width:93%"></div></div>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Vitesse</span>
+                        <div class="stat-bar"><div class="stat-fill" style="width:90%"></div></div>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Discrétion</span>
+                        <div class="stat-bar"><div class="stat-fill" style="width:40%"></div></div>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Chance</span>
+                        <div class="stat-bar"><div class="stat-fill" style="width:70%"></div></div>
+                    </div>
+                </div>
+                <div class="perso-citation">
+                    "Je peux tout faire... mais je promets rien sur les vases en porcelaine."
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
 </html>
+

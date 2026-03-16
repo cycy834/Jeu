@@ -6,7 +6,7 @@ import threading
 class Handler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         # Sert les fichiers depuis le dossier du site
-        super().__init__(*args, directory="src/Chloé/Louvreescape", **kwargs)
+        super().__init__(*args, directory="src/Chloé/presentationsite", **kwargs)
 
     def do_GET(self):
         if self.path == "/launch":
@@ -18,7 +18,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.send_response(200)
             self.end_headers()
             self.wfile.write(b"ok")
-        elif self.path == "/":         
+        elif self.path == "/":
             self.path = "/pres.html"
             super().do_GET()
         else:
