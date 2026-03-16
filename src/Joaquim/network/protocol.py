@@ -1,0 +1,11 @@
+JOIN = "join"
+MOVE = "move"
+PUZZLE_SOLVED = "puzzle_solved"
+PLAYER_CAUGHT = "player_caught"
+REQUEST_STATE = "request_state"
+
+WELCOME = "welcome"
+STATE = "state"
+CODE_UPDATE = "code_update"
+LEVEL_RESTART = "level_restart"
+LEVEL_COMPLETE = "level_complete"
