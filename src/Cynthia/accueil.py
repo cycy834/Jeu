@@ -125,8 +125,8 @@ class Accueil:
             # Clic sur "Jouer"
             if self.play_rect.collidepoint(event.pos):
                 # Import ici pour éviter les imports circulaires
-                from src.Cynthia.jeu import Jeu
-                self.manager.scene = Jeu(self.screen, self.manager)
+                from src.Maroua.choix_perso import CharacterSelectionApp
+                self.manager.scene = CharacterSelectionApp(self.screen, self.manager)
             
             # Clic sur "Menu"
             elif self.menu_rect.collidepoint(event.pos):

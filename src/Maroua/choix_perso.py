@@ -2,13 +2,14 @@ import pygame
 import sys
 
 class CharacterSelectionApp:
-    def __init__(self):
+    def __init__(self,screen,manager):
         # Initialisation de Pygame
+        self.manager = manager
+        self.screen = screen
+        self.SCREEN_W, self.SCREEN_H = screen.get_size()
         pygame.init()
 
         # Configuration de l'écran (Plein écran)
-        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        self.SCREEN_W, self.SCREEN_H = self.screen.get_size()
         pygame.display.set_caption("Braquage au Louvre")
 
         # Couleurs
@@ -52,7 +53,7 @@ class CharacterSelectionApp:
 
     def load_assets(self):
         """Charge les images et prépare les personnages."""
-        path = "../../assets/images/"
+        path = "assets/images/"
         try:
             # Fond d'écran
             bg_img = pygame.image.load(f"{path}background_perso.png").convert()
@@ -72,45 +73,46 @@ class CharacterSelectionApp:
             pygame.quit()
             sys.exit()
 
-    def handle_events(self):
+    def handle_event(self,event):
         """Gère les entrées clavier et souris."""
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.running = False
+        #for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            self.running = False
 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    self.running = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                  self.running = False
 
-                if self.input_active:
-                    if event.key == pygame.K_BACKSPACE:
+            if self.input_active:
+                if event.key == pygame.K_BACKSPACE:
                         self.username = self.username[:-1]
-                    elif len(self.username) < 15 and event.unicode.isprintable():
-                        self.username += event.unicode
+                elif len(self.username) < 15 and event.unicode.isprintable():
+                    self.username += event.unicode
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN:
                 # Activer/Désactiver l'input
-                self.input_active = self.input_box.collidepoint(event.pos)
+            self.input_active = self.input_box.collidepoint(event.pos)
 
                 # Clic sur Flèche Gauche
-                if self.arrow_left_rect.collidepoint(event.pos):
-                    self.current_char_idx = (self.current_char_idx - 1) % len(self.characters)
+            if self.arrow_left_rect.collidepoint(event.pos):
+                self.current_char_idx = (self.current_char_idx - 1) % len(self.characters)
 
                 # Clic sur Flèche Droite
-                if self.arrow_right_rect.collidepoint(event.pos):
-                    self.current_char_idx = (self.current_char_idx + 1) % len(self.characters)
+            if self.arrow_right_rect.collidepoint(event.pos):
+                self.current_char_idx = (self.current_char_idx + 1) % len(self.characters)
 
                 # Clic sur Bouton Valider
-                if self.username != "" and self.valider_rect.collidepoint(event.pos):
-                    print(f"Mission : {self.username} avec {self.char_names[self.current_char_idx]}")
-                    self.running = False
+            if self.username != "" and self.valider_rect.collidepoint(event.pos):
+                from src.Cynthia.jeu import Jeu
+                self.manager.scene = Jeu(self.screen, self.manager)
 
     def draw_arrow(self, rect, text, is_hover):
         """Dessine une flèche avec un effet de survol."""
         color = self.GOLD if is_hover else self.WHITE
         surf = self.font_arrow.render(text, True, color)
         self.screen.blit(surf, surf.get_rect(center=rect.center))
-
+    def update(self):
+        pass
     def draw(self):
         """Dessine tous les éléments à l'écran."""
         mouse_pos = pygame.mouse.get_pos()
