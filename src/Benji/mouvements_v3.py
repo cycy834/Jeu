@@ -34,9 +34,7 @@ try:
         4: load_bg('assets/images/background3.png'),
         5: load_bg('assets/images/background2.png'),
     }
-    sprite_idle  = load_img('assets/images/sprite.png',  (80, 120))
-    sprite_right = load_img('assets/images/sprite2.png', (80, 120))
-    sprite_left  = load_img('assets/images/sprite3.png', (80, 120))
+    sprite_idle  = load_img('assets/images/sprite2.png',  (80, 120))
     icon = load_img('assets/images/louvre_escape_logo.png')
     pygame.display.set_icon(icon)
 except Exception as e:

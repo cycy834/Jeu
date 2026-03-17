@@ -38,9 +38,9 @@ try:
         4: load_bg('assets/images/background3.png'),
         5: load_bg('assets/images/background2.png'),
     }
-    sprite_idle = load_img('assets/images/sprite.png', (80, 120))
+    sprite_idle = load_img('assets/images/sprite2.png', (80, 120))
     sprite_right = load_img('assets/images/sprite2.png', (80, 120))
-    sprite_left = load_img('assets/images/sprite3.png', (80, 120))
+    sprite_left = load_img('assets/images/sprite2.png', (80, 120))
 except Exception as e:
     print(f"[AVERTISSEMENT] Ressource manquante : {e}")
     backgrounds = {i: pygame.Surface((WIDTH, HEIGHT)) for i in range(1, 6)}
