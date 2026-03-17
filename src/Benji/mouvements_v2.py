@@ -105,7 +105,7 @@ SALLES = {
                 'label': 'Coffre ancien',
                 'indice': (
                     "Sur le coffre est gravee une plaque :\n"
-                    "« Je suis ne en 1793, je suis le plus grand musee de France.\n"
+                    "« Je suis le plus grand musee de France dans lequel tu te trouve actuellement.\n"
                     "Mon code est l annee de ma fondation. »"
                 ),
                 'reponse': '1793',
@@ -143,20 +143,18 @@ SALLES = {
         'bg': 4,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': 'rosette',
+        'code_porte': 'italien',
         'porte_resolue': False,
         'enigmes': [
             {
-                'id': 'pierre',
+                'id': 'grand peintre',
                 'x': 500, 'y': 200,
                 'largeur': 90, 'hauteur': 110,
-                'label': 'Pierre aux hieroglyphes',
+                'label': 'Grand peintre',
                 'indice': (
-                    "Une pierre couverte de symboles egyptiens.\n"
-                    "Une note dit : « Cette pierre celebre permit de\n"
-                    "dechiffrer les hieroglyphes. Son nom ? »"
+                    "Quelle est la nationalité de Léonard de Vinci ?"
                 ),
-                'reponse': 'rosette',
+                'reponse': 'italien',
                 'resolu': False,
                 'digit_index': 3,
                 'digit_value': 3,
@@ -167,20 +165,18 @@ SALLES = {
         'bg': 5,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': '6',
+        'code_porte': 'tableau',
         'porte_resolue': False,
         'enigmes': [
             {
-                'id': 'panneau',
+                'id': 'énigmes',
                 'x': 800, 'y': 220,
                 'largeur': 80, 'hauteur': 100,
-                'label': 'Panneau de sortie',
+                'label': 'Oeuvre',
                 'indice': (
-                    "Un panneau electronique clignote :\n"
-                    "« Code de securite final :\n"
-                    "Combien de lettres dans le mot LOUVRE ? »"
+                    "Plus je suis vieille, plus j'ai de valeur. Je ne parle pas mais raconte tout. Qui suis-je?"
                 ),
-                'reponse': '6',
+                'reponse': 'tableau',
                 'resolu': False,
                 'digit_index': 0,
                 'digit_value': 6,
@@ -191,20 +187,20 @@ SALLES = {
         'bg': 1,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': 'art',
+        'code_porte': 'louvre',
         'porte_resolue': False,
         'enigmes': [
             {
-                'id': 'tableaux',
+                'id': 'reconstitution',
                 'x': 400, 'y': 200,
                 'largeur': 80, 'hauteur': 100,
-                'label': 'Tableaux numerotes',
+                'label': 'Numérotations',
                 'indice': (
-                    "Derriere chaque tableau, un numero indique son ordre.\n"
-                    "La phrase a reconstituer : Le musee ouvre en 1793.\n"
-                    "Retrouvez l ordre des tableaux selon cette annee."
+                    "Déchiffrer le mot 12-15-21-22-18-5.\n"
+                    #"La phrase a reconstituer : Le musee ouvre en 1793.\n"
+                    #"Retrouvez l ordre des tableaux selon cette annee."
                 ),
-                'reponse': '1-7-9-3',
+                'reponse': 'louvre',
                 'resolu': False,
                 'digit_index': 1,
                 'digit_value': 9,
@@ -227,7 +223,7 @@ SALLES = {
                     "Les lettres du mot sont melangees : VREOLU.\n"
                     "Quel est le mot correct ?"
                 ),
-                'reponse': 'louvre',
+                'reponse': 'voleur',
                 'resolu': False,
                 'digit_index': 2,
                 'digit_value': 5,
@@ -238,19 +234,18 @@ SALLES = {
         'bg': 3,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': 'garde',
+        'code_porte': 'pei',
         'porte_resolue': False,
         'enigmes': [
             {
-                'id': 'traces_sol',
+                'id': 'architecte',
                 'x': 600, 'y': 200,
                 'largeur': 80, 'hauteur': 80,
-                'label': 'Traces au sol',
+                'label': 'Architecte connu',
                 'indice': (
-                    "Suivez les traces sur le sol jusqu a l objet cache.\n"
-                    "Combien de pas avez-vous faits pour le trouver ?"
+                    "En 1989, un architecte américain d'origine chinoise a transformé l'entrée du Louvre. Il a construit une pyramide transparente. Quel est son nom de famille ?"
                 ),
-                'reponse': '12',
+                'reponse': 'pei',
                 'resolu': False,
                 'digit_index': 3,
                 'digit_value': 2,
@@ -261,7 +256,7 @@ SALLES = {
         'bg': 4,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': 'tresor',
+        'code_porte': '-3',
         'porte_resolue': False,
         'enigmes': [
             {
@@ -284,19 +279,18 @@ SALLES = {
         'bg': 5,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': 'paris',
+        'code_porte': '0',
         'porte_resolue': False,
         'enigmes': [
             {
-                'id': 'code_couleur',
+                'id': 'Statue',
                 'x': 800, 'y': 220,
                 'largeur': 80, 'hauteur': 100,
-                'label': 'Code couleur',
+                'label': 'Célèbre statue',
                 'indice': (
-                    "Remettez les couleurs dans l ordre du drapeau francais :\n"
-                    "bleu, blanc, rouge"
+                    "Combien de bras a la Victoire de Samothrace?\n"
                 ),
-                'reponse': 'bleu-blanc-rouge',
+                'reponse': '0',
                 'resolu': False,
                 'digit_index': 1,
                 'digit_value': 0,
