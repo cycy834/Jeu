@@ -50,7 +50,7 @@ except Exception as e:
 
 try:
     pygame.mixer.init()
-    pygame.mixer.music.load("musique.mp3")
+    pygame.mixer.music.load("assets/music/music.mp3")
     pygame.mixer.music.play(-1)
     son_porte  = pygame.mixer.Sound('ouverture_porte.mp3')
     son_succes = son_porte
