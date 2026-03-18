@@ -32,11 +32,11 @@ def load_bg(path):
 
 try:
     backgrounds = {
-        1: load_bg('assets/images/background2.png'),
+        1: load_bg('assets/images/couloir1.png'),
         2: load_bg('assets/images/background3.png'),
-        3: load_bg('assets/images/background2.png'),
+        3: load_bg('assets/images/couloir1.png'),
         4: load_bg('assets/images/background3.png'),
-        5: load_bg('assets/images/background2.png'),
+        5: load_bg('assets/images/couloir1.png'),
     }
     sprite_idle = load_img('assets/images/sprite2.png', (80, 120))
     sprite_right = load_img('assets/images/sprite2.png', (80, 120))
