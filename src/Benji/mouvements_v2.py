@@ -119,7 +119,7 @@ SALLES = {
         'bg': 3,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': 'aphrodite',
+        'code_porte': '1234',
         'porte_resolue': False,
         'enigmes': [
             {
@@ -143,7 +143,7 @@ SALLES = {
         'bg': 4,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': 'italien',
+        'code_porte': '5678',
         'porte_resolue': False,
         'enigmes': [
             {
@@ -165,7 +165,7 @@ SALLES = {
         'bg': 5,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': 'tableau',
+        'code_porte': '1234',
         'porte_resolue': False,
         'enigmes': [
             {
@@ -187,7 +187,7 @@ SALLES = {
         'bg': 1,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': 'louvre',
+        'code_porte': '5678',
         'porte_resolue': False,
         'enigmes': [
             {
@@ -211,7 +211,7 @@ SALLES = {
         'bg': 2,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': 'voleur',
+        'code_porte': '1234',
         'porte_resolue': False,
         'enigmes': [
             {
@@ -234,7 +234,7 @@ SALLES = {
         'bg': 3,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': 'pei',
+        'code_porte': '5678',
         'porte_resolue': False,
         'enigmes': [
             {
@@ -256,7 +256,7 @@ SALLES = {
         'bg': 4,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': '-3',
+        'code_porte': '1234',
         'porte_resolue': False,
         'enigmes': [
             {
@@ -279,7 +279,7 @@ SALLES = {
         'bg': 5,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': '0',
+        'code_porte': '5678',
         'porte_resolue': False,
         'enigmes': [
             {
