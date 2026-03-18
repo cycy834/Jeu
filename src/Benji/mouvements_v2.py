@@ -8,7 +8,7 @@ pygame.init()
 # --- Constantes ---
 WIDTH, HEIGHT = 1588, 479
 FPS = 60
-VITESSE_JOUEUR = 7
+VITESSE_JOUEUR = 6
 
 # --- Couleurs ---
 WHITE = (255, 255, 255)
@@ -38,9 +38,9 @@ try:
         4: load_bg('assets/images/background3.png'),
         5: load_bg('assets/images/couloir1.png'),
     }
-    sprite_idle = load_img('assets/images/sprite2.png', (80, 120))
-    sprite_right = load_img('assets/images/sprite2.png', (80, 120))
-    sprite_left = load_img('assets/images/sprite2.png', (80, 120))
+    sprite_idle = load_img('assets/images/sprite2.png', (100, 180))
+    sprite_right = load_img('assets/images/sprite2.png', (100, 180))
+    sprite_left = load_img('assets/images/sprite2.png', (100, 180))
 except Exception as e:
     print(f"[AVERTISSEMENT] Ressource manquante : {e}")
     backgrounds = {i: pygame.Surface((WIDTH, HEIGHT)) for i in range(1, 6)}
