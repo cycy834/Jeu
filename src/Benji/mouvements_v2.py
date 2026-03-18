@@ -8,7 +8,7 @@ pygame.init()
 # --- Constantes ---
 WIDTH, HEIGHT = 1588, 479
 FPS = 60
-VITESSE_JOUEUR = 3
+VITESSE_JOUEUR = 7
 
 # --- Couleurs ---
 WHITE = (255, 255, 255)
