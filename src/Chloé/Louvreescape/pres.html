@@ -13,19 +13,10 @@
     <header class="Acueille">
         <nav class="Acueille">
             <a>ACCUEIL</a>
-            <a id="les-rappeurs-link" onclick="lancerJeu()">LE JEU</a>
+            <a href="../../../lancer.bat">LE JEU</a>
             <a href="#overlay">PLUS D'INFO</a>
         </nav>
     </header>
-
-    <script>
-    function lancerJeu() {
-        fetch("http://localhost:8080/launch")
-            .then(() => alert("Le jeu se lance !"))
-            .catch(() => alert("Erreur : le serveur n'est pas lancé."));
-    }
-    </script>
-
     <main class="Acueille">
         <figure class="Acueille">
             <img src="images/louvre_escape_logo.png" alt="Logo Louvre Escape" class="logo-gauche">
