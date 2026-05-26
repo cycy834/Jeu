@@ -4,7 +4,8 @@ from src.Cynthia.accueil import Accueil
 
 pygame.init()
 
-screen = pygame.display.set_mode((1280, 720), pygame.RESIZABLE)
+info = pygame.display.Info()
+screen = pygame.display.set_mode((info.current_w, info.current_h), pygame.NOFRAME)
 
 icon = pygame.image.load("assets/images/louvre_escape_logo.png")
 pygame.display.set_icon(icon)
@@ -13,12 +14,11 @@ pygame.display.set_caption("Louvre Escape")
 manager = SceneManager()
 manager.scene = Accueil(screen, manager)
 
-clock = pygame.time.Clock()   # correction ici
+clock = pygame.time.Clock()
 running = True
 
 while running:
-
-    clock.tick(60)
+    dt = clock.tick(60) / 1000.0
 
     for event in pygame.event.get():
 
@@ -27,7 +27,7 @@ while running:
 
         manager.handle_event(event)
 
-    manager.update()
+    manager.update(dt)
     manager.draw()
 
     pygame.display.flip()

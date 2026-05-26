@@ -6,9 +6,9 @@ class SceneManager:
         if self.scene:
             self.scene.handle_event(event)
 
-    def update(self):
+    def update(self, dt=0):
         if self.scene:
-            self.scene.update()
+            self.scene.update(dt)
 
     def draw(self):
         if self.scene:

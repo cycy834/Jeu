@@ -1,4 +1,5 @@
 import pygame
+from src.audio import audio_manager as audio
 
 
 # -----------------------------
@@ -27,9 +28,10 @@ class Accueil:
         # Création des boutons et rectangles
         self.create_ui()
         
-        #creations des inits des sons (pour menu)
-        self.volume = 5
-        self.music_on = True
+        audio.init()
+        audio.play_music(audio.MUSIC_MENU)
+        self.volume = audio.get_volume_music_0_10()
+        self.music_on = audio.get_music_on()
         
         #overlay animation pour boutons - et +
         self.btn_overlay_surface = None
@@ -94,27 +96,29 @@ class Accueil:
             # Si le menu popup est ouvert
             if self.show_menu:
 
-                # Clic sur bouton "-"
                 if self.btn_minus.collidepoint(event.pos):
                     self.volume = max(0, self.volume - 1)
+                    audio.set_volume_music(self.volume)
+                    audio.set_volume_sfx(self.volume)
                     self.btn_overlay_surface = pygame.Surface(self.btn_minus.size, pygame.SRCALPHA)
                     self.btn_overlay_alpha = 120
                     self.btn_overlay_rect = self.btn_minus
                     return
-                # Clic sur bouton "+"
                 if self.btn_plus.collidepoint(event.pos):
-                    self.volume = max(0, self.volume + 1)
+                    self.volume = min(10, self.volume + 1)
+                    audio.set_volume_music(self.volume)
+                    audio.set_volume_sfx(self.volume)
                     self.btn_overlay_surface = pygame.Surface(self.btn_plus.size, pygame.SRCALPHA)
                     self.btn_overlay_alpha = 120
                     self.btn_overlay_rect = self.btn_plus
                     return
-                # Clic sur bouton "ON" 
                 if self.btn_on.collidepoint(event.pos):
                     self.music_on = True
+                    audio.set_music_on(True)
                     return
-                # Clic sur bouton "OFF"
                 if self.btn_off.collidepoint(event.pos):
                     self.music_on = False
+                    audio.set_music_on(False)
                     return
                 # Si on clique en dehors du popup → on ferme
                 if not self.popup_rect.collidepoint(event.pos):
@@ -122,14 +126,12 @@ class Accueil:
                     return
                 
 
-            # Clic sur "Jouer"
             if self.play_rect.collidepoint(event.pos):
-                # Import ici pour éviter les imports circulaires
-                from src.Maroua.choix_perso import CharacterSelectionApp
-                self.manager.scene = CharacterSelectionApp(self.screen, self.manager)
-            
-            # Clic sur "Menu"
+                audio.play_sfx('hover')
+                from src.Cynthia.mode_select import ModeSelect
+                self.manager.scene = ModeSelect(self.screen, self.manager)
             elif self.menu_rect.collidepoint(event.pos):
+                audio.play_sfx('hover')
                 self.show_menu = True
        
 
@@ -137,7 +139,7 @@ class Accueil:
 # Update (logique)
 # -----------------------------    
 
-    def update(self):
+    def update(self, dt=0):
         if self.btn_overlay_alpha > 0:
             self.btn_overlay_alpha -= 12
             if self.btn_overlay_alpha < 0:

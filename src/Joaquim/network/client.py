@@ -6,6 +6,7 @@ from src.Joaquim.network.protocol import (
     MOVE,
     PUZZLE_SOLVED,
     PLAYER_CAUGHT,
+    TEAM_LOSE_LIFE,
     WELCOME,
     STATE,
     CODE_UPDATE,
@@ -15,9 +16,10 @@ from src.Joaquim.network.protocol import (
 
 
 class NetworkClient:
-    def __init__(self, uri, player_name):
+    def __init__(self, uri, player_name, player_sprite=''):
         self.uri = uri
-        self.player_name = player_name
+        self.player_name   = player_name
+        self.player_sprite = player_sprite
         self.websocket = None
         self.player_id = None
         self.connected = False
@@ -42,8 +44,9 @@ class NetworkClient:
             self.player_id = welcome["player_id"]
 
         await self.send({
-            "type": JOIN,
-            "name": self.player_name
+            "type":   JOIN,
+            "name":   self.player_name,
+            "sprite": self.player_sprite,
         })
 
     async def send(self, data):
@@ -72,6 +75,12 @@ class NetworkClient:
             "reason": reason
         })
 
+    async def send_team_lose_life(self, caught_player_id):
+        await self.send({
+            "type": TEAM_LOSE_LIFE,
+            "caught_player_id": caught_player_id,
+        })
+
     async def receive_loop(self):
         try:
             async for raw in self.websocket:
@@ -84,6 +93,10 @@ class NetworkClient:
 
                 elif msg_type in (CODE_UPDATE, LEVEL_RESTART, LEVEL_COMPLETE):
                     self.last_event = data
+
+                elif msg_type == TEAM_LOSE_LIFE:
+                    if data.get('caught_player_id') != self.player_id:
+                        self.last_event = data
 
         except Exception as e:
             print("Deconnecte du serveur :", e)

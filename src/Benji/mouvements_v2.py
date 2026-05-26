@@ -1,14 +1,43 @@
+import copy
+import math
 import pygame
 import sys
 
-from src.Joaquim.network.runtime import NetworkRuntime
 
-pygame.init()
+def _draw_heart(surf, color, cx, cy, size, filled=True):
+    r = size
+    w = 0 if filled else 2
+    pygame.draw.circle(surf, color, (cx - r // 2, cy - r // 4), r // 2 + 1, w)
+    pygame.draw.circle(surf, color, (cx + r // 2, cy - r // 4), r // 2 + 1, w)
+    pts = [(cx - r, cy - r // 4), (cx + r, cy - r // 4), (cx, cy + r * 3 // 4)]
+    pygame.draw.polygon(surf, color, pts, w)
+
+from src.Joaquim.network.runtime import NetworkRuntime
+from src.Joaquim.ai.ai_manager import AIManager
+
+
+class _DummyClient:
+    last_event    = None
+    players_state = {}
+    player_id     = None
+
+
+class _DummyRuntime:
+    """Remplace NetworkRuntime en mode solo — toutes les méthodes sont des no-ops."""
+    client = _DummyClient()
+    def send_position(self, *a):       pass
+    def send_puzzle_solved(self, *a):  pass
+    def send_player_caught(self, *a):  pass
+    def send_team_lose_life(self, *a): pass
+    def start(self):                   pass
 
 # --- Constantes ---
 WIDTH, HEIGHT = 1588, 479
 FPS = 60
-VITESSE_JOUEUR = 6
+VITESSE_JOUEUR = 3
+GRAVITY   = 0.5
+FLOOR_Y   = HEIGHT - 140
+JUMP_VEL  = -9
 
 # --- Couleurs ---
 WHITE = (255, 255, 255)
@@ -30,40 +59,58 @@ def load_bg(path):
     return pygame.transform.scale(img, (WIDTH, HEIGHT))
 
 
+def _load_bg_safe(path, fallback_color):
+    try:
+        return load_bg(path)
+    except Exception:
+        s = pygame.Surface((WIDTH, HEIGHT))
+        s.fill(fallback_color)
+        return s
+
+
+def _load_bg_egypt(path, ceiling_color):
+    try:
+        img = pygame.image.load(path).convert()
+        img_w, img_h = img.get_size()
+        new_h = int(img_h * WIDTH / img_w)
+        scaled = pygame.transform.scale(img, (WIDTH, max(new_h, 1)))
+        surf = pygame.Surface((WIDTH, HEIGHT))
+        surf.fill(ceiling_color)
+        oy = max(0, HEIGHT - new_h)
+        surf.blit(scaled, (0, oy))
+        return surf
+    except Exception:
+        s = pygame.Surface((WIDTH, HEIGHT))
+        s.fill(ceiling_color)
+        return s
+
 try:
-    backgrounds = {
-        1: load_bg('assets/images/couloir1.png'),
-        2: load_bg('assets/images/background3.png'),
-        3: load_bg('assets/images/couloir1.png'),
-        4: load_bg('assets/images/background3.png'),
-        5: load_bg('assets/images/couloir1.png'),
-    }
-    sprite_idle = load_img('assets/images/sprite2.png', (100, 180))
-    sprite_right = load_img('assets/images/sprite2.png', (100, 180))
-    sprite_left = load_img('assets/images/sprite2.png', (100, 180))
+    sprite_idle  = load_img('assets/images/sprite2.png', (90, 135))
+    sprite_right = load_img('assets/images/sprite2.png', (90, 135))
+    sprite_left  = load_img('assets/images/sprite2.png', (90, 135))
 except Exception as e:
-    print(f"[AVERTISSEMENT] Ressource manquante : {e}")
-    backgrounds = {i: pygame.Surface((WIDTH, HEIGHT)) for i in range(1, 6)}
-    for i, col in enumerate([(20, 20, 40), (30, 20, 20), (20, 30, 20), (20, 20, 50), (40, 20, 20)], 1):
-        backgrounds[i].fill(col)
-    sprite_idle = pygame.Surface((80, 120))
-    sprite_idle.fill((100, 180, 255))
+    print(f"[AVERTISSEMENT] Sprite manquant : {e}")
+    sprite_idle  = pygame.Surface((90, 135)); sprite_idle.fill((100, 180, 255))
     sprite_right = sprite_idle
-    sprite_left = sprite_idle
+    sprite_left  = sprite_idle
 
-try:
-    pygame.mixer.init()
-    pygame.mixer.music.load("assets/music/musique.mp3")
-    son_porte = pygame.mixer.Sound("assets/sounds/ouverture_porte.mp3")
-    son_succes = son_porte
-except Exception:
-    son_porte = None
-    son_succes = None
+backgrounds = {
+    1: _load_bg_safe('assets/images/background2.png',  (20, 20, 40)),
+    2: _load_bg_safe('assets/images/background3.png',  (30, 20, 20)),
+    3: _load_bg_safe('assets/images/background2.png',  (20, 30, 20)),
+    4: _load_bg_safe('assets/images/background3.png',  (20, 20, 50)),
+    5: _load_bg_safe('assets/images/background2.png',  (40, 20, 20)),
+    6: _load_bg_egypt('assets/images/bg_egypt_1.png',   (15, 10,  5)),
+    7: _load_bg_egypt('assets/images/bg_egypt_2.png',   (15, 10,  5)),
+    8: _load_bg_egypt('assets/images/bg_egypt_3.png',   (15, 10,  5)),
+    9: _load_bg_egypt('assets/images/bg_egypt_4.png',   (15, 10,  5)),
+   10: _load_bg_egypt('assets/images/bg_egypt_5.png',   (15, 10,  5)),
+}
 
+from src.audio import audio_manager as audio
 
-def play_sound(s):
-    if s:
-        s.play()
+def play_sound(name):
+    audio.play_sfx(name)
 
 
 SALLES = {
@@ -105,7 +152,7 @@ SALLES = {
                 'label': 'Coffre ancien',
                 'indice': (
                     "Sur le coffre est gravee une plaque :\n"
-                    "« Je suis le plus grand musee de France dans lequel tu te trouve actuellement.\n"
+                    "« Je suis ne en 1793, je suis le plus grand musee de France.\n"
                     "Mon code est l annee de ma fondation. »"
                 ),
                 'reponse': '1793',
@@ -119,7 +166,7 @@ SALLES = {
         'bg': 3,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': '1234',
+        'code_porte': 'aphrodite',
         'porte_resolue': False,
         'enigmes': [
             {
@@ -143,18 +190,20 @@ SALLES = {
         'bg': 4,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': '5678',
+        'code_porte': 'rosette',
         'porte_resolue': False,
         'enigmes': [
             {
-                'id': 'grand peintre',
+                'id': 'pierre',
                 'x': 500, 'y': 200,
                 'largeur': 90, 'hauteur': 110,
-                'label': 'Grand peintre',
+                'label': 'Pierre aux hieroglyphes',
                 'indice': (
-                    "Quelle est la nationalité de Léonard de Vinci ?"
+                    "Une pierre couverte de symboles egyptiens.\n"
+                    "Une note dit : « Cette pierre celebre permit de\n"
+                    "dechiffrer les hieroglyphes. Son nom ? »"
                 ),
-                'reponse': 'italien',
+                'reponse': 'rosette',
                 'resolu': False,
                 'digit_index': 3,
                 'digit_value': 3,
@@ -165,18 +214,20 @@ SALLES = {
         'bg': 5,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': '1234',
+        'code_porte': '6',
         'porte_resolue': False,
         'enigmes': [
             {
-                'id': 'énigmes',
+                'id': 'panneau',
                 'x': 800, 'y': 220,
                 'largeur': 80, 'hauteur': 100,
-                'label': 'Oeuvre',
+                'label': 'Panneau de sortie',
                 'indice': (
-                    "Plus je suis vieille, plus j'ai de valeur. Je ne parle pas mais raconte tout. Qui suis-je?"
+                    "Un panneau electronique clignote :\n"
+                    "« Code de securite final :\n"
+                    "Combien de lettres dans le mot LOUVRE ? »"
                 ),
-                'reponse': 'tableau',
+                'reponse': '6',
                 'resolu': False,
                 'digit_index': 0,
                 'digit_value': 6,
@@ -187,20 +238,20 @@ SALLES = {
         'bg': 1,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': '5678',
+        'code_porte': 'art',
         'porte_resolue': False,
         'enigmes': [
             {
-                'id': 'reconstitution',
+                'id': 'tableaux',
                 'x': 400, 'y': 200,
                 'largeur': 80, 'hauteur': 100,
-                'label': 'Numérotations',
+                'label': 'Tableaux numerotes',
                 'indice': (
-                    "Déchiffrer le mot 12-15-21-22-18-5.\n"
-                    #"La phrase a reconstituer : Le musee ouvre en 1793.\n"
-                    #"Retrouvez l ordre des tableaux selon cette annee."
+                    "Derriere chaque tableau, un numero indique son ordre.\n"
+                    "La phrase a reconstituer : Le musee ouvre en 1793.\n"
+                    "Retrouvez l ordre des tableaux selon cette annee."
                 ),
-                'reponse': 'louvre',
+                'reponse': '1-7-9-3',
                 'resolu': False,
                 'digit_index': 1,
                 'digit_value': 9,
@@ -211,7 +262,7 @@ SALLES = {
         'bg': 2,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': '1234',
+        'code_porte': 'voleur',
         'porte_resolue': False,
         'enigmes': [
             {
@@ -223,7 +274,7 @@ SALLES = {
                     "Les lettres du mot sont melangees : VREOLU.\n"
                     "Quel est le mot correct ?"
                 ),
-                'reponse': 'voleur',
+                'reponse': 'louvre',
                 'resolu': False,
                 'digit_index': 2,
                 'digit_value': 5,
@@ -234,18 +285,19 @@ SALLES = {
         'bg': 3,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': '5678',
+        'code_porte': 'garde',
         'porte_resolue': False,
         'enigmes': [
             {
-                'id': 'architecte',
+                'id': 'traces_sol',
                 'x': 600, 'y': 200,
                 'largeur': 80, 'hauteur': 80,
-                'label': 'Architecte connu',
+                'label': 'Traces au sol',
                 'indice': (
-                    "En 1989, un architecte américain d'origine chinoise a transformé l'entrée du Louvre. Il a construit une pyramide transparente. Quel est son nom de famille ?"
+                    "Suivez les traces sur le sol jusqu a l objet cache.\n"
+                    "Combien de pas avez-vous faits pour le trouver ?"
                 ),
-                'reponse': 'pei',
+                'reponse': '12',
                 'resolu': False,
                 'digit_index': 3,
                 'digit_value': 2,
@@ -256,7 +308,7 @@ SALLES = {
         'bg': 4,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': '1234',
+        'code_porte': 'tresor',
         'porte_resolue': False,
         'enigmes': [
             {
@@ -279,18 +331,19 @@ SALLES = {
         'bg': 5,
         'depart': (100, 300),
         'porte': (1460, 180),
-        'code_porte': '5678',
+        'code_porte': 'paris',
         'porte_resolue': False,
         'enigmes': [
             {
-                'id': 'Statue',
+                'id': 'code_couleur',
                 'x': 800, 'y': 220,
                 'largeur': 80, 'hauteur': 100,
-                'label': 'Célèbre statue',
+                'label': 'Code couleur',
                 'indice': (
-                    "Combien de bras a la Victoire de Samothrace?\n"
+                    "Remettez les couleurs dans l ordre du drapeau francais :\n"
+                    "bleu, blanc, rouge"
                 ),
-                'reponse': '0',
+                'reponse': 'bleu-blanc-rouge',
                 'resolu': False,
                 'digit_index': 1,
                 'digit_value': 0,
@@ -349,6 +402,7 @@ def porte_proche(salle_actuelle, joueur_x, joueur_y):
 
 
 def run_game():
+    pygame.init()
     screen = pygame.display.set_mode([WIDTH, HEIGHT])
     pygame.display.set_caption("Louvre Escape!")
     clock = pygame.time.Clock()
@@ -409,7 +463,7 @@ def run_game():
         if salle_actuelle < NB_SALLES:
             salle_actuelle += 1
             joueur_x, joueur_y = SALLES[salle_actuelle]['depart']
-            play_sound(son_porte)
+            play_sound('porte')
         else:
             mode = "victoire"
 
@@ -423,7 +477,7 @@ def run_game():
             enigme_active['resolu'] = True
             message_retour = "Bonne reponse ! Enigme resolue."
             message_timer = 120
-            play_sound(son_succes)
+            play_sound('succes')
 
             net.send_puzzle_solved(
                 enigme_active['id'],
@@ -757,3 +811,629 @@ def run_game():
     pygame.quit()
     sys.exit()
 
+
+
+class GameSession:
+    def __init__(self, screen, manager=None, character=None, level_id=1,
+                 net_uri=None, player_name='Joueur'):
+        from src.data.levels import get_room, get_nb_rooms
+        self._get_room   = get_room
+        self._get_nb_rooms = get_nb_rooms
+        self.screen    = screen
+        self.manager   = manager
+        self.character = character
+        self.level_id  = level_id
+        self.W = WIDTH
+        self.H = HEIGHT
+        self.font       = pygame.font.Font(None, 34)
+        self.font_small = pygame.font.Font(None, 26)
+        self.font_large = pygame.font.Font(None, 60)
+        self.backgrounds = backgrounds
+        self.game_surf = pygame.Surface((WIDTH, HEIGHT))
+        self.nb_salles = self._get_nb_rooms(level_id)
+        self.salle_actuelle = 1
+        self._load_salle(1)
+        self.x_direction = 0
+        self.vel_y       = 0
+        self.on_ground   = True
+        self._load_character_sprite()
+        self.mode          = 'exploration'
+        self.enigme_active = None
+        self.saisie        = ''
+        self.message_retour      = ''
+        self.message_timer       = 0
+        self.saisie_porte        = ''
+        self.message_porte       = ''
+        self.message_porte_timer = 0
+        self.restart_message_timer = 0
+        self.restart_message     = ''
+        self._ghost_cache = {}
+        if net_uri:
+            sprite_path = character['sprite'] if character else ''
+            self.net = NetworkRuntime(net_uri, player_name, player_sprite=sprite_path)
+            self.net.start()
+        else:
+            self.net = _DummyRuntime()
+        self.lives = character['lives'] if character else 4
+        self.max_lives = self.lives
+        self.invincible_timer = 0
+        self.catch_msg_timer  = 0
+        self._player_dialog      = ''
+        self._player_dialog_timer = 0
+        self._next_player_dialog  = 300
+        self._player_dialogs = self._build_dialogs()
+        self.ai_manager = AIManager(self.level_id, 1)
+        self._reward_popup = None
+        self._music_state = None
+        audio.init()
+        self._update_music()
+
+    def _load_character_sprite(self):
+        ch = self.character
+        if ch:
+            try:
+                img = pygame.image.load(ch['sprite']).convert_alpha()
+                self._spr_idle  = pygame.transform.scale(img, (90, 135))
+                self._spr_right = self._spr_idle
+                self._spr_left  = pygame.transform.flip(self._spr_idle, True, False)
+                self.sprite_courant = self._spr_idle
+                return
+            except Exception:
+                pass
+        self._spr_idle  = sprite_idle
+        self._spr_right = sprite_right
+        self._spr_left  = sprite_left
+        self.sprite_courant = sprite_idle
+
+    def _load_salle(self, room_id):
+        room = self._get_room(self.level_id, room_id)
+        if room is None:
+            return
+        self.salle_data  = room
+        self.joueur_x    = room['depart'][0]
+        self.joueur_y    = FLOOR_Y
+        self.vel_y       = 0
+        self.on_ground   = True
+
+    def _build_dialogs(self):
+        ch_id = self.character.get('id', 'balanced') if self.character else 'balanced'
+        base = {
+            'smart':    ['Analysons ca.', 'Il y a une logique...', 'Interessant.', 'Anne reflechit.'],
+            'balanced': ['Prudence.', 'Restons calmes.', 'On avance.', 'Pas de panique.'],
+            'discreet': ['Chut !', 'Pas de bruit.', 'On reste dans l ombre.', 'Sophie veille.'],
+        }
+        return base.get(ch_id, base['balanced'])
+
+    def _vitesse(self):
+        if self.character:
+            return int(VITESSE_JOUEUR * self.character.get('speed_mult', 1.0))
+        return VITESSE_JOUEUR
+
+    def _stealth_mult(self):
+        if self.character:
+            return self.character.get('stealth_mult', 1.0)
+        return 1.0
+
+    def _update_music(self):
+        if self.lives <= 1:
+            state = audio.MUSIC_CRITICAL
+        elif self.invincible_timer > 0:
+            state = audio.MUSIC_TENSE
+        else:
+            state = audio.MUSIC_CALM
+        if state != self._music_state:
+            self._music_state = state
+            audio.play_music(state)
+
+    def reset(self):
+        self.salle_actuelle = 1
+        self._load_salle(1)
+        self.mode = 'exploration'
+        self.enigme_active = None
+        self.saisie = ''
+        self.message_retour = ''
+        self.message_timer = 0
+        self.saisie_porte = ''
+        self.message_porte = ''
+        self.message_porte_timer = 0
+        self.x_direction = 0
+        self.vel_y       = 0
+        self.on_ground   = True
+        self._load_character_sprite()
+        self.restart_message       = 'Un voleur a ete attrape !'
+        self.restart_message_timer = 180
+        self.lives = self.character['lives'] if self.character else 4
+        self.invincible_timer = 0
+        self.catch_msg_timer  = 0
+        self._reward_popup = None
+        self.ai_manager = AIManager(self.level_id, 1)
+
+    def passer_salle_suivante(self):
+        if self.salle_actuelle < self.nb_salles:
+            self.salle_actuelle += 1
+            self._load_salle(self.salle_actuelle)
+            self.ai_manager = AIManager(self.level_id, self.salle_actuelle)
+            play_sound('porte')
+        else:
+            from src.Cynthia.level_select import unlock_next_level
+            unlock_next_level(self.level_id)
+            self.mode = 'victoire'
+
+    def valider_reponse(self):
+        if self.enigme_active is None:
+            return
+        if self.saisie.strip().lower() == self.enigme_active['reponse'].lower():
+            self.enigme_active['resolu'] = True
+            self.message_retour = 'Bonne reponse ! Enigme resolue.'
+            self.message_timer  = 120
+            play_sound('succes')
+            audio.play_sfx('bijou')
+            bijou = self.enigme_active.get('bijou', 'Bijou mysterieux')
+            from src.Cynthia.reward_popup import RewardPopup
+            self._reward_popup = RewardPopup(bijou)
+            self.net.send_puzzle_solved(
+                self.enigme_active['id'],
+                self.enigme_active['digit_index'],
+                self.enigme_active['digit_value']
+            )
+        else:
+            self.message_retour = 'Mauvaise reponse... Reessaie.'
+            self.message_timer  = 90
+        self.saisie = ''
+
+    def _get_revealed_code_digits(self):
+        code    = self.salle_data.get('code_porte', '0000')
+        enigmes = self.salle_data['enigmes']
+        n       = len(enigmes)
+        revealed = ['_', '_', '_', '_']
+        for i, e in enumerate(enigmes):
+            if e.get('resolu'):
+                if n <= 2:
+                    p1, p2 = i * 2, i * 2 + 1
+                    if p1 < len(code): revealed[p1] = code[p1]
+                    if p2 < len(code): revealed[p2] = code[p2]
+                else:
+                    if i < len(code): revealed[i] = code[i]
+        return revealed
+
+    def valider_code_porte(self):
+        salle    = self.salle_data
+        code_ok  = salle.get('code_porte', '0000')
+        if self.saisie_porte.strip() == code_ok:
+            self.message_porte       = f'Code {code_ok} correct ! Porte ouverte !'
+            self.message_porte_timer = 120
+            salle['porte_resolue']   = True
+        else:
+            self.message_porte       = 'Code incorrect... Reessaie.'
+            self.message_porte_timer = 90
+        self.saisie_porte = ''
+
+    def lose_life(self):
+        if self.invincible_timer > 0:
+            return
+        self.lives -= 1
+        self.invincible_timer = 180
+        self.catch_msg_timer  = 120
+        audio.play_sfx('vie_perdue')
+        self.ai_manager.reset()
+        pid = self.net.client.player_id if self.net.client else None
+        if pid:
+            self.net.send_team_lose_life(pid)
+        if self.lives <= 0:
+            audio.play_music(audio.MUSIC_GAMEOVER)
+            if self.manager:
+                from src.Maroua.game_over import GameOver
+                self.manager.scene = GameOver(self.screen, self.manager)
+
+    def get_enigme_proche(self):
+        salle = self.salle_data
+        player_cx = self.joueur_x + 45
+        for enig in salle['enigmes']:
+            if not enig['resolu']:
+                enigme_cx = enig['x'] + enig['largeur'] // 2
+                if abs(player_cx - enigme_cx) <= 100:
+                    return enig
+        return None
+
+    def porte_proche(self):
+        salle = self.salle_data
+        px, py = salle['porte']
+        joueur_rect = pygame.Rect(self.joueur_x, self.joueur_y, 90, 135)
+        return joueur_rect.colliderect(pygame.Rect(px - 100, py - 80, 280, 500))
+
+    def handle_event(self, event):
+        if self._reward_popup and not self._reward_popup.is_done():
+            self._reward_popup.handle_event(event)
+            return
+        if self.mode == 'enigme':
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.mode = 'exploration'
+                    self.enigme_active = None
+                    self.saisie = ''
+                elif event.key == pygame.K_RETURN:
+                    self.valider_reponse()
+                elif event.key == pygame.K_BACKSPACE:
+                    self.saisie = self.saisie[:-1]
+                elif event.unicode and event.unicode.isprintable() and len(self.saisie) < 30:
+                    self.saisie += event.unicode
+        elif self.mode == 'porte':
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.mode = 'exploration'
+                    self.saisie_porte = ''
+                elif event.key == pygame.K_RETURN:
+                    self.valider_code_porte()
+                elif event.key == pygame.K_BACKSPACE:
+                    self.saisie_porte = self.saisie_porte[:-1]
+                elif event.unicode and event.unicode.isprintable() and len(self.saisie_porte) < 30:
+                    self.saisie_porte += event.unicode
+        elif self.mode == 'exploration':
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_e:
+                    enig = self.get_enigme_proche()
+                    if enig:
+                        self.enigme_active  = enig
+                        self.saisie         = ''
+                        self.message_retour = ''
+                        self.message_timer  = 0
+                        self.mode = 'enigme'
+                    elif self.porte_proche():
+                        salle = self.salle_data
+                        if all(e['resolu'] for e in salle['enigmes']):
+                            if salle['porte_resolue']:
+                                self.passer_salle_suivante()
+                            else:
+                                self.mode = 'porte'
+                                self.saisie_porte        = ''
+                                self.message_porte       = ''
+                                self.message_porte_timer = 0
+                elif event.key == pygame.K_RIGHT:
+                    self.x_direction = 1;  self.sprite_courant = self._spr_right
+                elif event.key == pygame.K_LEFT:
+                    self.x_direction = -1; self.sprite_courant = self._spr_left
+                elif event.key == pygame.K_SPACE:
+                    if self.on_ground:
+                        self.vel_y     = JUMP_VEL
+                        self.on_ground = False
+                elif event.key == pygame.K_c:
+                    self.net.send_player_caught('Attrape par le policier')
+            elif event.type == pygame.KEYUP:
+                if event.key in (pygame.K_RIGHT, pygame.K_LEFT):
+                    self.x_direction = 0;  self.sprite_courant = self._spr_idle
+        elif self.mode == 'victoire':
+            pass  # boutons gérés dans jeu.py
+
+    def update(self, dt=1/60):
+        if self._reward_popup and not self._reward_popup.is_done():
+            self._reward_popup.update()
+            return
+        if self.restart_message_timer > 0:
+            self.restart_message_timer -= 1
+        if self.invincible_timer > 0:
+            self.invincible_timer -= 1
+        if self.catch_msg_timer > 0:
+            self.catch_msg_timer -= 1
+        if self.net.client and self.net.client.last_event:
+            evt = self.net.client.last_event
+            if evt['type'] == 'level_restart':
+                self.reset()
+                self.net.client.last_event = None
+            elif evt['type'] == 'code_update':
+                for enig in self.salle_data['enigmes']:
+                    if enig['id'] == evt['puzzle_id']:
+                        enig['resolu'] = True
+                self.net.client.last_event = None
+            elif evt['type'] == 'team_lose_life':
+                self.lose_life()
+                self.net.client.last_event = None
+        if self.mode == 'enigme':
+            if self.message_timer > 0:
+                self.message_timer -= 1
+                if self.message_timer == 0 and self.enigme_active and self.enigme_active['resolu']:
+                    self.mode = 'exploration'
+                    self.enigme_active = None
+        elif self.mode == 'porte':
+            if self.message_porte_timer > 0:
+                self.message_porte_timer -= 1
+                if self.message_porte_timer == 0 and self.salle_data['porte_resolue']:
+                    self.passer_salle_suivante()
+                    self.mode = 'exploration'
+        elif self.mode == 'exploration':
+            self.joueur_x = max(0, min(self.W - 80, self.joueur_x + self._vitesse() * self.x_direction))
+            self.vel_y    += GRAVITY
+            self.joueur_y += self.vel_y
+            if self.joueur_y >= FLOOR_Y:
+                self.joueur_y  = FLOOR_Y
+                self.vel_y     = 0
+                self.on_ground = True
+            else:
+                self.on_ground = False
+            self.net.send_position(self.joueur_x, self.joueur_y, self.salle_actuelle)
+            if self.ai_manager:
+                cam_pos = pygame.Vector2(self.joueur_x + 45, self.joueur_y + 67)
+                cop_pos = pygame.Vector2(self.joueur_x + 45, self.joueur_y + 10)
+                caught, _, _ = self.ai_manager.update(cam_pos, dt, cop_pos)
+                if caught:
+                    self.lose_life()
+        if self._player_dialog_timer > 0:
+            self._player_dialog_timer -= 1
+        if self.mode == 'exploration' and self.invincible_timer == 0:
+            self._next_player_dialog -= 1
+            if self._next_player_dialog <= 0:
+                import random as _r
+                self._player_dialog       = _r.choice(self._player_dialogs)
+                self._player_dialog_timer = 90
+                self._next_player_dialog  = _r.randint(400, 700)
+        self._update_music()
+
+    def draw(self):
+        _real = self.screen
+        self.screen = self.game_surf
+        self.screen.blit(self.backgrounds[self.salle_data['bg']], (0, 0))
+        if self.mode == 'victoire':
+            self._draw_victoire()
+        else:
+            self._draw_door()
+            self._draw_objects()
+            self.ai_manager.draw(self.screen)
+            self._draw_player()
+            self._draw_other_players()
+            self._draw_interaction_hints()
+            self._draw_hud()
+            if self.mode == 'enigme':
+                self._draw_enigme_panel()
+            elif self.mode == 'porte':
+                self._draw_porte_panel()
+        self.screen = _real
+        sw, sh = self.screen.get_size()
+        game_ratio   = WIDTH / HEIGHT
+        screen_ratio = sw / sh
+        if screen_ratio > game_ratio:
+            scale_h = sh
+            scale_w = int(sh * game_ratio)
+        else:
+            scale_w = sw
+            scale_h = int(sw / game_ratio)
+        ox = (sw - scale_w) // 2
+        oy = (sh - scale_h) // 2
+        self.screen.fill((0, 0, 0))
+        self.screen.blit(pygame.transform.scale(self.game_surf, (scale_w, scale_h)), (ox, oy))
+        if self._reward_popup and not self._reward_popup.is_done():
+            self._reward_popup.draw(self.screen)
+
+    def _draw_hud(self):
+        # ── Bande HUD en haut ──────────────────────────────────────────
+        hud_h = 38
+        hud_bg = pygame.Surface((self.W, hud_h), pygame.SRCALPHA)
+        hud_bg.fill((10, 8, 6, 180))
+        self.screen.blit(hud_bg, (0, 0))
+
+        # Salle info (gauche)
+        txt = self.font_small.render(
+            f'Salle  {self.salle_actuelle} / {self.nb_salles}',
+            True, (210, 200, 160)
+        )
+        self.screen.blit(txt, (12, (hud_h - txt.get_height()) // 2))
+
+        # Code (droite)
+        digits  = self._get_revealed_code_digits()
+        box_w, box_h = 26, 26
+        gap     = 4
+        label   = self.font_small.render('CODE', True, GOLD)
+        lw      = label.get_width()
+        total_w = lw + 10 + 4 * box_w + 3 * gap
+        lx      = self.W - 14 - total_w
+        ly      = (hud_h - box_h) // 2
+        self.screen.blit(label, (lx, ly + (box_h - label.get_height()) // 2))
+        for i, d in enumerate(digits):
+            bx      = lx + lw + 10 + i * (box_w + gap)
+            by      = ly
+            revealed = d != '_'
+            pygame.draw.rect(self.screen,
+                             (42, 32, 10) if revealed else (18, 16, 10),
+                             (bx, by, box_w, box_h), border_radius=4)
+            pygame.draw.rect(self.screen,
+                             GOLD if revealed else (65, 52, 22),
+                             (bx, by, box_w, box_h), 2, border_radius=4)
+            if revealed:
+                ds = self.font_small.render(d, True, GOLD)
+                self.screen.blit(ds, ds.get_rect(center=(bx + box_w // 2, by + box_h // 2)))
+
+        # Vies (centre)
+        heart_gap = 34
+        hx = self.W // 2 - (4 * heart_gap) // 2 + heart_gap // 2
+        for i in range(4):
+            color = (220, 50, 50) if i < self.lives else (60, 18, 18)
+            _draw_heart(self.screen, color, hx + i * heart_gap, hud_h // 2, 11, filled=True)
+
+        # Message de capture (centré, sous le HUD)
+        if self.catch_msg_timer > 0:
+            alpha = min(255, self.catch_msg_timer * 4)
+            msg   = self.font.render('Didier vous a repere !  -1 vie', True, (255, 80, 80))
+            msg.set_alpha(alpha)
+            self.screen.blit(msg, msg.get_rect(center=(self.W // 2, 58)))
+
+    def _draw_objects(self):
+        salle = self.salle_data
+        player_cx = self.joueur_x + 45
+        t = pygame.time.get_ticks() / 1000.0
+        for enig in salle['enigmes']:
+            if enig['resolu']:
+                continue
+            enigme_cx = enig['x'] + enig['largeur'] // 2
+            dist = abs(player_cx - enigme_cx)
+            if dist <= 180:
+                pulse = 0.5 + 0.5 * math.sin(t * 2.5)
+                proximity = max(0.0, 1.0 - dist / 180.0)
+                alpha = int((18 + 32 * pulse) * proximity)
+                gw = enig['largeur'] + 44
+                gh = enig['hauteur'] + 44
+                glow = pygame.Surface((gw, gh), pygame.SRCALPHA)
+                glow.fill((220, 185, 60, max(0, min(255, alpha))))
+                self.screen.blit(glow, (enig['x'] - 22, enig['y'] - 22))
+
+    def _draw_door(self):
+        salle = self.salle_data
+        px, py = salle['porte']
+        player_cx = self.joueur_x + 45
+        porte_cx = px + 40
+        dist = abs(player_cx - porte_cx)
+        if dist > 200:
+            return
+        all_solved = all(e['resolu'] for e in salle['enigmes'])
+        t = pygame.time.get_ticks() / 1000.0
+        pulse = 0.4 + 0.6 * math.sin(t * 1.8)
+        proximity = max(0.0, 1.0 - dist / 200.0)
+        alpha = int(38 * pulse * proximity)
+        col = (40, 210, 60, max(0, alpha)) if all_solved else (200, 150, 30, max(0, alpha))
+        glow = pygame.Surface((88, 150), pygame.SRCALPHA)
+        glow.fill(col)
+        self.screen.blit(glow, (px - 3, py - 8))
+
+    def _draw_hint_bubble(self, text, color, cx, y):
+        surf = self.font_small.render(text, True, color)
+        bw, bh = surf.get_width() + 12, surf.get_height() + 8
+        bx, by = cx - bw // 2, y - bh - 4
+        bg = pygame.Surface((bw, bh), pygame.SRCALPHA)
+        bg.fill((10, 8, 6, 190))
+        pygame.draw.rect(bg, (*color, 180), (0, 0, bw, bh), 1, border_radius=5)
+        self.screen.blit(bg, (bx, by))
+        self.screen.blit(surf, (bx + 6, by + 4))
+
+    def _draw_interaction_hints(self):
+        if self._player_dialog_timer > 0:
+            return
+        salle     = self.salle_data
+        player_cx = self.joueur_x + 45
+        for enig in salle['enigmes']:
+            if not enig['resolu']:
+                enigme_cx = enig['x'] + enig['largeur'] // 2
+                if abs(player_cx - enigme_cx) <= 80:
+                    self._draw_hint_bubble(
+                        'E  —  Examiner', (255, 220, 80),
+                        player_cx, self.joueur_y)
+        px, py    = salle['porte']
+        porte_cx  = px + 40
+        if abs(player_cx - porte_cx) <= 110:
+            all_solved = all(e['resolu'] for e in salle['enigmes'])
+            if all_solved:
+                self._draw_hint_bubble(
+                    'E  —  Salle suivante', (80, 230, 100),
+                    player_cx, self.joueur_y)
+            else:
+                self._draw_hint_bubble(
+                    'Resous les enigmes', (220, 80, 80),
+                    player_cx, self.joueur_y)
+
+    def _draw_player(self):
+        self.screen.blit(self.sprite_courant, (self.joueur_x, self.joueur_y))
+        if self._player_dialog_timer > 0 and self._player_dialog:
+            font  = self.font_small
+            alpha = min(255, self._player_dialog_timer * 6)
+            txt   = font.render(self._player_dialog, True, (255, 255, 200))
+            bw, bh = txt.get_width() + 14, txt.get_height() + 10
+            bx = self.joueur_x + 40 - bw // 2
+            by = self.joueur_y - bh - 8
+            bubble = pygame.Surface((bw, bh), pygame.SRCALPHA)
+            bubble.fill((30, 28, 24, min(200, alpha)))
+            pygame.draw.rect(bubble, (196, 166, 114, alpha), (0, 0, bw, bh), 1, border_radius=7)
+            self.screen.blit(bubble, (bx, by))
+            txt.set_alpha(alpha)
+            self.screen.blit(txt, (bx + 7, by + 5))
+
+    def _get_ghost_sprite(self, sprite_path):
+        if sprite_path not in self._ghost_cache:
+            try:
+                img = pygame.image.load(sprite_path).convert_alpha()
+                self._ghost_cache[sprite_path] = pygame.transform.scale(img, (90, 135))
+            except Exception:
+                self._ghost_cache[sprite_path] = self._spr_idle
+        return self._ghost_cache[sprite_path]
+
+    def _draw_other_players(self):
+        if not self.net.client or not self.net.client.player_id:
+            return
+        for pid, pdata in self.net.client.players_state.items():
+            if pid == self.net.client.player_id:
+                continue
+            if int(pdata.get('room', 1)) != self.salle_actuelle:
+                continue
+            x   = int(pdata.get('x', 0))
+            y   = int(pdata.get('y', 0))
+            spr = self._get_ghost_sprite(pdata.get('sprite', ''))
+            ghost = spr.copy()
+            ghost.set_alpha(170)
+            self.screen.blit(ghost, (x, y))
+            pygame.draw.rect(self.screen, (80, 160, 255), (x, y, 90, 135), 2, border_radius=4)
+            lbl = self.font_small.render(pdata.get('name', '?'), True, (80, 160, 255))
+            self.screen.blit(lbl, lbl.get_rect(midbottom=(x + 45, y - 4)))
+
+    def _draw_enigme_panel(self):
+        W, H = self.W, self.H
+        overlay = pygame.Surface((W, H), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 210))
+        self.screen.blit(overlay, (0, 0))
+        panel = pygame.Rect(W // 2 - 380, H // 2 - 180, 760, 360)
+        pygame.draw.rect(self.screen, (30, 25, 45), panel, border_radius=14)
+        pygame.draw.rect(self.screen, (180, 150, 80), panel, 2, border_radius=14)
+        label = self.enigme_active['label']
+        titre = self.font.render(f'--- {label} ---', True, GOLD)
+        self.screen.blit(titre, titre.get_rect(midtop=(panel.centerx, panel.y + 18)))
+        draw_text_wrapped(
+            self.screen, self.enigme_active['indice'],
+            panel.x + 30, panel.y + 70, panel.w - 60,
+            color=(210, 210, 210), font_obj=self.font_small
+        )
+        if self.message_timer > 0:
+            col = GREEN if self.message_retour.startswith('Bonne') else RED
+            msg = self.font.render(self.message_retour, True, col)
+            self.screen.blit(msg, msg.get_rect(midtop=(panel.centerx, panel.y + 200)))
+        saisie_rect = pygame.Rect(panel.x + 30, panel.y + 240, panel.w - 60, 42)
+        pygame.draw.rect(self.screen, (50, 45, 65), saisie_rect, border_radius=8)
+        pygame.draw.rect(self.screen, GOLD, saisie_rect, 2, border_radius=8)
+        self.screen.blit(self.font.render(self.saisie + '|', True, WHITE),
+                         (saisie_rect.x + 10, saisie_rect.y + 8))
+        inst = self.font_small.render('Entree : valider   |   Echap : fermer', True, (140, 140, 140))
+        self.screen.blit(inst, inst.get_rect(midtop=(panel.centerx, panel.y + 300)))
+
+    def _draw_porte_panel(self):
+        W, H = self.W, self.H
+        overlay = pygame.Surface((W, H), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 210))
+        self.screen.blit(overlay, (0, 0))
+        panel = pygame.Rect(W // 2 - 380, H // 2 - 180, 760, 360)
+        pygame.draw.rect(self.screen, (30, 25, 45), panel, border_radius=14)
+        pygame.draw.rect(self.screen, (180, 150, 80), panel, 2, border_radius=14)
+        titre = self.font.render('--- PORTE DE SORTIE ---', True, GOLD)
+        self.screen.blit(titre, titre.get_rect(midtop=(panel.centerx, panel.y + 18)))
+        revealed   = self._get_revealed_code_digits()
+        code_hint  = 'Code collecte : ' + ' '.join(f'[{d}]' for d in revealed)
+        hint_surf  = self.font_small.render(code_hint, True, GOLD)
+        self.screen.blit(hint_surf, hint_surf.get_rect(midtop=(panel.centerx, panel.y + 68)))
+        indice = self.font_small.render('Entrez le code a 4 chiffres :', True, (210, 210, 210))
+        self.screen.blit(indice, (panel.x + 30, panel.y + 108))
+        if self.message_porte_timer > 0:
+            col = GREEN if self.message_porte.startswith('Bonne') else RED
+            msg = self.font.render(self.message_porte, True, col)
+            self.screen.blit(msg, msg.get_rect(midtop=(panel.centerx, panel.y + 200)))
+        saisie_rect = pygame.Rect(panel.x + 30, panel.y + 240, panel.w - 60, 42)
+        pygame.draw.rect(self.screen, (50, 45, 65), saisie_rect, border_radius=8)
+        pygame.draw.rect(self.screen, GOLD, saisie_rect, 2, border_radius=8)
+        self.screen.blit(self.font.render(self.saisie_porte + '|', True, WHITE),
+                         (saisie_rect.x + 10, saisie_rect.y + 8))
+        inst = self.font_small.render('Entree : valider   |   Echap : fermer', True, (140, 140, 140))
+        self.screen.blit(inst, inst.get_rect(midtop=(panel.centerx, panel.y + 300)))
+
+    def _draw_victoire(self):
+        overlay = pygame.Surface((self.W, self.H), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 175))
+        self.screen.blit(overlay, (0, 0))
+        titre = self.font_large.render('EVASION REUSSIE !', True, (255, 220, 50))
+        self.screen.blit(titre, titre.get_rect(center=(self.W // 2, self.H // 2 - 90)))
+        sub = self.font.render(
+            'Tu as resolu toutes les enigmes et quitte le Louvre !',
+            True, (220, 220, 220)
+        )
+        self.screen.blit(sub, sub.get_rect(center=(self.W // 2, self.H // 2 - 30)))
+        # Les boutons sont dessinés par jeu.py (coordonnées écran réelles)

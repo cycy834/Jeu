@@ -9,6 +9,7 @@ from src.Joaquim.network.protocol import (
     MOVE,
     PUZZLE_SOLVED,
     PLAYER_CAUGHT,
+    TEAM_LOSE_LIFE,
     REQUEST_STATE,
     WELCOME,
     STATE,
@@ -26,11 +27,12 @@ def serialize_state():
         "type": STATE,
         "players": {
     	    pid: {
-        	"name": p.name,
-        	"x": p.x,
-        	"y": p.y,
-        	"room": p.room,
-        	"caught": p.caught
+        	"name":   p.name,
+        	"x":      p.x,
+        	"y":      p.y,
+        	"room":   p.room,
+        	"caught": p.caught,
+        	"sprite": p.sprite,
     }
             for pid, p in game_state.players.items()
         },
@@ -95,7 +97,8 @@ async def fail_level(reason, caught_player_id=None):
 
 
 async def handle_join(player_id, data):
-    game_state.players[player_id].name = data.get("name", f"Player_{player_id}")
+    game_state.players[player_id].name   = data.get("name",   f"Player_{player_id}")
+    game_state.players[player_id].sprite = data.get("sprite", "")
 
 
 async def handle_move(player_id, data):
@@ -175,6 +178,9 @@ async def handler(websocket):
 
             elif msg_type == PLAYER_CAUGHT:
                 await handle_player_caught(player_id, data)
+
+            elif msg_type == TEAM_LOSE_LIFE:
+                await broadcast(data)
 
             elif msg_type == REQUEST_STATE:
                 await websocket.send(json.dumps(serialize_state()))

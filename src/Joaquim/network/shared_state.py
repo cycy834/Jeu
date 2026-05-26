@@ -9,6 +9,7 @@ class PlayerState:
     y: int = 100
     room: int = 1
     caught: bool = False
+    sprite: str = ''
 
 
 @dataclass

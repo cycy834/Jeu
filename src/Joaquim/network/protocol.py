@@ -2,6 +2,7 @@ JOIN = "join"
 MOVE = "move"
 PUZZLE_SOLVED = "puzzle_solved"
 PLAYER_CAUGHT = "player_caught"
+TEAM_LOSE_LIFE = "team_lose_life"
 REQUEST_STATE = "request_state"
 
 WELCOME = "welcome"
