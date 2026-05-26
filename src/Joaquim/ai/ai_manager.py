@@ -16,8 +16,6 @@ class AIManager:
         self.policier = []
         V = pygame.Vector2
 
-        # Raccourci : P(x, patrol_pts, speed, chase_mult, cone_r, cone_a,
-        #                prox_r, alert_t, memory_t, capture_t)
         def P(x, pts, sp, cm, cr, ca, pr, at, mt, ct):
             return Policier(x, 340, pts,
                             speed=sp, chase_mult=cm,
@@ -27,15 +25,7 @@ class AIManager:
                             chase_memory=mt,
                             capture_time=ct)
 
-        # penalty=0 : renvoi au départ, pas de vie perdue
-        # penalty=1 : vie perdue normalement
-        # Toutes les captures → perte de vie (penalty=1 partout)
-        # Caméras : detection_range >= 420 pour atteindre le corps du joueur (y~399)
-        # half_fov : 26-34° pour une détection fiable
         configs = {
-            # ================================================================
-            # NIVEAU 1
-            # ================================================================
             (1, 1): {
                 'penalty': 1,
                 'cameras': [Camera(500, 158, detection_range=390, alert_time=4.0,
@@ -74,7 +64,6 @@ class AIManager:
             },
 
             # ================================================================
-            # NIVEAU 2
             # ================================================================
             (2, 1): {
                 'penalty': 1,
@@ -115,7 +104,6 @@ class AIManager:
             },
 
             # ================================================================
-            # NIVEAU 3
             # ================================================================
             (3, 1): {
                 'penalty': 1,
@@ -158,7 +146,6 @@ class AIManager:
             },
 
             # ================================================================
-            # NIVEAU 4
             # ================================================================
             (4, 1): {
                 'penalty': 1,
@@ -202,7 +189,6 @@ class AIManager:
             },
 
             # ================================================================
-            # NIVEAU 5
             # ================================================================
             (5, 1): {
                 'penalty': 1,

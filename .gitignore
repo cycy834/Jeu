@@ -32,3 +32,6 @@ Thumbs.db
 build/
 dist/
 *.log
+
+# Sauvegarde locale (progression par joueur, ne pas partager)
+save.json

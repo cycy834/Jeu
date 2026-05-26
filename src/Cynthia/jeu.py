@@ -8,7 +8,7 @@ GREEN_OK = (0, 210, 80)
 RED_ERR  = (220, 60, 60)
 MAX_LEVEL = 5
 
-_LEAVE_FRAMES = 90   # ~1.5 s à 60 fps
+_LEAVE_FRAMES = 90
 
 
 class Jeu:
@@ -27,26 +27,21 @@ class Jeu:
         self._btn_menu  = pygame.Rect(0, 0, 210, 58)
 
         net_cfg = getattr(manager, 'net_config', None)
-        self._is_host    = bool(net_cfg and net_cfg.get('is_host'))
+        self._is_host     = bool(net_cfg and net_cfg.get('is_host'))
         self._server_addr = ''
         if self._is_host:
             from src.Joaquim.network.server_runner import get_local_ip, PORT
             self._server_addr = f'{get_local_ip()}:{PORT}'
 
-        # État de sortie progressive pour l'hôte
-        self._leaving       = False
-        self._leave_timer   = 0
-        self._pending_nav   = None   # 'menu' | 'next'
+        self._leaving     = False
+        self._leave_timer = 0
+        self._pending_nav = None
 
         self.session = GameSession(
             screen, manager, character=character, level_id=level_id,
             net_uri=net_cfg['uri']    if net_cfg else None,
             player_name=net_cfg['name'] if net_cfg else 'Joueur',
         )
-
-    # ------------------------------------------------------------------ #
-    #  Navigation                                                          #
-    # ------------------------------------------------------------------ #
 
     def _do_go_menu(self):
         if hasattr(self.manager, 'net_config'):
@@ -82,10 +77,6 @@ class Jeu:
         self._leave_timer = _LEAVE_FRAMES
         self._pending_nav = dest
 
-    # ------------------------------------------------------------------ #
-    #  Events / Update                                                     #
-    # ------------------------------------------------------------------ #
-
     def handle_event(self, event):
         if self._leaving:
             return
@@ -117,23 +108,17 @@ class Jeu:
             return
         self.session.update(dt)
 
-    # ------------------------------------------------------------------ #
-    #  Draw                                                                #
-    # ------------------------------------------------------------------ #
-
     def draw(self):
         self.session.draw()
         w, h = self.screen.get_size()
         cx   = w // 2
 
         if self._leaving:
-            # Écran "Serveur désactivé"
             progress = self._leave_timer / _LEAVE_FRAMES
             alpha    = int(200 * (1.0 - progress))
             overlay  = pygame.Surface((w, h), pygame.SRCALPHA)
             overlay.fill((0, 0, 0, alpha))
             self.screen.blit(overlay, (0, 0))
-
             txt_alpha = int(255 * min(1.0, (1.0 - progress) * 3))
             msg = self.font_big.render('Serveur désactivé', True, RED_ERR)
             msg.set_alpha(txt_alpha)
@@ -160,14 +145,12 @@ class Jeu:
                 t = self.font_btn.render(label, True, GOLD)
                 self.screen.blit(t, t.get_rect(center=btn.center))
         else:
-            # Bouton Retour
             pygame.draw.rect(self.screen, DARK_BTN, self.back_rect, border_radius=8)
             pygame.draw.rect(self.screen, GOLD, self.back_rect, 2, border_radius=8)
             self.screen.blit(
                 self.font.render('Retour', True, GOLD),
                 self.font.render('Retour', True, GOLD).get_rect(center=self.back_rect.center))
 
-        # ── Indicateur serveur (hôte uniquement) ──────────────────────────
         if self._is_host:
             ix, iy = 18, 120
             pygame.draw.circle(self.screen, GREEN_OK, (ix, iy), 6)

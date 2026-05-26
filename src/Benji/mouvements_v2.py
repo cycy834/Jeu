@@ -23,7 +23,6 @@ class _DummyClient:
 
 
 class _DummyRuntime:
-    """Remplace NetworkRuntime en mode solo — toutes les méthodes sont des no-ops."""
     client = _DummyClient()
     def send_position(self, *a):       pass
     def send_puzzle_solved(self, *a):  pass
@@ -1008,7 +1007,7 @@ class GameSession:
             self.message_porte_timer = 90
         self.saisie_porte = ''
 
-    def lose_life(self):
+    def lose_life(self, broadcast=True):
         if self.invincible_timer > 0:
             return
         self.lives -= 1
@@ -1016,9 +1015,10 @@ class GameSession:
         self.catch_msg_timer  = 120
         audio.play_sfx('vie_perdue')
         self.ai_manager.reset()
-        pid = self.net.client.player_id if self.net.client else None
-        if pid:
-            self.net.send_team_lose_life(pid)
+        if broadcast:
+            pid = self.net.client.player_id if self.net.client else None
+            if pid:
+                self.net.send_team_lose_life(pid)
         if self.lives <= 0:
             audio.play_music(audio.MUSIC_GAMEOVER)
             if self.manager:
@@ -1125,7 +1125,7 @@ class GameSession:
                         enig['resolu'] = True
                 self.net.client.last_event = None
             elif evt['type'] == 'team_lose_life':
-                self.lose_life()
+                self.lose_life(broadcast=False)
                 self.net.client.last_event = None
         if self.mode == 'enigme':
             if self.message_timer > 0:

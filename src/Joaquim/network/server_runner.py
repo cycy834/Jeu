@@ -18,13 +18,11 @@ def get_local_ip():
 
 
 def start():
-    """Lance le serveur WebSocket dans un thread daemon. Appelable plusieurs fois (idempotent)."""
     global _thread
 
     from src.Joaquim.network import server as srv
     from src.Joaquim.network.shared_state import GameState
 
-    # Toujours remettre l'état à zéro (nouvelle partie)
     srv.game_state = GameState()
     srv.connections = {}
 

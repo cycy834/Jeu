@@ -56,13 +56,6 @@ class _TextInput:
 
 
 class MultiLobby:
-    """
-    États :
-        'choice'  — Héberger / Rejoindre
-        'host'    — Affiche l'IP, saisie du nom, bouton Démarrer
-        'join'    — Saisie IP hôte + nom, bouton Rejoindre
-    """
-
     def __init__(self, screen, manager):
         self.screen  = screen
         self.manager = manager
@@ -88,8 +81,6 @@ class MultiLobby:
         self._rect_ip    = pygame.Rect(0, 0, 320, 42)
 
         self._status     = ''
-
-    # ------------------------------------------------------------------ #
 
     def _go_back(self):
         audio.play_sfx('hover')
@@ -127,8 +118,6 @@ class MultiLobby:
         audio.play_sfx('hover')
         from src.Cynthia.character_select import CharacterSelect
         self.manager.scene = CharacterSelect(self.screen, self.manager)
-
-    # ------------------------------------------------------------------ #
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -173,14 +162,11 @@ class MultiLobby:
     def update(self, dt=0):
         pass
 
-    # ------------------------------------------------------------------ #
-
     def draw(self):
         w, h = self.screen.get_size()
         cx   = w // 2
         self.screen.fill(DARK)
 
-        # ── Bouton Retour ─────────────────────────────────────────────────
         self._btn_back.topleft = (18, 18)
         pygame.draw.rect(self.screen, DARK_BTN, self._btn_back, border_radius=10)
         pygame.draw.rect(self.screen, GOLD,     self._btn_back, 2,  border_radius=10)
@@ -188,13 +174,11 @@ class MultiLobby:
             self.font_hint.render('< Retour', True, GOLD),
             self.font_hint.render('< Retour', True, GOLD).get_rect(center=self._btn_back.center))
 
-        # ── Titre ─────────────────────────────────────────────────────────
         title = self.font_title.render('Multijoueur', True, GOLD)
         self.screen.blit(title, title.get_rect(midtop=(cx, 20)))
         line_y = 20 + title.get_height() + 8
         pygame.draw.line(self.screen, (70, 60, 45), (cx - 140, line_y), (cx + 140, line_y), 1)
 
-        # ── Contenu selon l'état ──────────────────────────────────────────
         if self.state == 'choice':
             self._draw_choice(cx, h)
         elif self.state == 'host':
@@ -202,7 +186,6 @@ class MultiLobby:
         elif self.state == 'join':
             self._draw_join(cx, h)
 
-        # ── Message de statut ─────────────────────────────────────────────
         if self._status:
             st = self.font_body.render(self._status, True, (220, 80, 80))
             self.screen.blit(st, st.get_rect(midbottom=(cx, h - 14)))
@@ -236,23 +219,18 @@ class MultiLobby:
     def _draw_host(self, cx, h):
         cy = h // 2 - 60
 
-        # IP à partager
         ip_lbl = self.font_body.render('Partagez cette adresse :', True, GREY)
         self.screen.blit(ip_lbl, ip_lbl.get_rect(midtop=(cx, cy - 60)))
         ip_val = self.font_ip.render(f'{self._local_ip}:{PORT}', True, GOLD)
-        ip_rect = ip_val.get_rect(midtop=(cx, cy - 34))
-        self.screen.blit(ip_val, ip_rect)
-        # Séparateur
+        self.screen.blit(ip_val, ip_val.get_rect(midtop=(cx, cy - 34)))
         pygame.draw.line(self.screen, (70, 60, 45),
                          (cx - 160, cy - 4), (cx + 160, cy - 4), 1)
 
-        # Nom
         n_lbl = self.font_body.render('Votre nom :', True, GREY)
         self.screen.blit(n_lbl, n_lbl.get_rect(midtop=(cx, cy + 8)))
         self._rect_name.midtop = (cx, cy + 34)
         self._input_name.draw(self.screen, self._rect_name, self.font_body)
 
-        # Bouton
         self._btn_action.midtop = (cx, cy + 92)
         hov = self._btn_action.collidepoint(pygame.mouse.get_pos())
         pygame.draw.rect(self.screen, (60,50,38) if hov else DARK_BTN, self._btn_action, border_radius=12)
@@ -263,19 +241,16 @@ class MultiLobby:
     def _draw_join(self, cx, h):
         cy = h // 2 - 80
 
-        # Adresse
         a_lbl = self.font_body.render('Adresse du serveur :', True, GREY)
         self.screen.blit(a_lbl, a_lbl.get_rect(midtop=(cx, cy)))
         self._rect_ip.midtop = (cx, cy + 26)
         self._input_ip.draw(self.screen, self._rect_ip, self.font_body)
 
-        # Nom
         n_lbl = self.font_body.render('Votre nom :', True, GREY)
         self.screen.blit(n_lbl, n_lbl.get_rect(midtop=(cx, cy + 80)))
         self._rect_name.midtop = (cx, cy + 106)
         self._input_name.draw(self.screen, self._rect_name, self.font_body)
 
-        # Bouton
         self._btn_action.midtop = (cx, cy + 162)
         hov = self._btn_action.collidepoint(pygame.mouse.get_pos())
         pygame.draw.rect(self.screen, (60,50,38) if hov else DARK_BTN, self._btn_action, border_radius=12)
