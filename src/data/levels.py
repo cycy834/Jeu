@@ -10,28 +10,28 @@ LEVELS = {
                     {
                         'id': 'l1r1_hieroglyphes',
                         'x': 240, 'y': 206, 'largeur': 80, 'hauteur': 110,
-                        'label': 'Stele aux hieroglyphes',
+                        'label': 'Stèle aux hiéroglyphes',
                         'indice': (
-                            "Une stele couverte de symboles egyptiens.\n"
-                            "Le cartouche du bas designe la pierre qui permit\n"
-                            "de dechiffrer les hieroglyphes. Son nom ?"
+                            "Une stèle couverte de symboles égyptiens.\n"
+                            "Le cartouche du bas désigne la pierre qui permit\n"
+                            "de déchiffrer les hiéroglyphes. Son nom ?"
                         ),
                         'reponse': 'rosette',
                         'digit_index': 0, 'digit_value': 4,
-                        'bijou': 'Scarabee en or',
+                        'bijou': 'Scarabée en or',
                     },
                     {
-                        'id': 'l1r1_dieu',
+                        'id': 'l1r1_nil',
                         'x': 1190, 'y': 206, 'largeur': 90, 'hauteur': 130,
-                        'label': 'Statue de dieu',
+                        'label': 'Carte ancienne',
                         'indice': (
-                            "Cette statue a une tete de faucon.\n"
-                            "Il est le dieu du ciel et du soleil en Egypte.\n"
-                            "Son nom en 4 lettres ?"
+                            "Ce fleuve traversait l\'Egypte et permettait\n"
+                            "aux terres de rester fertiles.\n"
+                            "Son nom en 3 lettres ?"
                         ),
-                        'reponse': 'horus',
+                        'reponse': 'nil',
                         'digit_index': 1, 'digit_value': 7,
-                        'bijou': 'Oeil d\'Horus en lapis-lazuli',
+                        'bijou': 'Perle bleue du Nil',
                     },
                 ],
             },
@@ -41,30 +41,30 @@ LEVELS = {
                 'porte': (760, 158),
                 'enigmes': [
                     {
-                        'id': 'l1r2_sarcophage',
+                        'id': 'l1r2_cleopatre',
                         'x': 270, 'y': 150, 'largeur': 90, 'hauteur': 200,
-                        'label': 'Sarcophage royal',
+                        'label': 'Portrait royal',
                         'indice': (
-                            "Le sarcophage porte le nom d un pharaon celebre.\n"
-                            "Il construisit la grande pyramide de Gizeh.\n"
+                            "Cette reine égyptienne est célèbre pour.\n"
+                            "son histoire avec Jules César.\n"
                             "Son nom ?"
                         ),
-                        'reponse': 'kheops',
+                        'reponse': 'cleopatre',
                         'digit_index': 2, 'digit_value': 2,
-                        'bijou': 'Pectoral en or de Kheops',
+                        'bijou': 'Couronne d\'émeraudes',
                     },
                     {
-                        'id': 'l1r2_ankh',
+                        'id': 'l1r2_momie',
                         'x': 1150, 'y': 150, 'largeur': 90, 'hauteur': 200,
-                        'label': 'Symbole de vie',
+                        'label': 'Tombe ancienne',
                         'indice': (
-                            "Ce symbole egyptien signifie la vie eternelle.\n"
-                            "En forme de croix avec une boucle en haut.\n"
-                            "Comment s appelle-t-il ?"
+                            "Les Egyptiens enveloppaient les corps\n"
+                            "dans des bandes pour les conserver.\n"
+                            "Comment appelle-t-on cela ?"
                         ),
-                        'reponse': 'ankh',
+                        'reponse': 'momie',
                         'digit_index': 3, 'digit_value': 9,
-                        'bijou': 'Croix Ankh en or massif',
+                        'bijou': 'Bracelet du pharaon',
                     },
                 ],
             },
@@ -78,22 +78,22 @@ LEVELS = {
                         'x': 200, 'y': 163, 'largeur': 90, 'hauteur': 200,
                         'label': 'Rouleau de papyrus',
                         'indice': (
-                            "Ce rouleau contient le Livre des Morts egyptien.\n"
-                            "Il guidait les ames vers l au-dela.\n"
-                            "Combien de chapitres contient-il ? (entre 100 et 200)"
+                            "Les Egyptiens utilisaient cette plante.\n"
+                            "pour fabriquer un support d\'écriture.\n"
+                            "Son nom ?"
                         ),
-                        'reponse': '192',
+                        'reponse': 'papyrus',
                         'digit_index': 0, 'digit_value': 3,
-                        'bijou': 'Amulette de protection',
+                        'bijou': 'Rouleau doré',
                     },
                     {
                         'id': 'l1r3_sphinx',
                         'x': 1130, 'y': 163, 'largeur': 90, 'hauteur': 200,
                         'label': 'Sphinx miniature',
                         'indice': (
-                            "Creature mi-homme mi-lion gardienne des pyramides.\n"
-                            "Le plus celebre se trouve a Gizeh.\n"
-                            "Comment appelle-t-on cette creature ?"
+                            "Créature mi-homme mi-lion gardienne des pyramides.\n"
+                            "Le plus célèbre se trouve a Gizeh.\n"
+                            "Comment appelle-t-on cette créature ?"
                         ),
                         'reponse': 'sphinx',
                         'digit_index': 1, 'digit_value': 6,
@@ -107,25 +107,25 @@ LEVELS = {
                 'porte': (610, 132),
                 'enigmes': [
                     {
-                        'id': 'l1r4_ibis',
+                        'id': 'l1r4_chat',
                         'x': 370, 'y': 188, 'largeur': 90, 'hauteur': 120,
-                        'label': 'Statue d ibis',
+                        'label': 'Statue de chat',
                         'indice': (
-                            "Cet oiseau sacre represente le dieu de la sagesse.\n"
-                            "Il est aussi le dieu de l ecriture et de la magie.\n"
-                            "Son nom ?"
+                            "Cet animal était sacré en Egypte.\n"
+                            "Il était lié à la déesse astet.\n"
+                            "Quel est cet animal ?"
                         ),
-                        'reponse': 'thoth',
+                        'reponse': 'chat',
                         'digit_index': 2, 'digit_value': 5,
-                        'bijou': 'Plume de Maat en or',
+                        'bijou': 'Chat en or massif',
                     },
                     {
                         'id': 'l1r4_canope',
                         'x': 1050, 'y': 180, 'largeur': 100, 'hauteur': 130,
                         'label': 'Vase canope',
                         'indice': (
-                            "Ces vases conservaient les organes des defunts embaumes.\n"
-                            "Il y en avait toujours un nombre precis par momie.\n"
+                            "Ces vases conservaient les organes des défunts embaumes.\n"
+                            "Il y en avait toujours un nombre précis par momie.\n"
                             "Combien ?"
                         ),
                         'reponse': '4',
@@ -140,28 +140,29 @@ LEVELS = {
                 'porte': (1400, 146),
                 'enigmes': [
                     {
-                        'id': 'l1r5_isis',
+                        'id': 'l1r5_osiris',
                         'x': 210, 'y': 146, 'largeur': 110, 'hauteur': 200,
-                        'label': 'Sanctuaire d Isis',
+                        'label': 'Sanctuaire d\'Osiris',
                         'indice': (
-                            "Deesse de la magie et de la maternite en Egypte.\n"
-                            "Elle ressuscita son epoux Osiris.\n"
-                            "Comment s appelle-t-elle ?"
+                            "Ce dieu égyptien est associé au monde des morts.\n"
+                            "et son épouse est Isis.\n"
+                            "Comment s appelle-t-it ?"
                         ),
-                        'reponse': 'isis',
+                        'reponse': 'Osiris',
                         'digit_index': 0, 'digit_value': 8,
-                        'bijou': 'Collier pectoral d Isis',
+                        'bijou': 'Amulette d\'Osiris',
                     },
                     {
-                        'id': 'l1r5_pyramide',
+                        'id': 'l1r5_scarabee',
                         'x': 680, 'y': 155, 'largeur': 120, 'hauteur': 160,
-                        'label': 'Maquette pyramide',
+                        'label': 'Amulette gravée',
                         'indice': (
-                            "Combien y a-t-il de grandes pyramides a Gizeh ?"
+                            "Cet insecte était un symbole de renaissance.\n"
+                            "Son nom ?"
                         ),
-                        'reponse': '3',
+                        'reponse': 'scarabee',
                         'digit_index': 1, 'digit_value': 0,
-                        'bijou': 'Diamant de la pyramide',
+                        'bijou': 'Scarabée doré',
                     },
                 ],
             },
@@ -177,25 +178,25 @@ LEVELS = {
                 'porte': (1460, 180),
                 'enigmes': [
                     {
-                        'id': 'l2r1_venus',
+                        'id': 'l2r1_aphrodite',
                         'x': 700, 'y': 150, 'largeur': 60, 'hauteur': 130,
                         'label': 'Statue sans bras',
                         'indice': (
-                            "Cette statue de femme sans bras est l une\n"
-                            "des sculptures les plus celebres du Louvre.\n"
-                            "Elle represente la deesse grecque de l amour. Son nom ?"
+                            "Cette statue de femme sans bras est l\'une\n"
+                            "des sculptures les plus célèbres du Louvre.\n"
+                            "Elle représente la déesse grecque de l\'amour. Son nom ?"
                         ),
                         'reponse': 'aphrodite',
                         'digit_index': 0, 'digit_value': 5,
                         'bijou': 'Collier de perles d Aphrodite',
                     },
                     {
-                        'id': 'l2r1_zeus',
+                        'id': 'l2r1_poseidon',
                         'x': 1100, 'y': 170, 'largeur': 80, 'hauteur': 110,
-                        'label': 'Trident pose',
+                        'label': 'Trident',
                         'indice': (
                             "Ce trident appartient au dieu des mers.\n"
-                            "Frere de Zeus et d Hades.\n"
+                            "Frère de Zeus et d\'Hadès.\n"
                             "Son nom ?"
                         ),
                         'reponse': 'poseidon',
@@ -210,29 +211,30 @@ LEVELS = {
                 'porte': (1460, 180),
                 'enigmes': [
                     {
-                        'id': 'l2r2_amphore',
+                        'id': 'l2r2_troie',
                         'x': 500, 'y': 200, 'largeur': 70, 'hauteur': 110,
-                        'label': 'Amphore peinte',
+                        'label': 'Guerre célèbre',
                         'indice': (
-                            "Cette amphore represente des guerriers.\n"
-                            "La scene montre le fameux cheval de bois\n"
-                            "utilise pour entrer dans une cite. Laquelle ?"
+                            "Cette amphore représente des guerriers.\n"
+                            "La scène montre le fameux cheval de bois\n"
+                            "utilisé pour entrer dans une cité. Laquelle ?"
                         ),
                         'reponse': 'troie',
                         'digit_index': 2, 'digit_value': 7,
                         'bijou': 'Fibule en bronze de Troie',
                     },
                     {
-                        'id': 'l2r2_olympe',
+                        'id': 'l2r2_meduse',
                         'x': 1000, 'y': 190, 'largeur': 80, 'hauteur': 90,
-                        'label': 'Fresque de l Olympe',
+                        'label': 'Statue pétrifiée',
                         'indice': (
-                            "Combien de dieux principaux habitaient l Olympe\n"
-                            "dans la mythologie grecque ?"
+                            "Son regard dangereux pouvait pétrifier quiconque le croisait\n"
+                            "et ses cheveux bougeaient ?\n"
+                            "Son nom ?"
                         ),
-                        'reponse': '12',
+                        'reponse': 'meduse',
                         'digit_index': 3, 'digit_value': 2,
-                        'bijou': 'Medaillon des 12 Olympiens',
+                        'bijou': 'Serpent d\'or',
                     },
                 ],
             },
@@ -246,26 +248,25 @@ LEVELS = {
                         'x': 400, 'y': 210, 'largeur': 90, 'hauteur': 80,
                         'label': 'Plan du labyrinthe',
                         'indice': (
-                            "Ce plan represente le labyrinthe de Crete.\n"
-                            "Il enfermait une creature mi-homme mi-taureau.\n"
-                            "Comment s appelait ce monstre ?"
+                            "Ce plan représente le labyrinthe de Crète.\n"
+                            "Il enfermait une créature mi-homme mi-taureau.\n"
+                            "Comment s\'appelait ce monstre ?"
                         ),
                         'reponse': 'minotaure',
                         'digit_index': 0, 'digit_value': 6,
                         'bijou': 'Corne de taureau en or',
                     },
                     {
-                        'id': 'l2r3_nike',
+                        'id': 'l2r3_pegase',
                         'x': 1050, 'y': 160, 'largeur': 70, 'hauteur': 120,
-                        'label': 'Victoire ailee',
+                        'label': 'Cheval de marbre',
                         'indice': (
-                            "Cette celebre statue representant une victoire ailee\n"
-                            "vient de l ile de Samothrace.\n"
-                            "Elle represente quelle deesse ?"
+                            "Créature blanche légendaire capable de voler.\n"
+                            "Son nom ?"
                         ),
-                        'reponse': 'nike',
+                        'reponse': 'pegase',
                         'digit_index': 1, 'digit_value': 4,
-                        'bijou': 'Aile d\'or de Nike',
+                        'bijou': 'Plume d\'argent',
                     },
                 ],
             },
@@ -279,7 +280,7 @@ LEVELS = {
                         'x': 550, 'y': 200, 'largeur': 80, 'hauteur': 100,
                         'label': 'Buste philosophe',
                         'indice': (
-                            "Ce buste represente un grand philosophe grec.\n"
+                            "Ce buste représente un grand philosophe grec.\n"
                             "Il disait « Je sais que je ne sais rien ».\n"
                             "Son nom ?"
                         ),
@@ -288,15 +289,15 @@ LEVELS = {
                         'bijou': 'Bague de sagesse en or',
                     },
                     {
-                        'id': 'l2r4_acropole',
+                        'id': 'l2r4_cyclope',
                         'x': 1100, 'y': 180, 'largeur': 90, 'hauteur': 80,
-                        'label': 'Maquette d Acropole',
+                        'label': 'Créature mythologique',
                         'indice': (
-                            "Ce temple au sommet de l Acropole est dedié\n"
-                            "a la deesse de la sagesse.\n"
-                            "Comment s appelle ce temple ?"
+                            "Cette créature possède une particularité :\n"
+                            "elle n'a qu'un seul oeil.\n"
+                            "Son nom ?"
                         ),
-                        'reponse': 'parthenon',
+                        'reponse': 'cyclope',
                         'digit_index': 3, 'digit_value': 1,
                         'bijou': 'Drachme antique en argent',
                     },
@@ -312,9 +313,9 @@ LEVELS = {
                         'x': 400, 'y': 190, 'largeur': 80, 'hauteur': 110,
                         'label': 'Carte d Ulysse',
                         'indice': (
-                            "Cette carte represente le voyage du heros.\n"
-                            "Il mit 10 ans pour rentrer chez lui apres\n"
-                            "la guerre de Troie. Comment s appelait-il ?"
+                            "Cette carte représente le voyage d\'un héros.\n"
+                            "Il mit 10 ans pour rentrer chez lui après\n"
+                            "la guerre de Troie. Comment s\'appelait-il ?"
                         ),
                         'reponse': 'ulysse',
                         'digit_index': 0, 'digit_value': 8,
@@ -323,9 +324,9 @@ LEVELS = {
                     {
                         'id': 'l2r5_hermes',
                         'x': 1050, 'y': 170, 'largeur': 70, 'hauteur': 120,
-                        'label': 'Sandales ailees',
+                        'label': 'Sandales ailées',
                         'indice': (
-                            "Ces sandales ailees appartiennent au messager\n"
+                            "Ces sandales ailées appartiennent au messager\n"
                             "des dieux et dieu du commerce.\n"
                             "Son nom ?"
                         ),
@@ -351,9 +352,9 @@ LEVELS = {
                         'x': 400, 'y': 200, 'largeur': 80, 'hauteur': 100,
                         'label': 'Tableau au sourire',
                         'indice': (
-                            "Un tableau celebre represente une femme\n"
-                            "avec un sourire mysterieux.\n"
-                            "Quel est son prenom en 4 lettres ?"
+                            "Un tableau célèbre représente une femme\n"
+                            "avec un sourire mystérieux.\n"
+                            "Quel est son prénom en 4 lettres ?"
                         ),
                         'reponse': 'mona',
                         'digit_index': 0, 'digit_value': 4,
@@ -365,12 +366,12 @@ LEVELS = {
                         'label': 'Carnet de croquis',
                         'indice': (
                             "Ce carnet appartient au peintre de la Joconde.\n"
-                            "Il etait aussi sculpteur, ingenieur et inventeur.\n"
-                            "Son prenom ?"
+                            "Il était aussi sculpteur, ingénieur et inventeur.\n"
+                            "Son prénom ?"
                         ),
                         'reponse': 'leonard',
                         'digit_index': 1, 'digit_value': 7,
-                        'bijou': 'Loupe de Leonard en cristal',
+                        'bijou': 'Loupe de Léonard en cristal',
                     },
                 ],
             },
@@ -380,30 +381,29 @@ LEVELS = {
                 'porte': (1460, 180),
                 'enigmes': [
                     {
-                        'id': 'l3r2_raphael',
+                        'id': 'l3r2_sixtine',
                         'x': 550, 'y': 170, 'largeur': 80, 'hauteur': 110,
-                        'label': 'Grande peinture',
+                        'label': 'Plafond peint',
                         'indice': (
-                            "Ce peintre de la Renaissance a represente\n"
-                            "de nombreuses Vierges a l Enfant.\n"
-                            "Son prenom ?"
-                        ),
-                        'reponse': 'raphael',
-                        'digit_index': 2, 'digit_value': 2,
-                        'bijou': 'Medaillon de la Vierge en or',
-                    },
-                    {
-                        'id': 'l3r2_coupole',
-                        'x': 1100, 'y': 190, 'largeur': 70, 'hauteur': 90,
-                        'label': 'Plan de cathedrale',
-                        'indice': (
-                            "Cet architecte a concu la coupole du Dome\n"
-                            "de Florence. Il a invente la perspective lineaire.\n"
+                            "Cette célèbre chapelle est connue\n"
+                            "pour son immense plafond peint.\n"
                             "Son nom ?"
                         ),
-                        'reponse': 'brunelleschi',
+                        'reponse': 'sixtine',
+                        'digit_index': 2, 'digit_value': 2,
+                        'bijou': 'Fragment de fresque',
+                    },
+                    {
+                        'id': 'l3r2_italie',
+                        'x': 1100, 'y': 190, 'largeur': 70, 'hauteur': 90,
+                        'label': 'Globe ancien',
+                        'indice': (
+                            "Pays où est née la Renaissance.\n"
+                            "Son nom ?"
+                        ),
+                        'reponse': 'italie',
                         'digit_index': 3, 'digit_value': 9,
-                        'bijou': 'Pierre de Florence en marbre rose',
+                        'bijou': 'Saphir italien',
                     },
                 ],
             },
@@ -413,30 +413,29 @@ LEVELS = {
                 'porte': (1460, 180),
                 'enigmes': [
                     {
-                        'id': 'l3r3_botticelli',
+                        'id': 'l3r3_venus',
                         'x': 450, 'y': 190, 'largeur': 90, 'hauteur': 100,
-                        'label': 'Naissance d une deesse',
+                        'label': 'Naissance d\'une déesse',
                         'indice': (
-                            "Ce tableau montre une deesse emergent de la mer\n"
+                            "Ce tableau montre une déesse émergent de la mer\n"
                             "sur une coquille. Son auteur est Botticelli.\n"
-                            "Quelle deesse est representee ?"
+                            "Quelle déesse est représentée ?"
                         ),
                         'reponse': 'venus',
                         'digit_index': 0, 'digit_value': 6,
-                        'bijou': 'Coquille en nacre de Venus',
+                        'bijou': 'Coquille en nacre de Vénus',
                     },
                     {
-                        'id': 'l3r3_mecene',
+                        'id': 'l3r3_portrait',
                         'x': 1000, 'y': 200, 'largeur': 80, 'hauteur': 90,
-                        'label': 'Blason de famille',
+                        'label': 'Toile mystérieuse',
                         'indice': (
-                            "Cette famille florentine financa de nombreux\n"
-                            "artistes de la Renaissance, dont Leonard.\n"
-                            "Son nom ?"
+                            "Nom donné à une oeuvre représentant une personne.\n"
+                            "Ce mot ?"
                         ),
-                        'reponse': 'medicis',
+                        'reponse': 'portrait',
                         'digit_index': 1, 'digit_value': 3,
-                        'bijou': 'Emeraude des Medicis',
+                        'bijou': 'Cadre de cristal',
                     },
                 ],
             },
@@ -450,26 +449,26 @@ LEVELS = {
                         'x': 600, 'y': 160, 'largeur': 70, 'hauteur': 120,
                         'label': 'Esquisse de statue',
                         'indice': (
-                            "Cet artiste a sculpte le David et peint\n"
+                            "Cet artiste a sculpté le David et peint\n"
                             "la chapelle Sixtine.\n"
-                            "Son prenom ?"
+                            "Son prénom ?"
                         ),
                         'reponse': 'michel-ange',
                         'digit_index': 2, 'digit_value': 5,
-                        'bijou': 'Bloc de marbre de Carrare',
+                        'bijou': 'Fresque de Michel-Ange',
                     },
                     {
-                        'id': 'l3r4_fresque',
+                        'id': 'l3r4_pise',
                         'x': 1100, 'y': 180, 'largeur': 80, 'hauteur': 100,
-                        'label': 'Fragment de fresque',
+                        'label': 'Maquette célèbre',
                         'indice': (
-                            "Cette fresque ornait un plafond de palais.\n"
-                            "La technique consiste a peindre sur du platre frais.\n"
-                            "Comment appelle-t-on cette technique ?"
+                            "Cette ville italienne est connue pour\n"
+                            "une tour qui penche.\n"
+                            "Comment appelle-t-on cette tour ?"
                         ),
-                        'reponse': 'fresque',
+                        'reponse': 'pise',
                         'digit_index': 3, 'digit_value': 1,
-                        'bijou': 'Pigment de lapis-lazuli Renaissance',
+                        'bijou': 'Tour miniature',
                     },
                 ],
             },
@@ -479,30 +478,29 @@ LEVELS = {
                 'porte': (1460, 180),
                 'enigmes': [
                     {
-                        'id': 'l3r5_titian',
+                        'id': 'l3r5_colomb',
                         'x': 400, 'y': 180, 'largeur': 80, 'hauteur': 110,
-                        'label': 'Portrait royal',
+                        'label': 'Carte maritime',
                         'indice': (
-                            "Ce peintre venitien etait celebre pour\n"
-                            "ses portraits et ses couleurs chaudes.\n"
+                            "Cet explorateur traversa  l\'Atlantique\n"
+                            "et atteignit l\'Amérique en 1492.\n"
                             "Son nom ?"
                         ),
-                        'reponse': 'titien',
+                        'reponse': 'colomb',
                         'digit_index': 0, 'digit_value': 8,
-                        'bijou': 'Rubis de Venise',
+                        'bijou': 'Boussole dorée',
                     },
                     {
-                        'id': 'l3r5_sfumato',
+                        'id': 'l3r5_vatican',
                         'x': 1000, 'y': 190, 'largeur': 90, 'hauteur': 90,
-                        'label': 'Detail de tableau',
+                        'label': 'Muraille miniature',
                         'indice': (
-                            "Leonard de Vinci inventa cette technique\n"
-                            "qui estompe les contours dans un voile de fumee.\n"
-                            "Comment s appelle cette technique ?"
+                            "Ce minuscule Etat se trouve au coeur de Rome.\n"
+                            "Son nom ?"
                         ),
-                        'reponse': 'sfumato',
+                        'reponse': 'vatican',
                         'digit_index': 1, 'digit_value': 0,
-                        'bijou': 'Diamant taille en sfumato',
+                        'bijou': 'Emeraude florentine',
                     },
                 ],
             },
@@ -520,12 +518,12 @@ LEVELS = {
                     {
                         'id': 'l4r1_louvre_annee',
                         'x': 500, 'y': 200, 'largeur': 80, 'hauteur': 90,
-                        'label': 'Plaque commemorative',
+                        'label': 'Plaque commémorative',
                         'indice': (
                             "Une plaque sur le mur indique :\n"
-                            "« Je suis ne en cette annee, je suis le plus\n"
-                            "grand musee de France. »\n"
-                            "Quelle est cette annee ?"
+                            "« Je suis né en cette annee, je suis le plus\n"
+                            "grand musée de France. »\n"
+                            "Quelle est cette année ?"
                         ),
                         'reponse': '1793',
                         'digit_index': 0, 'digit_value': 4,
@@ -534,15 +532,15 @@ LEVELS = {
                     {
                         'id': 'l4r1_napoleon',
                         'x': 1050, 'y': 170, 'largeur': 80, 'hauteur': 110,
-                        'label': 'Portrait imperial',
+                        'label': 'Portrait impérial',
                         'indice': (
-                            "Cet empereur a grandement enrichi\n"
-                            "les collections du Louvre.\n"
-                            "Son prenom ?"
+                            "Cet empereur se fit sacrer en 1804 et a grandement\n"
+                            "enrichi les collections du Louvre.\n"
+                            "Son prénom ?"
                         ),
                         'reponse': 'napoleon',
                         'digit_index': 1, 'digit_value': 7,
-                        'bijou': 'Medaille imperiale en bronze',
+                        'bijou': 'Medaille impériale en bronze',
                     },
                 ],
             },
@@ -556,8 +554,8 @@ LEVELS = {
                         'x': 450, 'y': 190, 'largeur': 90, 'hauteur': 80,
                         'label': 'Drapeau tricolore',
                         'indice': (
-                            "Remettez les couleurs dans l ordre\n"
-                            "du drapeau francais (separees par des tirets) :"
+                            "Remettez les couleurs dans l\'ordre\n"
+                            "du drapeau français (séparées par des tirets) :"
                         ),
                         'reponse': 'bleu-blanc-rouge',
                         'digit_index': 2, 'digit_value': 2,
@@ -566,9 +564,9 @@ LEVELS = {
                     {
                         'id': 'l4r2_versailles',
                         'x': 1000, 'y': 200, 'largeur': 80, 'hauteur': 100,
-                        'label': 'Maquette de chateau',
+                        'label': 'Maquette de château',
                         'indice': (
-                            "Ce chateau fut la residence principale\n"
+                            "Ce château fut la résidence principale\n"
                             "de Louis XIV, le Roi Soleil.\n"
                             "Son nom ?"
                         ),
@@ -584,30 +582,30 @@ LEVELS = {
                 'porte': (1460, 180),
                 'enigmes': [
                     {
-                        'id': 'l4r3_couronne',
+                        'id': 'l4r3_bastille',
                         'x': 550, 'y': 170, 'largeur': 80, 'hauteur': 100,
-                        'label': 'Vitrine de la couronne',
+                        'label': 'Forteresse impériale',
                         'indice': (
-                            "Ce joyau est place au sommet de la couronne royale.\n"
-                            "Il symbolise la puissance divine du roi.\n"
-                            "Comment s appelle la plus grande pierre de la couronne ?"
+                            "Cette prison parisienne fut prise au\n"
+                            "début de la Révolution française.\n"
+                            "Son nom ?"
                         ),
-                        'reponse': 'regent',
+                        'reponse': 'bastille',
                         'digit_index': 0, 'digit_value': 6,
                         'bijou': 'Le diamant Regent (replique)',
                     },
                     {
-                        'id': 'l4r3_sceptre',
+                        'id': 'l4r3_lys',
                         'x': 1100, 'y': 180, 'largeur': 60, 'hauteur': 120,
-                        'label': 'Sceptre royal',
+                        'label': 'Bannière royale',
                         'indice': (
-                            "Ce sceptre royal etait utilise lors des\n"
-                            "sacres des rois de France.\n"
-                            "Combien de fleurs de lys orne-t-il ? (reponse : 3)"
+                            "Ce symbole était associé à la monarchie\n"
+                            "française et est aussi une fleur.\n"
+                            "Son nom ?"
                         ),
-                        'reponse': '3',
+                        'reponse': 'lys',
                         'digit_index': 1, 'digit_value': 3,
-                        'bijou': 'Sceptre miniature en or',
+                        'bijou': 'Fleur royale en or',
                     },
                 ],
             },
@@ -619,25 +617,26 @@ LEVELS = {
                     {
                         'id': 'l4r4_jeanne',
                         'x': 400, 'y': 190, 'largeur': 80, 'hauteur': 110,
-                        'label': 'Armure medievale',
+                        'label': 'Armure médiévale',
                         'indice': (
-                            "Cette jeune femme portait armure et delivra\n"
-                            "Orleans en 1429 avant d etre brulee.\n"
-                            "Son prenom ?"
+                            "Cette jeune femme portait une armure et délivra\n"
+                            "Orleans en 1429 avant d\'être brulée.\n"
+                            "Son prénom ?"
                         ),
                         'reponse': 'jeanne',
                         'digit_index': 2, 'digit_value': 5,
-                        'bijou': 'Etendard de Jeanne en soie brodee d\'or',
+                        'bijou': 'Etendard de Jeanne en soie brodée d\'or',
                     },
                     {
-                        'id': 'l4r4_lutetia',
+                        'id': 'l4r4_tuileries',
                         'x': 1000, 'y': 200, 'largeur': 80, 'hauteur': 90,
-                        'label': 'Carte ancienne',
+                        'label': 'Palais disparu',
                         'indice': (
-                            "Cette carte montre l ancien nom romain de Paris.\n"
-                            "Comment s appelait Paris a l epoque romaine ?"
+                            "Cet ancien palais parisien se trouvait près du Louvre.\n"
+                            "C'est aussi aujourdh\'hui le nom d'un parc parisien célèbre.\n"
+                            "Quel est son nom ?"
                         ),
-                        'reponse': 'lutetia',
+                        'reponse': 'tuileries',
                         'digit_index': 3, 'digit_value': 1,
                         'bijou': 'Monnaie gauloise en electrum',
                     },
@@ -651,14 +650,14 @@ LEVELS = {
                     {
                         'id': 'l4r5_louvre_lettres',
                         'x': 500, 'y': 190, 'largeur': 80, 'hauteur': 100,
-                        'label': 'Panneau de securite',
+                        'label': 'Panneau de sécurite',
                         'indice': (
-                            "Code de securite :\n"
+                            "Code de sécurite :\n"
                             "Combien de lettres dans le mot LOUVRE ?"
                         ),
                         'reponse': '6',
                         'digit_index': 0, 'digit_value': 8,
-                        'bijou': 'Emeraude imperiale de Napoleon',
+                        'bijou': 'Collier en diamands',
                     },
                     {
                         'id': 'l4r5_pyramide_louvre',
@@ -667,7 +666,7 @@ LEVELS = {
                         'indice': (
                             "Cette pyramide en verre se trouve dans\n"
                             "la cour du Louvre depuis 1989.\n"
-                            "En quelle matiere est-elle construite ?"
+                            "En quelle matière est-elle construite ?"
                         ),
                         'reponse': 'verre',
                         'digit_index': 1, 'digit_value': 0,
@@ -689,27 +688,25 @@ LEVELS = {
                     {
                         'id': 'l5r1_couloir',
                         'x': 400, 'y': 200, 'largeur': 80, 'hauteur': 90,
-                        'label': 'Tableau numerote',
+                        'label': 'Portrait lumineux',
                         'indice': (
-                            "Derriere ce tableau se cache un code.\n"
-                            "L annee de fondation du Louvre en ordre inverse ?\n"
-                            "(ex : 1793 a l envers)"
+                            "Quel numéro portait le Roi Soleil ?\n"
                         ),
-                        'reponse': '3971',
+                        'reponse': '14',
                         'digit_index': 0, 'digit_value': 4,
-                        'bijou': 'Cle secrete en titane',
+                        'bijou': 'Sceptre solaire',
                     },
                     {
-                        'id': 'l5r1_gardien',
+                        'id': 'l5r1_arc',
                         'x': 1000, 'y': 180, 'largeur': 80, 'hauteur': 100,
-                        'label': 'Uniforme de gardien',
+                        'label': 'Monument parisien',
                         'indice': (
-                            "Combien de tableaux le Louvre possede-t-il\n"
-                            "approximativement ? (reponse attendue : 35000)"
+                            "Completez le monument parisien suivant :\n"
+                            "Arc de ____"
                         ),
-                        'reponse': '35000',
+                        'reponse': 'triomphe',
                         'digit_index': 1, 'digit_value': 7,
-                        'bijou': 'Badge du gardien en or',
+                        'bijou': 'Arche en or',
                     },
                 ],
             },
@@ -723,10 +720,10 @@ LEVELS = {
                         'x': 500, 'y': 190, 'largeur': 80, 'hauteur': 100,
                         'label': 'Dossier secret',
                         'indice': (
-                            "Le mot est anagramme : VREOLU.\n"
-                            "Remettez les lettres dans l ordre."
+                            "Le mot est un anagramme : VREOLU.\n"
+                            "Remettez les lettres dans l\'ordre."
                         ),
-                        'reponse': 'louvre',
+                        'reponse': 'voleur',
                         'digit_index': 2, 'digit_value': 2,
                         'bijou': 'Cachet secret du Louvre',
                     },
@@ -736,12 +733,12 @@ LEVELS = {
                         'label': 'Coffre-fort',
                         'indice': (
                             "Le code du coffre est la somme\n"
-                            "des chiffres de l annee de fondation du Louvre.\n"
-                            "1+7+9+3 = ?"
+                            "des chiffres de l\'année de fondation du Louvre.\n"
+                            "1+7+9+3 = ____ ?"
                         ),
                         'reponse': '20',
                         'digit_index': 3, 'digit_value': 9,
-                        'bijou': 'Lingot d\'or du tresor',
+                        'bijou': 'Lingot d\'or du trésor',
                     },
                 ],
             },
@@ -751,29 +748,27 @@ LEVELS = {
                 'porte': (1460, 180),
                 'enigmes': [
                     {
-                        'id': 'l5r3_laser',
+                        'id': 'l5r3_hymne',
                         'x': 450, 'y': 200, 'largeur': 80, 'hauteur': 90,
-                        'label': 'Panneau de controle',
+                        'label': 'Partition ancienne',
                         'indice': (
-                            "Pour desactiver les lasers, entrez\n"
-                            "le nombre de salles du musee du Louvre.\n"
-                            "Il y en a environ 403."
+                            "Quel est le nom de l\'hymne national français ?"
                         ),
-                        'reponse': '403',
+                        'reponse': 'marseillaise',
                         'digit_index': 0, 'digit_value': 6,
-                        'bijou': 'Carte electronique du systeme',
+                        'bijou': 'Partition royale',
                     },
                     {
                         'id': 'l5r3_equation',
                         'x': 1050, 'y': 180, 'largeur': 70, 'hauteur': 100,
-                        'label': 'Tableau d equations',
+                        'label': 'Tableau d\'équations',
                         'indice': (
-                            "Resolvez : 4x + 12 = 0\n"
+                            "Résolvez : 4x + 12 = 0\n"
                             "Que vaut x ?"
                         ),
                         'reponse': '-3',
                         'digit_index': 1, 'digit_value': 3,
-                        'bijou': 'Cube en diamant mathematique',
+                        'bijou': 'Cube en diamant mathématique',
                     },
                 ],
             },
@@ -783,30 +778,29 @@ LEVELS = {
                 'porte': (1460, 180),
                 'enigmes': [
                     {
-                        'id': 'l5r4_victoire_sam',
+                        'id': 'l5r4_monnaie',
                         'x': 550, 'y': 160, 'largeur': 70, 'hauteur': 130,
-                        'label': 'Socle vide',
+                        'label': 'Pièce royale',
                         'indice': (
-                            "Cette statue ailee sans tete ni bras vient\n"
-                            "d une ile grecque. Elle est au Louvre depuis 1884.\n"
-                            "De quelle ile vient-elle ?"
+                            "Avant l\'euro, quelle monnaie était\n"
+                            "utilisée en France ?\n"
                         ),
-                        'reponse': 'samothrace',
+                        'reponse': 'franc',
                         'digit_index': 2, 'digit_value': 5,
-                        'bijou': 'Fragment d\'aile en marbre blanc',
+                        'bijou': 'Pièce du royaume',
                     },
                     {
-                        'id': 'l5r4_hamourabi',
+                        'id': 'l5r4_concorde',
                         'x': 1100, 'y': 170, 'largeur': 60, 'hauteur': 120,
-                        'label': 'Stele de lois',
+                        'label': 'Place royale',
                         'indice': (
-                            "Cette stele contient le plus ancien\n"
-                            "code de lois connu de l humanite.\n"
-                            "Le nom du roi qui l a commande ?"
+                            "Cette grande place parisienne acueille\n"
+                            "l'obélisque égyptien.\n"
+                            "Son nom ?"
                         ),
-                        'reponse': 'hammourabi',
+                        'reponse': 'concorde',
                         'digit_index': 3, 'digit_value': 1,
-                        'bijou': 'Tablette d\'argile en or',
+                        'bijou': 'Clé de la Concorde',
                     },
                 ],
             },
@@ -816,29 +810,27 @@ LEVELS = {
                 'porte': (1460, 180),
                 'enigmes': [
                     {
-                        'id': 'l5r5_final_mona',
+                        'id': 'l5r5_tour',
                         'x': 600, 'y': 150, 'largeur': 80, 'hauteur': 130,
-                        'label': 'LA Joconde',
+                        'label': 'Maquette métallique',
                         'indice': (
-                            "Face au tableau le plus visite du monde.\n"
-                            "Le peintre est Leonardo da Vinci.\n"
-                            "En quelle annee a-t-il peint la Joconde ?"
-                            "\n(entre 1503 et 1519, reponse : 1503)"
+                            "Monument parisien construit pour\n"
+                            "l\'Exposition universelle de 1889.\n"
+                            "La Tour ____ ?"
                         ),
-                        'reponse': '1503',
+                        'reponse': 'eiffel',
                         'digit_index': 0, 'digit_value': 8,
                         'bijou': 'LE GRAND BUTIN : Couronne de la Joconde',
                     },
                     {
-                        'id': 'l5r5_final_pyramide',
+                        'id': 'l5r5_titanic',
                         'x': 1050, 'y': 180, 'largeur': 90, 'hauteur': 100,
-                        'label': 'Coeur de la Pyramide',
+                        'label': 'Crosière ancienne',
                         'indice': (
-                            "La pyramide du Louvre a ete inauguree\n"
-                            "sous quel president de la Republique ?\n"
-                            "(son nom de famille)"
+                            "Paquebot célèbre ayant coulé en 1912.\n"
+                            "Son nom ?"
                         ),
-                        'reponse': 'mitterrand',
+                        'reponse': 'titanic',
                         'digit_index': 1, 'digit_value': 0,
                         'bijou': 'Diamant de la Pyramide du Louvre',
                     },
