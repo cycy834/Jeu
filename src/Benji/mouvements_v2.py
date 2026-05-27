@@ -1203,7 +1203,6 @@ class GameSession:
             self._reward_popup.draw(self.screen)
 
     def _draw_hud(self):
-        # ── Bande HUD en haut ──────────────────────────────────────────
         hud_h = 38
         hud_bg = pygame.Surface((self.W, hud_h), pygame.SRCALPHA)
         hud_bg.fill((10, 8, 6, 180))

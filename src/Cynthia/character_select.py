@@ -123,18 +123,15 @@ class CharacterSelect:
         w, h = self.screen.get_size()
         self.screen.fill(DARK)
 
-        # ── Bouton Retour (haut gauche) ────────────────────────────────────
         self._btn_back.topleft = (18, 18)
         pygame.draw.rect(self.screen, DARK_BTN, self._btn_back, border_radius=10)
         pygame.draw.rect(self.screen, GOLD,     self._btn_back, 2, border_radius=10)
         back_txt = self.font_hint.render("< Retour", True, GOLD)
         self.screen.blit(back_txt, back_txt.get_rect(center=self._btn_back.center))
 
-        # ── Titre ──────────────────────────────────────────────────────────
         title = self.font_title.render("Choisissez votre personnage", True, GOLD)
         self.screen.blit(title, title.get_rect(midtop=(w // 2, 20)))
 
-        # ── Layout : card + dots + bouton empilés, centrés verticalement ───
         card_w, card_h = 320, 430
         btn_h          = 54
         dots_gap       = 18   # espace card→dots
@@ -155,25 +152,20 @@ class CharacterSelect:
 
         ch = CHARACTERS[self.selected]
 
-        # Sprite
         sprite = self._sprites[self.selected]
         sr = sprite.get_rect(midtop=(w // 2, card_y + 18))
         self.screen.blit(sprite, sr)
 
-        # Nom
         name_surf = self.font_name.render(ch['name'], True, GOLD)
         self.screen.blit(name_surf, name_surf.get_rect(midtop=(w // 2, sr.bottom + 10)))
 
-        # Description
         desc_surf = self.font_desc.render(ch['desc'], True, GREY)
         self.screen.blit(desc_surf, desc_surf.get_rect(midtop=(w // 2, sr.bottom + 46)))
 
-        # Séparateur
         sep_y = sr.bottom + 72
         pygame.draw.line(self.screen, (70, 60, 45),
                          (card_x + 20, sep_y), (card_x + card_w - 20, sep_y), 1)
 
-        # Stats
         sy = sep_y + 12
         for key, label in [('vitesse', 'Vitesse'), ('discretion', 'Discretion'),
                             ('intelligence', 'Intelligence'), ('endurance', 'Endurance')]:
@@ -186,11 +178,9 @@ class CharacterSelect:
                                  (card_x + 166 + i * 26, sy + 3, 20, 14), border_radius=3)
             sy += 28
 
-        # Vies
         lives_txt = self.font_stat.render(f'Vies de depart : {ch["lives"]}', True, (220, 80, 80))
         self.screen.blit(lives_txt, lives_txt.get_rect(midtop=(w // 2, sy + 6)))
 
-        # ── Flèches de navigation ──────────────────────────────────────────
         arrow_y = card_y + card_h // 2
         self._btn_left.center  = (card_x - 42, arrow_y)
         self._btn_right.center = (card_x + card_w + 42, arrow_y)
@@ -201,7 +191,6 @@ class CharacterSelect:
             t = self.font_name.render(txt, True, GOLD)
             self.screen.blit(t, t.get_rect(center=btn.center))
 
-        # ── Points de navigation ───────────────────────────────────────────
         dots_y = card_y + card_h + dots_gap
         for i in range(len(CHARACTERS)):
             cx = w // 2 + (i - 1) * 26
@@ -209,7 +198,6 @@ class CharacterSelect:
             pygame.draw.circle(self.screen, col, (cx, dots_y), 7)
             pygame.draw.circle(self.screen, GOLD, (cx, dots_y), 7, 1)
 
-        # ── Bouton Jouer (juste sous les points) ──────────────────────────
         self._btn_play.size = (210, btn_h)
         self._btn_play.midtop = (w // 2, dots_y + 14)
         pygame.draw.rect(self.screen, DARK_BTN, self._btn_play, border_radius=12)

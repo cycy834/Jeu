@@ -48,23 +48,19 @@ class ModeSelect:
         w, h = self.screen.get_size()
         self.screen.fill(DARK)
 
-        # ── Bouton Retour (haut gauche) ────────────────────────────────────
         self._btn_back.topleft = (18, 18)
         pygame.draw.rect(self.screen, DARK_BTN, self._btn_back, border_radius=10)
         pygame.draw.rect(self.screen, GOLD,     self._btn_back, 2, border_radius=10)
         back_txt = self.font_hint.render("< Retour", True, GOLD)
         self.screen.blit(back_txt, back_txt.get_rect(center=self._btn_back.center))
 
-        # ── Titre ─────────────────────────────────────────────────────────
         title = self.font_title.render("Mode de jeu", True, GOLD)
         self.screen.blit(title, title.get_rect(midtop=(w // 2, 24)))
 
-        # ── Ligne décorative ──────────────────────────────────────────────
         line_y = 24 + self.font_title.get_height() + 10
         pygame.draw.line(self.screen, (70, 60, 45),
                          (w // 2 - 160, line_y), (w // 2 + 160, line_y), 1)
 
-        # ── Boutons centrés ───────────────────────────────────────────────
         gap      = 28
         total_h  = self._btn_solo.height * 2 + gap
         start_y  = (h - total_h) // 2
@@ -95,6 +91,5 @@ class ModeSelect:
             sub = self.font_desc.render(desc, True, (120, 110, 90) if not available else GREY)
             self.screen.blit(sub, sub.get_rect(center=(btn.centerx, btn.centery + 18)))
 
-        # ── Hint retour ───────────────────────────────────────────────────
         hint = pygame.font.Font(None, 24).render("Echap : retour", True, (70, 62, 48))
         self.screen.blit(hint, hint.get_rect(midbottom=(w // 2, h - 14)))
