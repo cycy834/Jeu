@@ -1,6 +1,6 @@
 @echo off
 title Louvre Escape
-cd /d %~dp0
+pushd %~dp0
 
 echo ===========================================
 echo        LOUVRE ESCAPE  -  Lancement
