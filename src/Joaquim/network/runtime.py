@@ -21,11 +21,14 @@ class NetworkRuntime:
             self.client = NetworkClient(self.uri, self.player_name, self.player_sprite)
 
             async def setup():
-                try:
-                    await self.client.connect_to_server()
-                    self.loop.create_task(self.client.receive_loop())
-                except Exception:
-                    pass
+                for attempt in range(5):
+                    try:
+                        await self.client.connect_to_server()
+                        self.loop.create_task(self.client.receive_loop())
+                        return
+                    except Exception:
+                        if attempt < 4:
+                            await asyncio.sleep(1)
 
             self.loop.run_until_complete(setup())
             self.loop.run_forever()
