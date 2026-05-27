@@ -112,7 +112,7 @@ LEVELS = {
                         'label': 'Statue de chat',
                         'indice': (
                             "Cet animal était sacré en Egypte.\n"
-                            "Il était lié à la déesse astet.\n"
+                            "Il était lié à la déesse Bastet.\n"
                             "Quel est cet animal ?"
                         ),
                         'reponse': 'chat',
@@ -124,7 +124,7 @@ LEVELS = {
                         'x': 1050, 'y': 180, 'largeur': 100, 'hauteur': 130,
                         'label': 'Vase canope',
                         'indice': (
-                            "Ces vases conservaient les organes des défunts embaumes.\n"
+                            "Ces vases conservaient les organes des défunts embaumés.\n"
                             "Il y en avait toujours un nombre précis par momie.\n"
                             "Combien ?"
                         ),

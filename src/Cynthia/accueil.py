@@ -2,9 +2,7 @@ import pygame
 from src.audio import audio_manager as audio
 
 
-# -----------------------------
 # COULEURS (DA Louvre)
-# -----------------------------
 
 GOLD = (196, 166, 114) # Doré ancien (texte + bordures)
 DARK = (28, 24, 20) # Fond sombre
@@ -37,9 +35,8 @@ class Accueil:
         self.btn_overlay_surface = None
         self.btn_overlay_alpha = 0
         self.btn_overlay_rect = None
-# -----------------------------
+
 # Chargement des assets
-# -----------------------------
 
     def load_assets(self):
         # Image de fond de l'accueil
@@ -54,9 +51,7 @@ class Accueil:
         self.button_plusminus_font = pygame.font.Font(None, 55)
 
 
-# -----------------------------
 # Création de l'interface
-# -----------------------------
 
     def create_ui(self):
         # Récupère la taille actuelle de la fenêtre
@@ -82,9 +77,7 @@ class Accueil:
         self.btn_on = pygame.Rect(0, 0, 80, 40)
         self.btn_off = pygame.Rect(0, 0, 80, 40)
 
-# -----------------------------
 # Gestion des événements
-# -----------------------------
 
     def handle_event(self, event):
         # Si la fenêtre est redimensionnée
@@ -135,9 +128,7 @@ class Accueil:
                 self.show_menu = True
        
 
-# -----------------------------
 # Update (logique)
-# -----------------------------    
 
     def update(self, dt=0):
         if self.btn_overlay_alpha > 0:
@@ -145,9 +136,7 @@ class Accueil:
             if self.btn_overlay_alpha < 0:
                 self.btn_overlay_alpha = 0
 
-# -----------------------------
 # Dessin de la scène
-# -----------------------------    
 
     def draw(self):
         # Récupère la taille de la fenêtre
@@ -157,7 +146,7 @@ class Accueil:
         bg = pygame.transform.scale(self.bg, (w, h))
         self.screen.blit(bg, (0, 0))
 
-# -------- TITRE --------
+# TITRE
         # Ombre du titre
         shadow = self.title_font.render("Louvre Escape", True, (0, 0, 0))
         title = self.title_font.render("Louvre Escape", True, GOLD)
@@ -186,9 +175,7 @@ class Accueil:
         if self.show_menu:
             self.draw_menu()
 
-# -----------------------------
 # Dessin d'un bouton
-# -----------------------------
 
     def draw_button(self, rect, text):
         # Fond sombre du bouton
@@ -200,9 +187,7 @@ class Accueil:
         txt = self.button_font.render(text, True, GOLD)
         self.screen.blit(txt, txt.get_rect(center=rect.center))
 
-# -----------------------------
 # Dessin du menu popup
-# -----------------------------
 
     def draw_menu(self):
         # Overlay sombre sur tout l'écran
