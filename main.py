@@ -5,7 +5,7 @@ from src.Cynthia.accueil import Accueil
 pygame.init()
 
 info = pygame.display.Info()
-screen = pygame.display.set_mode((info.current_w, info.current_h), pygame.NOFRAME)
+screen = pygame.display.set_mode((1280, 720))
 
 icon = pygame.image.load("assets/images/louvre_escape_logo.png")
 pygame.display.set_icon(icon)
